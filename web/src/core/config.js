@@ -3,8 +3,8 @@
  */
 
 const config = {
-  appName: 'Gin-Vue-Admin',
-  appLogo: 'https://www.gin-vue-admin.com/img/logo.png',
+  appName: '疫情信息管理',
+  appLogo: 'https://test-bucket-12138.oss-cn-shanghai.aliyuncs.com/img/logo.png',
   showViteLogo: true
 }
 
