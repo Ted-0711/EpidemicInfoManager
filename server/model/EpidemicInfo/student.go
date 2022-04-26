@@ -19,6 +19,6 @@ type Student struct {
 
 // TableName Student 表名
 func (Student) TableName() string {
-  return "student"
+  return "epi_student"
 }
 

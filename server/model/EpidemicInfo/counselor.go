@@ -19,6 +19,6 @@ type Counselor struct {
 
 // TableName Counselor 表名
 func (Counselor) TableName() string {
-  return "counselor"
+  return "epi_counselor"
 }
 
