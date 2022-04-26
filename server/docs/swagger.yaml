@@ -1,10 +1,13 @@
 basePath: /
 definitions:
-  autocode.AutoCodeExample:
+  EpidemicInfo.Area:
     properties:
-      autoCodeExampleField:
-        description: 展示值
+      area_location:
         type: string
+      area_name:
+        type: string
+      area_risk_level:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
@@ -15,17 +18,281 @@ definitions:
         description: 更新时间
         type: string
     type: object
+  EpidemicInfo.Clock_in:
+    properties:
+      area_id:
+        type: integer
+      clock_in_date:
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      student_id:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Counselor:
+    properties:
+      cnslr_gender:
+        type: integer
+      cnslr_id:
+        type: string
+      cnslr_name:
+        type: string
+      cnslr_phone_number:
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      dept_name:
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Fill_in:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      fill_in_content:
+        type: string
+      fill_in_time:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      qtn_id:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Lab:
+    properties:
+      area_id:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      lab_name:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Manufacturer:
+    properties:
+      area_id:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      mfr_name:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Migration:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      des_area_id:
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      mig_time:
+        type: string
+      start_area_id:
+        type: integer
+      student_id:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      vehicle_info:
+        type: string
+      vehicle_type:
+        type: integer
+    type: object
+  EpidemicInfo.Quarantine:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      quar_site_id:
+        type: integer
+      quar_start_date:
+        type: string
+      student_id:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Quarantine_site:
+    properties:
+      area_id:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      quar_site_name:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Questionnaire:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      qtn_content:
+        type: string
+      qtn_deadline:
+        type: string
+      qtn_title:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Student:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      dept_name:
+        type: integer
+      id:
+        description: 主键ID
+        type: integer
+      student_gender:
+        type: integer
+      student_id:
+        type: string
+      student_name:
+        type: string
+      student_phone_number:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Temp_measure:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      student_id:
+        type: string
+      temp_measure_time:
+        type: string
+      temperature:
+        type: number
+      therm_id:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Test_swab:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      lab_id:
+        type: integer
+      sample_date:
+        type: string
+      student_id:
+        type: string
+      test_date:
+        type: string
+      test_result:
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Thermograph:
+    properties:
+      area_id:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  EpidemicInfo.Vaccine:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      inoculate_date:
+        type: string
+      mfr_id:
+        type: integer
+      prod_date:
+        type: string
+      student_id:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
   config.AliyunOSS:
     properties:
-      accessKeyId:
+      access-key-id:
         type: string
-      accessKeySecret:
+      access-key-secret:
         type: string
-      basePath:
+      base-path:
         type: string
-      bucketName:
+      bucket-name:
         type: string
-      bucketUrl:
+      bucket-url:
         type: string
       endpoint:
         type: string
@@ -36,42 +303,48 @@ definitions:
         type: string
       server:
         type: string
-      serverApi:
+      server-api:
         type: string
-      serverInitialize:
+      server-initialize:
         type: string
-      serverModel:
+      server-model:
         type: string
-      serverRequest:
+      server-request:
         type: string
-      serverRouter:
+      server-router:
         type: string
-      serverService:
+      server-service:
         type: string
-      transferRestart:
+      transfer-restart:
         type: boolean
       web:
         type: string
-      webApi:
+      web-api:
         type: string
-      webForm:
+      web-form:
         type: string
-      webTable:
+      web-table:
         type: string
     type: object
   config.AwsS3:
     properties:
-      baseURL:
+      base-url:
         type: string
       bucket:
         type: string
-      pathPrefix:
+      disable-ssl:
+        type: boolean
+      endpoint:
+        type: string
+      path-prefix:
         type: string
       region:
         type: string
-      secretID:
+      s3-force-path-style:
+        type: boolean
+      secret-id:
         type: string
-      secretKey:
+      secret-key:
         type: string
     type: object
   config.CORS:
@@ -98,19 +371,19 @@ definitions:
     type: object
   config.Captcha:
     properties:
-      imgHeight:
+      img-height:
         description: 验证码高度
         type: integer
-      imgWidth:
+      img-width:
         description: 验证码宽度
         type: integer
-      keyLong:
+      key-long:
         description: 验证码长度
         type: integer
     type: object
   config.Casbin:
     properties:
-      modelPath:
+      model-path:
         description: 存放casbin模型的相对路径
         type: string
     type: object
@@ -121,20 +394,20 @@ definitions:
       config:
         description: 高级配置
         type: string
-      dbname:
+      db-name:
         description: 数据库名
         type: string
       disable:
         type: boolean
-      logMode:
+      log-mode:
         description: 是否开启Gorm全局日志
         type: string
-      logZap:
+      log-zap:
         type: boolean
-      maxIdleConns:
+      max-idle-conns:
         description: 空闲中的最大连接数
         type: integer
-      maxOpenConns:
+      max-open-conns:
         description: 打开到数据库的最大连接数
         type: integer
       password:
@@ -172,7 +445,7 @@ definitions:
       host:
         description: 服务器地址
         type: string
-      isSSL:
+      is-ssl:
         description: 是否SSL
         type: boolean
       nickname:
@@ -195,7 +468,7 @@ definitions:
     type: object
   config.HuaWeiObs:
     properties:
-      accessKey:
+      access-key:
         type: string
       bucket:
         type: string
@@ -203,21 +476,21 @@ definitions:
         type: string
       path:
         type: string
-      secretKey:
+      secret-key:
         type: string
     type: object
   config.JWT:
     properties:
-      bufferTime:
+      buffer-time:
         description: 缓冲时间
         type: integer
-      expiresTime:
+      expires-time:
         description: 过期时间
         type: integer
       issuer:
         description: 签发者
         type: string
-      signingKey:
+      signing-key:
         description: jwt签名
         type: string
     type: object
@@ -232,19 +505,19 @@ definitions:
       config:
         description: 高级配置
         type: string
-      dbname:
+      db-name:
         description: 数据库名
         type: string
-      logMode:
+      log-mode:
         description: 是否开启Gorm全局日志
         type: string
-      logZap:
+      log-zap:
         description: 是否通过zap写入日志文件
         type: boolean
-      maxIdleConns:
+      max-idle-conns:
         description: 空闲中的最大连接数
         type: integer
-      maxOpenConns:
+      max-open-conns:
         description: 打开到数据库的最大连接数
         type: integer
       password:
@@ -265,19 +538,19 @@ definitions:
       config:
         description: 高级配置
         type: string
-      dbname:
+      db-name:
         description: 数据库名
         type: string
-      logMode:
+      log-mode:
         description: 是否开启Gorm全局日志
         type: string
-      logZap:
+      log-zap:
         description: 是否通过zap写入日志文件
         type: boolean
-      maxIdleConns:
+      max-idle-conns:
         description: 空闲中的最大连接数
         type: integer
-      maxOpenConns:
+      max-open-conns:
         description: 打开到数据库的最大连接数
         type: integer
       password:
@@ -295,22 +568,22 @@ definitions:
     type: object
   config.Qiniu:
     properties:
-      accessKey:
+      access-key:
         description: 秘钥AK
         type: string
       bucket:
         description: 空间名称
         type: string
-      imgPath:
+      img-path:
         description: CDN加速域名
         type: string
-      secretKey:
+      secret-key:
         description: 秘钥SK
         type: string
-      useCdnDomains:
+      use-cdn-domains:
         description: 上传是否使用CDN上传加速
         type: boolean
-      useHttps:
+      use-https:
         description: 是否使用https
         type: boolean
       zone:
@@ -331,12 +604,12 @@ definitions:
     type: object
   config.Server:
     properties:
-      aliyunOSS:
+      aliyun-oss:
         $ref: '#/definitions/config.AliyunOSS'
-      autoCode:
+      autocode:
         $ref: '#/definitions/config.Autocode'
         description: auto
-      awsS3:
+      aws-s3:
         $ref: '#/definitions/config.AwsS3'
       captcha:
         $ref: '#/definitions/config.Captcha'
@@ -353,7 +626,7 @@ definitions:
         $ref: '#/definitions/config.Email'
       excel:
         $ref: '#/definitions/config.Excel'
-      huaWeiObs:
+      hua-wei-obs:
         $ref: '#/definitions/config.HuaWeiObs'
       jwt:
         $ref: '#/definitions/config.JWT'
@@ -371,7 +644,7 @@ definitions:
         $ref: '#/definitions/config.Redis'
       system:
         $ref: '#/definitions/config.System'
-      tencentCOS:
+      tencent-cos:
         $ref: '#/definitions/config.TencentCOS'
       timer:
         $ref: '#/definitions/config.Timer'
@@ -383,39 +656,39 @@ definitions:
       addr:
         description: 端口值
         type: integer
-      dbType:
+      db-type:
         description: 数据库类型:mysql(默认)|sqlite|sqlserver|postgresql
         type: string
       env:
         description: 环境值
         type: string
-      iplimitCount:
+      iplimit-count:
         type: integer
-      iplimitTime:
+      iplimit-time:
         type: integer
-      ossType:
+      oss-type:
         description: Oss类型
         type: string
-      useMultipoint:
+      use-multipoint:
         description: 多点登录拦截
         type: boolean
-      useRedis:
+      use-redis:
         description: 使用redis
         type: boolean
     type: object
   config.TencentCOS:
     properties:
-      baseURL:
+      base-url:
         type: string
       bucket:
         type: string
-      pathPrefix:
+      path-prefix:
         type: string
       region:
         type: string
-      secretID:
+      secret-id:
         type: string
-      secretKey:
+      secret-key:
         type: string
     type: object
   config.Timer:
@@ -436,7 +709,7 @@ definitions:
       director:
         description: 日志文件夹
         type: string
-      encodeLevel:
+      encode-level:
         description: 编码级
         type: string
       format:
@@ -445,16 +718,16 @@ definitions:
       level:
         description: 级别
         type: string
-      logInConsole:
+      log-in-console:
         description: 输出控制台
         type: boolean
       prefix:
         description: 日志前缀
         type: string
-      showLine:
+      show-line:
         description: 显示行
         type: boolean
-      stacktraceKey:
+      stacktrace-key:
         description: 栈名
         type: string
     type: object
@@ -616,7 +889,7 @@ definitions:
     properties:
       id:
         description: 主键ID
-        type: number
+        type: integer
     type: object
   request.IdsReq:
     properties:
@@ -666,6 +939,9 @@ definitions:
     type: object
   request.PageInfo:
     properties:
+      keyword:
+        description: 关键字
+        type: string
       page:
         description: 页码
         type: integer
@@ -690,6 +966,15 @@ definitions:
       userName:
         type: string
     type: object
+  request.RollBack:
+    properties:
+      deleteTable:
+        description: 是否删除表
+        type: boolean
+      id:
+        description: 主键ID
+        type: integer
+    type: object
   request.SearchApiParams:
     properties:
       apiGroup:
@@ -707,6 +992,9 @@ definitions:
       id:
         description: 主键ID
         type: integer
+      keyword:
+        description: 关键字
+        type: string
       method:
         description: 方法:创建POST(默认)|查看GET|更新PUT|删除DELETE
         type: string
@@ -755,6 +1043,9 @@ definitions:
     type: object
   request.SysAutoHistory:
     properties:
+      keyword:
+        description: 关键字
+        type: string
       page:
         description: 页码
         type: integer
@@ -805,8 +1096,7 @@ definitions:
     type: object
   response.PageResult:
     properties:
-      list:
-        type: object
+      list: {}
       page:
         type: integer
       pageSize:
@@ -825,8 +1115,7 @@ definitions:
     properties:
       code:
         type: integer
-      data:
-        type: object
+      data: {}
       msg:
         type: string
     type: object
@@ -920,6 +1209,8 @@ definitions:
         type: array
       humpPackageName:
         description: go文件名称
+        type: string
+      package:
         type: string
       packageName:
         description: 文件名称
@@ -1015,6 +1306,24 @@ definitions:
         type: array
       parentId:
         description: 父角色ID
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  system.SysAutoCode:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      desc:
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      label:
+        type: string
+      packageName:
         type: string
       updatedAt:
         description: 更新时间
@@ -1321,7 +1630,7 @@ definitions:
         description: 用户昵称
         type: string
       phone:
-        description: 用户角色ID
+        description: 用户手机号
         type: string
       sideMode:
         description: 用户侧边主题
@@ -1540,6 +1849,186 @@ paths:
       summary: 修改基础api
       tags:
       - SysApi
+  /area/createArea:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Area
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Area'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Area
+      tags:
+      - Area
+  /area/deleteArea:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Area
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Area'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Area
+      tags:
+      - Area
+  /area/deleteAreaByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Area
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Area
+      tags:
+      - Area
+  /area/findArea:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_location
+        type: string
+      - in: query
+        name: area_name
+        type: string
+      - in: query
+        name: area_risk_level
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Area
+      tags:
+      - Area
+  /area/getAreaList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_location
+        type: string
+      - in: query
+        name: area_name
+        type: string
+      - in: query
+        name: area_risk_level
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Area列表
+      tags:
+      - Area
+  /area/updateArea:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Area
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Area'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Area
+      tags:
+      - Area
   /authority/copyAuthority:
     post:
       consumes:
@@ -1757,6 +2246,36 @@ paths:
             allOf:
             - $ref: '#/definitions/response.Response'
             - properties:
+                data:
+                  $ref: '#/definitions/response.SysAuthorityBtnRes'
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取权限按钮
+      tags:
+      - AuthorityBtn
+  /authorityBtn/setAuthorityBtn:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 菜单id, 角色id, 选中的按钮id
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.SysAuthorityBtnReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回列表成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
                 msg:
                   type: string
               type: object
@@ -1765,6 +2284,37 @@ paths:
       summary: 设置权限按钮
       tags:
       - AuthorityBtn
+  /autoCode/createPackage:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建package
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysAutoCode'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建package成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  additionalProperties: true
+                  type: object
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 创建package
+      tags:
+      - AutoCode
   /autoCode/createTemp:
     post:
       consumes:
@@ -1786,6 +2336,37 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 自动代码模板
+      tags:
+      - AutoCode
+  /autoCode/delPackage:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建package
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysAutoCode'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除package成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  additionalProperties: true
+                  type: object
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 删除package
       tags:
       - AutoCode
   /autoCode/delSysHistory:
@@ -1895,6 +2476,30 @@ paths:
       summary: 获取meta信息
       tags:
       - AutoCode
+  /autoCode/getPackage:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建package成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  additionalProperties: true
+                  type: object
+                msg:
+                  type: string
+              type: object
+      security:
+      - ApiKeyAuth: []
+      summary: 获取package
+      tags:
+      - AutoCode
   /autoCode/getSysHistory:
     post:
       consumes:
@@ -1990,7 +2595,7 @@ paths:
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.GetById'
+          $ref: '#/definitions/request.RollBack'
       produces:
       - application/json
       responses:
@@ -2008,179 +2613,6 @@ paths:
       summary: 回滚自动生成代码
       tags:
       - AutoCode
-  /autoCodeExample/createAutoCodeExample:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: AutoCodeExample模型
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/autocode.AutoCodeExample'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 创建AutoCodeExample
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 创建AutoCodeExample
-      tags:
-      - AutoCodeExample
-  /autoCodeExample/deleteAutoCodeExample:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: AutoCodeExample模型
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/autocode.AutoCodeExample'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 删除AutoCodeExample
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 删除AutoCodeExample
-      tags:
-      - AutoCodeExample
-  /autoCodeExample/findAutoCodeExample:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 展示值
-        in: query
-        name: autoCodeExampleField
-        type: string
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 用id查询AutoCodeExample
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  additionalProperties: true
-                  type: object
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询AutoCodeExample
-      tags:
-      - AutoCodeExample
-  /autoCodeExample/getAutoCodeExampleList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - description: 展示值
-        in: query
-        name: autoCodeExampleField
-        type: string
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 分页获取AutoCodeExample列表,返回包括列表,总数,页码,每页数量
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/response.PageResult'
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取AutoCodeExample列表
-      tags:
-      - AutoCodeExample
-  /autoCodeExample/updateAutoCodeExample:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新AutoCodeExample
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/autocode.AutoCodeExample'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 更新AutoCodeExample
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      security:
-      - ApiKeyAuth: []
-      summary: 更新AutoCodeExample
-      tags:
-      - AutoCodeExample
   /base/captcha:
     post:
       consumes:
@@ -2288,6 +2720,378 @@ paths:
       summary: 获取权限列表
       tags:
       - Casbin
+  /clock_in/createClock_in:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Clock_in
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Clock_in'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Clock_in
+      tags:
+      - Clock_in
+  /clock_in/deleteClock_in:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Clock_in
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Clock_in'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Clock_in
+      tags:
+      - Clock_in
+  /clock_in/deleteClock_inByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Clock_in
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Clock_in
+      tags:
+      - Clock_in
+  /clock_in/findClock_in:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - in: query
+        name: clock_in_date
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: student_id
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Clock_in
+      tags:
+      - Clock_in
+  /clock_in/getClock_inList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - in: query
+        name: clock_in_date
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: student_id
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Clock_in列表
+      tags:
+      - Clock_in
+  /clock_in/updateClock_in:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Clock_in
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Clock_in'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Clock_in
+      tags:
+      - Clock_in
+  /counselor/createCounselor:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Counselor
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Counselor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Counselor
+      tags:
+      - Counselor
+  /counselor/deleteCounselor:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Counselor
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Counselor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Counselor
+      tags:
+      - Counselor
+  /counselor/deleteCounselorByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Counselor
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Counselor
+      tags:
+      - Counselor
+  /counselor/findCounselor:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: cnslr_gender
+        type: integer
+      - in: query
+        name: cnslr_id
+        type: string
+      - in: query
+        name: cnslr_name
+        type: string
+      - in: query
+        name: cnslr_phone_number
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: dept_name
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Counselor
+      tags:
+      - Counselor
+  /counselor/getCounselorList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: cnslr_gender
+        type: integer
+      - in: query
+        name: cnslr_id
+        type: string
+      - in: query
+        name: cnslr_name
+        type: string
+      - in: query
+        name: cnslr_phone_number
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: dept_name
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Counselor列表
+      tags:
+      - Counselor
+  /counselor/updateCounselor:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Counselor
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Counselor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Counselor
+      tags:
+      - Counselor
   /customer/customer:
     delete:
       consumes:
@@ -2426,6 +3230,10 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
       - description: 页码
         in: query
         name: page
@@ -2745,6 +3553,186 @@ paths:
       summary: 上传文件示例
       tags:
       - ExaFileUploadAndDownload
+  /fill_in/createFill_in:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Fill_in
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Fill_in'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Fill_in
+      tags:
+      - Fill_in
+  /fill_in/deleteFill_in:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Fill_in
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Fill_in'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Fill_in
+      tags:
+      - Fill_in
+  /fill_in/deleteFill_inByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Fill_in
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Fill_in
+      tags:
+      - Fill_in
+  /fill_in/findFill_in:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: fill_in_content
+        type: string
+      - in: query
+        name: fill_in_time
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: qtn_id
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Fill_in
+      tags:
+      - Fill_in
+  /fill_in/getFill_inList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: fill_in_content
+        type: string
+      - in: query
+        name: fill_in_time
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: qtn_id
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Fill_in列表
+      tags:
+      - Fill_in
+  /fill_in/updateFill_in:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Fill_in
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Fill_in'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Fill_in
+      tags:
+      - Fill_in
   /init/checkdb:
     post:
       produces:
@@ -2810,6 +3798,354 @@ paths:
       summary: jwt加入黑名单
       tags:
       - Jwt
+  /lab/createLab:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Lab
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Lab'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Lab
+      tags:
+      - Lab
+  /lab/deleteLab:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Lab
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Lab'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Lab
+      tags:
+      - Lab
+  /lab/deleteLabByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Lab
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Lab
+      tags:
+      - Lab
+  /lab/findLab:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: lab_name
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Lab
+      tags:
+      - Lab
+  /lab/getLabList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: lab_name
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Lab列表
+      tags:
+      - Lab
+  /lab/updateLab:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Lab
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Lab'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Lab
+      tags:
+      - Lab
+  /manufacturer/createManufacturer:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Manufacturer
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Manufacturer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Manufacturer
+      tags:
+      - Manufacturer
+  /manufacturer/deleteManufacturer:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Manufacturer
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Manufacturer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Manufacturer
+      tags:
+      - Manufacturer
+  /manufacturer/deleteManufacturerByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Manufacturer
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Manufacturer
+      tags:
+      - Manufacturer
+  /manufacturer/findManufacturer:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: mfr_name
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Manufacturer
+      tags:
+      - Manufacturer
+  /manufacturer/getManufacturerList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: mfr_name
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Manufacturer列表
+      tags:
+      - Manufacturer
+  /manufacturer/updateManufacturer:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Manufacturer
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Manufacturer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Manufacturer
+      tags:
+      - Manufacturer
   /menu/addBaseMenu:
     post:
       consumes:
@@ -3069,6 +4405,930 @@ paths:
       summary: 更新菜单
       tags:
       - Menu
+  /migration/createMigration:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Migration
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Migration'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Migration
+      tags:
+      - Migration
+  /migration/deleteMigration:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Migration
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Migration'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Migration
+      tags:
+      - Migration
+  /migration/deleteMigrationByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Migration
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Migration
+      tags:
+      - Migration
+  /migration/findMigration:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: des_area_id
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: mig_time
+        type: string
+      - in: query
+        name: start_area_id
+        type: integer
+      - in: query
+        name: student_id
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: vehicle_info
+        type: string
+      - in: query
+        name: vehicle_type
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Migration
+      tags:
+      - Migration
+  /migration/getMigrationList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: des_area_id
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: mig_time
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: start_area_id
+        type: integer
+      - in: query
+        name: student_id
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      - in: query
+        name: vehicle_info
+        type: string
+      - in: query
+        name: vehicle_type
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Migration列表
+      tags:
+      - Migration
+  /migration/updateMigration:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Migration
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Migration'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Migration
+      tags:
+      - Migration
+  /quarantine/createQuarantine:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Quarantine
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Quarantine'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Quarantine
+      tags:
+      - Quarantine
+  /quarantine/deleteQuarantine:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Quarantine
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Quarantine'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Quarantine
+      tags:
+      - Quarantine
+  /quarantine/deleteQuarantineByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Quarantine
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Quarantine
+      tags:
+      - Quarantine
+  /quarantine/findQuarantine:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: quar_site_id
+        type: integer
+      - in: query
+        name: quar_start_date
+        type: string
+      - in: query
+        name: student_id
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Quarantine
+      tags:
+      - Quarantine
+  /quarantine/getQuarantineList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: quar_site_id
+        type: integer
+      - in: query
+        name: quar_start_date
+        type: string
+      - in: query
+        name: student_id
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Quarantine列表
+      tags:
+      - Quarantine
+  /quarantine/updateQuarantine:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Quarantine
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Quarantine'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Quarantine
+      tags:
+      - Quarantine
+  /quarantine_site/createQuarantine_site:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Quarantine_site
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Quarantine_site'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Quarantine_site
+      tags:
+      - Quarantine_site
+  /quarantine_site/deleteQuarantine_site:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Quarantine_site
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Quarantine_site'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Quarantine_site
+      tags:
+      - Quarantine_site
+  /quarantine_site/deleteQuarantine_siteByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Quarantine_site
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Quarantine_site
+      tags:
+      - Quarantine_site
+  /quarantine_site/findQuarantine_site:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: quar_site_name
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Quarantine_site
+      tags:
+      - Quarantine_site
+  /quarantine_site/getQuarantine_siteList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: quar_site_name
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Quarantine_site列表
+      tags:
+      - Quarantine_site
+  /quarantine_site/updateQuarantine_site:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Quarantine_site
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Quarantine_site'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Quarantine_site
+      tags:
+      - Quarantine_site
+  /questionnaire/createQuestionnaire:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Questionnaire
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Questionnaire'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Questionnaire
+      tags:
+      - Questionnaire
+  /questionnaire/deleteQuestionnaire:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Questionnaire
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Questionnaire'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Questionnaire
+      tags:
+      - Questionnaire
+  /questionnaire/deleteQuestionnaireByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Questionnaire
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Questionnaire
+      tags:
+      - Questionnaire
+  /questionnaire/findQuestionnaire:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: qtn_content
+        type: string
+      - in: query
+        name: qtn_deadline
+        type: string
+      - in: query
+        name: qtn_title
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Questionnaire
+      tags:
+      - Questionnaire
+  /questionnaire/getQuestionnaireList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: qtn_content
+        type: string
+      - in: query
+        name: qtn_deadline
+        type: string
+      - in: query
+        name: qtn_title
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Questionnaire列表
+      tags:
+      - Questionnaire
+  /questionnaire/updateQuestionnaire:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Questionnaire
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Questionnaire'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Questionnaire
+      tags:
+      - Questionnaire
+  /student/createStudent:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Student
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Student'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Student
+      tags:
+      - Student
+  /student/deleteStudent:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Student
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Student'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Student
+      tags:
+      - Student
+  /student/deleteStudentByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Student
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Student
+      tags:
+      - Student
+  /student/findStudent:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: dept_name
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: student_gender
+        type: integer
+      - in: query
+        name: student_id
+        type: string
+      - in: query
+        name: student_name
+        type: string
+      - in: query
+        name: student_phone_number
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Student
+      tags:
+      - Student
+  /student/getStudentList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: dept_name
+        type: integer
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: student_gender
+        type: integer
+      - in: query
+        name: student_id
+        type: string
+      - in: query
+        name: student_name
+        type: string
+      - in: query
+        name: student_phone_number
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Student列表
+      tags:
+      - Student
+  /student/updateStudent:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Student
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Student'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Student
+      tags:
+      - Student
   /sysDictionary/createSysDictionary:
     post:
       consumes:
@@ -3195,6 +5455,10 @@ paths:
         in: query
         name: id
         type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
       - description: 字典名（中）
         in: query
         name: name
@@ -3392,6 +5656,10 @@ paths:
         in: query
         name: id
         type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
       - description: 展示值
         in: query
         name: label
@@ -3661,6 +5929,10 @@ paths:
         in: query
         name: ip
         type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
       - description: 延迟
         in: query
         name: latency
@@ -3804,6 +6076,552 @@ paths:
       summary: 设置配置文件内容
       tags:
       - System
+  /temp_measure/createTemp_measure:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Temp_measure
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Temp_measure'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Temp_measure
+      tags:
+      - Temp_measure
+  /temp_measure/deleteTemp_measure:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Temp_measure
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Temp_measure'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Temp_measure
+      tags:
+      - Temp_measure
+  /temp_measure/deleteTemp_measureByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Temp_measure
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Temp_measure
+      tags:
+      - Temp_measure
+  /temp_measure/findTemp_measure:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: student_id
+        type: string
+      - in: query
+        name: temp_measure_time
+        type: string
+      - in: query
+        name: temperature
+        type: number
+      - in: query
+        name: therm_id
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Temp_measure
+      tags:
+      - Temp_measure
+  /temp_measure/getTemp_measureList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: student_id
+        type: string
+      - in: query
+        name: temp_measure_time
+        type: string
+      - in: query
+        name: temperature
+        type: number
+      - in: query
+        name: therm_id
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Temp_measure列表
+      tags:
+      - Temp_measure
+  /temp_measure/updateTemp_measure:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Temp_measure
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Temp_measure'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Temp_measure
+      tags:
+      - Temp_measure
+  /test_swab/createTest_swab:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Test_swab
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Test_swab'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Test_swab
+      tags:
+      - Test_swab
+  /test_swab/deleteTest_swab:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Test_swab
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Test_swab'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Test_swab
+      tags:
+      - Test_swab
+  /test_swab/deleteTest_swabByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Test_swab
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Test_swab
+      tags:
+      - Test_swab
+  /test_swab/findTest_swab:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: lab_id
+        type: integer
+      - in: query
+        name: sample_date
+        type: string
+      - in: query
+        name: student_id
+        type: string
+      - in: query
+        name: test_date
+        type: string
+      - in: query
+        name: test_result
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Test_swab
+      tags:
+      - Test_swab
+  /test_swab/getTest_swabList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: lab_id
+        type: integer
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: sample_date
+        type: string
+      - in: query
+        name: student_id
+        type: string
+      - in: query
+        name: test_date
+        type: string
+      - in: query
+        name: test_result
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Test_swab列表
+      tags:
+      - Test_swab
+  /test_swab/updateTest_swab:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Test_swab
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Test_swab'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Test_swab
+      tags:
+      - Test_swab
+  /thermograph/createThermograph:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Thermograph
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Thermograph'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Thermograph
+      tags:
+      - Thermograph
+  /thermograph/deleteThermograph:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Thermograph
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Thermograph'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Thermograph
+      tags:
+      - Thermograph
+  /thermograph/deleteThermographByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Thermograph
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Thermograph
+      tags:
+      - Thermograph
+  /thermograph/findThermograph:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Thermograph
+      tags:
+      - Thermograph
+  /thermograph/getThermographList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: area_id
+        type: integer
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Thermograph列表
+      tags:
+      - Thermograph
+  /thermograph/updateThermograph:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Thermograph
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Thermograph'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Thermograph
+      tags:
+      - Thermograph
   /user/SetSelfInfo:
     put:
       consumes:
@@ -3833,6 +6651,32 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 设置用户信息
+      tags:
+      - SysUser
+  /user/admin_register:
+    post:
+      parameters:
+      - description: 用户名, 昵称, 密码, 角色ID
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.Register'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 用户注册账号,返回包括用户信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/response.SysUserResponse'
+                msg:
+                  type: string
+              type: object
+      summary: 用户注册账号
       tags:
       - SysUser
   /user/changePassword:
@@ -3941,32 +6785,6 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: 分页获取用户列表
-      tags:
-      - SysUser
-  /user/register:
-    post:
-      parameters:
-      - description: 用户名, 昵称, 密码, 角色ID
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.Register'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 用户注册账号,返回包括用户信息
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                data:
-                  $ref: '#/definitions/response.SysUserResponse'
-                msg:
-                  type: string
-              type: object
-      summary: 用户注册账号
       tags:
       - SysUser
   /user/resetPassword:
@@ -4082,6 +6900,192 @@ paths:
       summary: 设置用户信息
       tags:
       - SysUser
+  /vaccine/createVaccine:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Vaccine
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Vaccine'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Vaccine
+      tags:
+      - Vaccine
+  /vaccine/deleteVaccine:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Vaccine
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Vaccine'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Vaccine
+      tags:
+      - Vaccine
+  /vaccine/deleteVaccineByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Vaccine
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Vaccine
+      tags:
+      - Vaccine
+  /vaccine/findVaccine:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: inoculate_date
+        type: string
+      - in: query
+        name: mfr_id
+        type: integer
+      - in: query
+        name: prod_date
+        type: string
+      - in: query
+        name: student_id
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Vaccine
+      tags:
+      - Vaccine
+  /vaccine/getVaccineList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: inoculate_date
+        type: string
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - in: query
+        name: mfr_id
+        type: integer
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: prod_date
+        type: string
+      - in: query
+        name: student_id
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Vaccine列表
+      tags:
+      - Vaccine
+  /vaccine/updateVaccine:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Vaccine
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Vaccine'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Vaccine
+      tags:
+      - Vaccine
 securityDefinitions:
   ApiKeyAuth:
     in: header
