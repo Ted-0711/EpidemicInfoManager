@@ -10,7 +10,6 @@ import (
 // 如果含有time.Time 请自行import time包
 type Fill_in struct {
 	global.GVA_MODEL
-	Student_id      string     `json:"student_id" form:"student_id" gorm:"column:student_id;comment:;size:7;"`
 	Qtn_id          *int       `json:"qtn_id" form:"qtn_id" gorm:"column:qtn_id;comment:;"`
 	Fill_in_time    *time.Time `json:"fill_in_time" form:"fill_in_time" gorm:"column:fill_in_time;comment:;"`
 	Fill_in_content string     `json:"fill_in_content" form:"fill_in_content" gorm:"column:fill_in_content;comment:;"`

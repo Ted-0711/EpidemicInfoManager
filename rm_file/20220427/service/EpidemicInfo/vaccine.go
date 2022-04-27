@@ -57,8 +57,8 @@ func (vaccineService *VaccineService)GetVaccineInfoList(info EpidemicInfoReq.Vac
     if info.Student_id != "" {
         db = db.Where("student_id LIKE ?","%"+ info.Student_id+"%")
     }
-    if info.Manufacturer != nil {
-        db = db.Where("manufacturer = ?",info.Manufacturer)
+    if info.Mfr_id != nil {
+        db = db.Where("mfr_id = ?",info.Mfr_id)
     }
 	err = db.Count(&total).Error
 	if err!=nil {

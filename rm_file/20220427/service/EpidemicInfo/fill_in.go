@@ -54,9 +54,6 @@ func (fill_inService *Fill_inService)GetFill_inInfoList(info EpidemicInfoReq.Fil
 	db := global.GVA_DB.Model(&EpidemicInfo.Fill_in{})
     var fill_ins []EpidemicInfo.Fill_in
     // 如果有条件搜索 下方会自动创建搜索语句
-    if info.Student_id != "" {
-        db = db.Where("student_id LIKE ?","%"+ info.Student_id+"%")
-    }
     if info.Qtn_id != nil {
         db = db.Where("qtn_id = ?",info.Qtn_id)
     }

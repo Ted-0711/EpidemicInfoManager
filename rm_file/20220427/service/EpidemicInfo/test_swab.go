@@ -57,8 +57,8 @@ func (test_swabService *Test_swabService)GetTest_swabInfoList(info EpidemicInfoR
     if info.Student_id != "" {
         db = db.Where("student_id LIKE ?","%"+ info.Student_id+"%")
     }
-    if info.Facility != nil {
-        db = db.Where("facility = ?",info.Facility)
+    if info.Lab_id != nil {
+        db = db.Where("lab_id = ?",info.Lab_id)
     }
 	err = db.Count(&total).Error
 	if err!=nil {

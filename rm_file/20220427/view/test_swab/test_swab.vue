@@ -5,8 +5,8 @@
         <el-form-item label="学号">
           <el-input v-model="searchInfo.student_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="生产商">
-          <el-input v-model="searchInfo.manufacturer" placeholder="搜索条件" />
+        <el-form-item label="检测机构编号">
+          <el-input v-model="searchInfo.lab_id" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -41,16 +41,17 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
-        <el-table-column align="left" label="生产商" prop="manufacturer" width="120">
+        <el-table-column align="left" label="检测机构编号" prop="lab_id" width="120" />
+        <el-table-column align="left" label="采样时间" prop="sample_date" width="120" />
+        <el-table-column align="left" label="检测时间" prop="test_date" width="120" />
+        <el-table-column align="left" label="检测结果" prop="test_result" width="120">
             <template #default="scope">
-            {{ filterDict(scope.row.manufacturer,manufacturerOptions) }}
+            {{ filterDict(scope.row.test_result,test_resultOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="接种日期" prop="inoculate_date" width="120" />
-        <el-table-column align="left" label="生产日期" prop="prod_date" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
-            <el-button type="text" icon="edit" size="small" class="table-button" @click="updateVaccineFunc(scope.row)">变更</el-button>
+            <el-button type="text" icon="edit" size="small" class="table-button" @click="updateTest_swabFunc(scope.row)">变更</el-button>
             <el-button type="text" icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
             </template>
         </el-table-column>
@@ -72,16 +73,19 @@
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="生产商:">
-          <el-select v-model="formData.manufacturer" placeholder="请选择" style="width:100%" clearable>
-            <el-option v-for="(item,key) in manufacturerOptions" :key="key" :label="item.label" :value="item.value" />
+        <el-form-item label="检测机构编号:">
+          <el-input v-model.number="formData.lab_id" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="采样时间:">
+          <el-date-picker v-model="formData.sample_date" type="date" style="width:100%" placeholder="选择日期" clearable />
+        </el-form-item>
+        <el-form-item label="检测时间:">
+          <el-date-picker v-model="formData.test_date" type="date" style="width:100%" placeholder="选择日期" clearable />
+        </el-form-item>
+        <el-form-item label="检测结果:">
+          <el-select v-model="formData.test_result" placeholder="请选择" style="width:100%" clearable>
+            <el-option v-for="(item,key) in test_resultOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
-        </el-form-item>
-        <el-form-item label="接种日期:">
-          <el-date-picker v-model="formData.inoculate_date" type="date" style="width:100%" placeholder="选择日期" clearable />
-        </el-form-item>
-        <el-form-item label="生产日期:">
-          <el-date-picker v-model="formData.prod_date" type="date" style="width:100%" placeholder="选择日期" clearable />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -96,19 +100,19 @@
 
 <script>
 export default {
-  name: 'Vaccine'
+  name: 'Test_swab'
 }
 </script>
 
 <script setup>
 import {
-  createVaccine,
-  deleteVaccine,
-  deleteVaccineByIds,
-  updateVaccine,
-  findVaccine,
-  getVaccineList
-} from '@/api/vaccine'
+  createTest_swab,
+  deleteTest_swab,
+  deleteTest_swabByIds,
+  updateTest_swab,
+  findTest_swab,
+  getTest_swabList
+} from '@/api/test_swab'
 
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
@@ -116,12 +120,13 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
-const manufacturerOptions = ref([])
+const test_resultOptions = ref([])
 const formData = ref({
         student_id: '',
-        manufacturer: undefined,
-        inoculate_date: new Date(),
-        prod_date: new Date(),
+        lab_id: 0,
+        sample_date: new Date(),
+        test_date: new Date(),
+        test_result: undefined,
         })
 
 // =========== 表格控制部分 ===========
@@ -157,7 +162,7 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async() => {
-  const table = await getVaccineList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
+  const table = await getTest_swabList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total
@@ -172,7 +177,7 @@ getTableData()
 
 // 获取需要的字典 可能为空 按需保留
 const setOptions = async () =>{
-    manufacturerOptions.value = await getDictFunc('manufacturer')
+    test_resultOptions.value = await getDictFunc('test_result')
 }
 
 // 获取需要的字典 可能为空 按需保留
@@ -193,7 +198,7 @@ const deleteRow = (row) => {
         cancelButtonText: '取消',
         type: 'warning'
     }).then(() => {
-            deleteVaccineFunc(row)
+            deleteTest_swabFunc(row)
         })
     }
 
@@ -215,7 +220,7 @@ const onDelete = async() => {
         multipleSelection.value.map(item => {
           ids.push(item.ID)
         })
-      const res = await deleteVaccineByIds({ ids })
+      const res = await deleteTest_swabByIds({ ids })
       if (res.code === 0) {
         ElMessage({
           type: 'success',
@@ -233,19 +238,19 @@ const onDelete = async() => {
 const type = ref('')
 
 // 更新行
-const updateVaccineFunc = async(row) => {
-    const res = await findVaccine({ ID: row.ID })
+const updateTest_swabFunc = async(row) => {
+    const res = await findTest_swab({ ID: row.ID })
     type.value = 'update'
     if (res.code === 0) {
-        formData.value = res.data.revaccine
+        formData.value = res.data.retest_swab
         dialogFormVisible.value = true
     }
 }
 
 
 // 删除行
-const deleteVaccineFunc = async (row) => {
-    const res = await deleteVaccine({ ID: row.ID })
+const deleteTest_swabFunc = async (row) => {
+    const res = await deleteTest_swab({ ID: row.ID })
     if (res.code === 0) {
         ElMessage({
                 type: 'success',
@@ -272,9 +277,10 @@ const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
         student_id: '',
-        manufacturer: undefined,
-        inoculate_date: new Date(),
-        prod_date: new Date(),
+        lab_id: 0,
+        sample_date: new Date(),
+        test_date: new Date(),
+        test_result: undefined,
         }
 }
 // 弹窗确定
@@ -282,13 +288,13 @@ const enterDialog = async () => {
       let res
       switch (type.value) {
         case 'create':
-          res = await createVaccine(formData.value)
+          res = await createTest_swab(formData.value)
           break
         case 'update':
-          res = await updateVaccine(formData.value)
+          res = await updateTest_swab(formData.value)
           break
         default:
-          res = await createVaccine(formData.value)
+          res = await createTest_swab(formData.value)
           break
       }
       if (res.code === 0) {

@@ -2,6 +2,9 @@
   <div>
     <div class="gva-search-box">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
+        <el-form-item label="学号">
+          <el-input v-model="searchInfo.student_id" placeholder="搜索条件" />
+        </el-form-item>
         <el-form-item label="问卷编号">
           <el-input v-model="searchInfo.qtn_id" placeholder="搜索条件" />
         </el-form-item>
@@ -40,6 +43,7 @@
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
+        <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="问卷编号" prop="qtn_id" width="120" />
         <el-table-column align="left" label="时间" prop="fill_in_time" width="120" />
         <el-table-column align="left" label="内容" prop="fill_in_content" width="120" />
@@ -64,6 +68,9 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" label-width="80px">
+        <el-form-item label="学号:">
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
+        </el-form-item>
         <el-form-item label="问卷编号:">
           <el-input v-model.number="formData.qtn_id" clearable placeholder="请输入" />
         </el-form-item>
@@ -107,6 +114,7 @@ import { ref } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
+        student_id: '',
         qtn_id: 0,
         fill_in_time: new Date(),
         fill_in_content: '',
@@ -258,6 +266,7 @@ const openDialog = () => {
 const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
+        student_id: '',
         qtn_id: 0,
         fill_in_time: new Date(),
         fill_in_content: '',

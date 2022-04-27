@@ -2,6 +2,9 @@
   <div>
     <div class="gva-form-box">
       <el-form :model="formData" label-position="right" label-width="80px">
+        <el-form-item label="学号:">
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
+        </el-form-item>
         <el-form-item label="问卷编号:">
           <el-input v-model.number="formData.qtn_id" clearable placeholder="请输入" />
         </el-form-item>
@@ -42,6 +45,7 @@ const route = useRoute()
 const router = useRouter()
 const type = ref('')
 const formData = ref({
+        student_id: '',
         qtn_id: 0,
         fill_in_time: new Date(),
         fill_in_content: '',

@@ -5,8 +5,10 @@
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="检测机构编号:">
-          <el-input v-model.number="formData.lab_id" clearable placeholder="请输入" />
+        <el-form-item label="检测机构:">
+          <el-select v-model="formData.facility" placeholder="请选择" clearable>
+            <el-option v-for="(item,key) in facilityOptions" :key="key" :label="item.label" :value="item.value" />
+          </el-select>
         </el-form-item>
         <el-form-item label="采样时间:">
           <el-date-picker v-model="formData.sample_date" type="date" placeholder="选择日期" clearable></el-date-picker>
@@ -49,10 +51,11 @@ import { ref } from 'vue'
 const route = useRoute()
 const router = useRouter()
 const type = ref('')
+const facilityOptions = ref([])
 const test_resultOptions = ref([])
 const formData = ref({
         student_id: '',
-        lab_id: 0,
+        facility: undefined,
         sample_date: new Date(),
         test_date: new Date(),
         test_result: undefined,
@@ -70,6 +73,7 @@ const init = async () => {
     } else {
       type.value = 'create'
     }
+    facilityOptions.value = await getDictFunc('facility')
     test_resultOptions.value = await getDictFunc('test_result')
 }
 

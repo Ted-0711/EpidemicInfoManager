@@ -2,19 +2,14 @@
   <div>
     <div class="gva-form-box">
       <el-form :model="formData" label-position="right" label-width="80px">
-        <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
+        <el-form-item label="问卷编号:">
+          <el-input v-model.number="formData.qtn_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="生产商:">
-          <el-select v-model="formData.manufacturer" placeholder="请选择" clearable>
-            <el-option v-for="(item,key) in manufacturerOptions" :key="key" :label="item.label" :value="item.value" />
-          </el-select>
+        <el-form-item label="时间:">
+          <el-date-picker v-model="formData.fill_in_time" type="date" placeholder="选择日期" clearable></el-date-picker>
         </el-form-item>
-        <el-form-item label="接种日期:">
-          <el-date-picker v-model="formData.inoculate_date" type="date" placeholder="选择日期" clearable></el-date-picker>
-        </el-form-item>
-        <el-form-item label="生产日期:">
-          <el-date-picker v-model="formData.prod_date" type="date" placeholder="选择日期" clearable></el-date-picker>
+        <el-form-item label="内容:">
+          <el-input v-model="formData.fill_in_content" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
@@ -27,16 +22,16 @@
 
 <script>
 export default {
-  name: 'Vaccine'
+  name: 'Fill_in'
 }
 </script>
 
 <script setup>
 import {
-  createVaccine,
-  updateVaccine,
-  findVaccine
-} from '@/api/vaccine'
+  createFill_in,
+  updateFill_in,
+  findFill_in
+} from '@/api/fill_in'
 
 // 自动获取字典
 import { getDictFunc } from '@/utils/format'
@@ -46,27 +41,24 @@ import { ref } from 'vue'
 const route = useRoute()
 const router = useRouter()
 const type = ref('')
-const manufacturerOptions = ref([])
 const formData = ref({
-        student_id: '',
-        manufacturer: undefined,
-        inoculate_date: new Date(),
-        prod_date: new Date(),
+        qtn_id: 0,
+        fill_in_time: new Date(),
+        fill_in_content: '',
         })
 
 // 初始化方法
 const init = async () => {
  // 建议通过url传参获取目标数据ID 调用 find方法进行查询数据操作 从而决定本页面是create还是update 以下为id作为url参数示例
     if (route.query.id) {
-      const res = await findVaccine({ ID: route.query.id })
+      const res = await findFill_in({ ID: route.query.id })
       if (res.code === 0) {
-        formData.value = res.data.revaccine
+        formData.value = res.data.refill_in
         type.value = 'update'
       }
     } else {
       type.value = 'create'
     }
-    manufacturerOptions.value = await getDictFunc('manufacturer')
 }
 
 init()
@@ -75,13 +67,13 @@ const save = async() => {
       let res
       switch (type.value) {
         case 'create':
-          res = await createVaccine(formData.value)
+          res = await createFill_in(formData.value)
           break
         case 'update':
-          res = await updateVaccine(formData.value)
+          res = await updateFill_in(formData.value)
           break
         default:
-          res = await createVaccine(formData.value)
+          res = await createFill_in(formData.value)
           break
       }
       if (res.code === 0) {

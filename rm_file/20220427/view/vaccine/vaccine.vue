@@ -5,8 +5,8 @@
         <el-form-item label="学号">
           <el-input v-model="searchInfo.student_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="生产商">
-          <el-input v-model="searchInfo.manufacturer" placeholder="搜索条件" />
+        <el-form-item label="生产商编号">
+          <el-input v-model="searchInfo.mfr_id" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -41,11 +41,7 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
-        <el-table-column align="left" label="生产商" prop="manufacturer" width="120">
-            <template #default="scope">
-            {{ filterDict(scope.row.manufacturer,manufacturerOptions) }}
-            </template>
-        </el-table-column>
+        <el-table-column align="left" label="生产商编号" prop="mfr_id" width="120" />
         <el-table-column align="left" label="接种日期" prop="inoculate_date" width="120" />
         <el-table-column align="left" label="生产日期" prop="prod_date" width="120" />
         <el-table-column align="left" label="按钮组">
@@ -72,10 +68,8 @@
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="生产商:">
-          <el-select v-model="formData.manufacturer" placeholder="请选择" style="width:100%" clearable>
-            <el-option v-for="(item,key) in manufacturerOptions" :key="key" :label="item.label" :value="item.value" />
-          </el-select>
+        <el-form-item label="生产商编号:">
+          <el-input v-model.number="formData.mfr_id" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="接种日期:">
           <el-date-picker v-model="formData.inoculate_date" type="date" style="width:100%" placeholder="选择日期" clearable />
@@ -116,10 +110,9 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
-const manufacturerOptions = ref([])
 const formData = ref({
         student_id: '',
-        manufacturer: undefined,
+        mfr_id: 0,
         inoculate_date: new Date(),
         prod_date: new Date(),
         })
@@ -172,7 +165,6 @@ getTableData()
 
 // 获取需要的字典 可能为空 按需保留
 const setOptions = async () =>{
-    manufacturerOptions.value = await getDictFunc('manufacturer')
 }
 
 // 获取需要的字典 可能为空 按需保留
@@ -272,7 +264,7 @@ const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
         student_id: '',
-        manufacturer: undefined,
+        mfr_id: 0,
         inoculate_date: new Date(),
         prod_date: new Date(),
         }

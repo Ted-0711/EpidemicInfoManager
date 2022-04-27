@@ -5,10 +5,8 @@
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="生产商:">
-          <el-select v-model="formData.manufacturer" placeholder="请选择" clearable>
-            <el-option v-for="(item,key) in manufacturerOptions" :key="key" :label="item.label" :value="item.value" />
-          </el-select>
+        <el-form-item label="生产商编号:">
+          <el-input v-model.number="formData.mfr_id" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="接种日期:">
           <el-date-picker v-model="formData.inoculate_date" type="date" placeholder="选择日期" clearable></el-date-picker>
@@ -46,10 +44,9 @@ import { ref } from 'vue'
 const route = useRoute()
 const router = useRouter()
 const type = ref('')
-const manufacturerOptions = ref([])
 const formData = ref({
         student_id: '',
-        manufacturer: undefined,
+        mfr_id: 0,
         inoculate_date: new Date(),
         prod_date: new Date(),
         })
@@ -66,7 +63,6 @@ const init = async () => {
     } else {
       type.value = 'create'
     }
-    manufacturerOptions.value = await getDictFunc('manufacturer')
 }
 
 init()

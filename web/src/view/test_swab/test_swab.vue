@@ -5,8 +5,8 @@
         <el-form-item label="学号">
           <el-input v-model="searchInfo.student_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="检测机构编号">
-          <el-input v-model="searchInfo.lab_id" placeholder="搜索条件" />
+        <el-form-item label="检测机构">
+          <el-input v-model="searchInfo.facility" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -41,7 +41,11 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
-        <el-table-column align="left" label="检测机构编号" prop="lab_id" width="120" />
+        <el-table-column align="left" label="检测机构" prop="facility" width="120">
+            <template #default="scope">
+            {{ filterDict(scope.row.facility,facilityOptions) }}
+            </template>
+        </el-table-column>
         <el-table-column align="left" label="采样时间" prop="sample_date" width="120" />
         <el-table-column align="left" label="检测时间" prop="test_date" width="120" />
         <el-table-column align="left" label="检测结果" prop="test_result" width="120">
@@ -73,8 +77,10 @@
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="检测机构编号:">
-          <el-input v-model.number="formData.lab_id" clearable placeholder="请输入" />
+        <el-form-item label="检测机构:">
+          <el-select v-model="formData.facility" placeholder="请选择" style="width:100%" clearable>
+            <el-option v-for="(item,key) in facilityOptions" :key="key" :label="item.label" :value="item.value" />
+          </el-select>
         </el-form-item>
         <el-form-item label="采样时间:">
           <el-date-picker v-model="formData.sample_date" type="date" style="width:100%" placeholder="选择日期" clearable />
@@ -120,10 +126,11 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
+const facilityOptions = ref([])
 const test_resultOptions = ref([])
 const formData = ref({
         student_id: '',
-        lab_id: 0,
+        facility: undefined,
         sample_date: new Date(),
         test_date: new Date(),
         test_result: undefined,
@@ -177,6 +184,7 @@ getTableData()
 
 // 获取需要的字典 可能为空 按需保留
 const setOptions = async () =>{
+    facilityOptions.value = await getDictFunc('facility')
     test_resultOptions.value = await getDictFunc('test_result')
 }
 
@@ -277,7 +285,7 @@ const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
         student_id: '',
-        lab_id: 0,
+        facility: undefined,
         sample_date: new Date(),
         test_date: new Date(),
         test_result: undefined,
