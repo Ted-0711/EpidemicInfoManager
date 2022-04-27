@@ -60,12 +60,6 @@ func (clock_inService *Clock_inService)GetClock_inInfoList(info EpidemicInfoReq.
     if info.Area_id != nil {
         db = db.Where("area_id = ?",info.Area_id)
     }
-    if info.Temperature != nil {
-        db = db.Where("temperature > ?",info.Temperature)
-    }
-    if info.Symptom != "" {
-        db = db.Where("symptom LIKE ?","%"+ info.Symptom+"%")
-    }
 	err = db.Count(&total).Error
 	if err!=nil {
     	return

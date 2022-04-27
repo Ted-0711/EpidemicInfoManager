@@ -13,8 +13,6 @@ type Clock_in struct {
 	Student_id    string     `json:"student_id" form:"student_id" gorm:"column:student_id;comment:;size:7;"`
 	Clock_in_date *time.Time `json:"clock_in_date" form:"clock_in_date" gorm:"column:clock_in_date;comment:;"`
 	Area_id       *int       `json:"area_id" form:"area_id" gorm:"column:area_id;comment:;"`
-	Temperature   *float64   `json:"temperature" form:"temperature" gorm:"column:temperature;comment:;"`
-	Symptom       string     `json:"symptom" form:"symptom" gorm:"column:symptom;comment:;"`
 }
 
 // TableName Clock_in 表名

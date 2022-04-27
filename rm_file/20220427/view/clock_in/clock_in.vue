@@ -8,12 +8,6 @@
         <el-form-item label="区域编号">
           <el-input v-model="searchInfo.area_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="体温">
-          <el-input v-model="searchInfo.temperature" placeholder="搜索条件" />
-        </el-form-item>
-        <el-form-item label="不适症状">
-          <el-input v-model="searchInfo.symptom" placeholder="搜索条件" />
-        </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
           <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
@@ -49,8 +43,6 @@
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="打卡日期" prop="clock_in_date" width="120" />
         <el-table-column align="left" label="区域编号" prop="area_id" width="120" />
-        <el-table-column align="left" label="体温" prop="temperature" width="120" />
-        <el-table-column align="left" label="不适症状" prop="symptom" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="text" icon="edit" size="small" class="table-button" @click="updateClock_inFunc(scope.row)">变更</el-button>
@@ -80,12 +72,6 @@
         </el-form-item>
         <el-form-item label="区域编号:">
           <el-input v-model.number="formData.area_id" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="体温:">
-          <el-input-number v-model="formData.temperature"  style="width:100%" :precision="2" clearable />
-        </el-form-item>
-        <el-form-item label="不适症状:">
-          <el-input v-model="formData.symptom" clearable placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -124,8 +110,6 @@ const formData = ref({
         student_id: '',
         clock_in_date: new Date(),
         area_id: 0,
-        temperature: 0,
-        symptom: '',
         })
 
 // =========== 表格控制部分 ===========
@@ -277,8 +261,6 @@ const closeDialog = () => {
         student_id: '',
         clock_in_date: new Date(),
         area_id: 0,
-        temperature: 0,
-        symptom: '',
         }
 }
 // 弹窗确定

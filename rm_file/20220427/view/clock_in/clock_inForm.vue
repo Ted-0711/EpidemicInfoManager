@@ -11,12 +11,6 @@
         <el-form-item label="区域编号:">
           <el-input v-model.number="formData.area_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="体温:">
-          <el-input-number v-model="formData.temperature" :precision="2" clearable></el-input-number>
-        </el-form-item>
-        <el-form-item label="不适症状:">
-          <el-input v-model="formData.symptom" clearable placeholder="请输入" />
-        </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
@@ -51,8 +45,6 @@ const formData = ref({
         student_id: '',
         clock_in_date: new Date(),
         area_id: 0,
-        temperature: 0,
-        symptom: '',
         })
 
 // 初始化方法
