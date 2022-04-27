@@ -3,8 +3,8 @@
     <div class="gva-card-box">
       <div class="gva-card gva-top-card">
         <div class="gva-top-card-left">
-          <div class="gva-top-card-left-title">早安，管理员，请开始一天的工作吧</div>
-          <div class="gva-top-card-left-dot">今日晴，0℃ - 10℃，天气寒冷，注意添加衣物。</div>
+          <div class="gva-top-card-left-title">早安，{{ userStore.userInfo.nickName }}，请开始一天的工作吧</div>
+          <div class="gva-top-card-left-dot">上海市嘉定区，今日{{ this.weather['weather'] }}，气温{{ this.weather['temp_low'] }}℃ - {{ this.weather['temp_high'] }}℃，湿度{{ this.weather['humidity'] }}，{{ this.weather['wind'] }} {{ this.weather['winp'] }}。</div>
           <div class="gva-top-card-left-rows">
             <el-row v-auth="888">
               <el-col :span="8" :xs="24" :sm="8">
@@ -109,6 +109,8 @@ import echartsLine from '@/view/dashboard/dashboardCharts/echartsLine.vue'
 import dashboardTable from '@/view/dashboard/dashboardTable/dashboardTable.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/pinia/modules/user'
+import { getWeather } from '@/api/getWeather.js'
 
 const toolCards = ref([
   {
@@ -161,10 +163,49 @@ const toTarget = (name) => {
   router.push({ name })
 }
 
+const userStore = useUserStore()
 </script>
 <script>
 export default {
-  name: 'Dashboard'
+  name: 'Dashboard',
+  data() {
+    return {
+      weather: {
+        aqi: "50",
+        cityid: "101020500",
+        citynm: "嘉定",
+        cityno: "jiading",
+        days: "2022-04-27",
+        humi_high: "0",
+        humi_low: "0",
+        humidity: "37%",
+        temp_curr: "19",
+        temp_high: "15",
+        temp_low: "12",
+        temperature: "12℃/12℃",
+        temperature_curr: "19℃",
+        weaid: "38",
+        weather: "晴",
+        weather_curr: "多云",
+        weather_icon: "http://api.k780.com/upload/weather/d/1.gif",
+        weather_icon1: "",
+        weather_iconid: "1",
+        weatid: "2",
+        weatid1: "",
+        week: "星期三",
+        wind: "东北风",
+        windid: "1",
+        winp: "2级",
+        winpid: "2",
+      }
+    }
+  },
+  created() {
+    getWeather().then((res) => {
+      this.weather = JSON.parse(res['data']['list'])['result']
+      console.log(this.weather)
+    })
+  }
 }
 </script>
 

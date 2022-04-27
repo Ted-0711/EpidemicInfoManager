@@ -66,6 +66,7 @@ func Routers() *gin.Engine {
 		systemRouter.InitSysOperationRecordRouter(PrivateGroup)  // 操作记录
 		systemRouter.InitSysDictionaryDetailRouter(PrivateGroup) // 字典详情管理
 		systemRouter.InitAuthorityBtnRouterRouter(PrivateGroup)  // 字典详情管理
+		systemRouter.GetWeatherRouter(PrivateGroup)              // 获取天气信息
 
 		exampleRouter.InitExcelRouter(PrivateGroup)                 // 表格导入导出
 		exampleRouter.InitCustomerRouter(PrivateGroup)              // 客户路由
