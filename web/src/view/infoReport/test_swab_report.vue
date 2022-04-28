@@ -2,9 +2,9 @@
   <div>
     <div class="gva-form-box">
       <el-form :model="formData" label-position="right" label-width="80px">
-        <!-- <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
-        </el-form-item> -->
+        <el-form-item label="学号:">
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" disabled />
+        </el-form-item>
         <el-form-item label="检测机构:">
           <el-select v-model="formData.facility" placeholder="请选择" clearable>
             <el-option v-for="(item,key) in facilityOptions" :key="key" :label="item.label" :value="item.value" />

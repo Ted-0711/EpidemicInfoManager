@@ -2,12 +2,12 @@
   <div>
     <div class="gva-form-box">
       <el-form :model="formData" label-position="right" label-width="80px">
-        <!-- <el-form-item label="学号:">
+        <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" disabled />
         </el-form-item>
         <el-form-item label="打卡日期:">
           <el-date-picker v-model="formData.clock_in_date" type="date" placeholder="选择日期" clearable disabled></el-date-picker>
-        </el-form-item> -->
+        </el-form-item>
         <el-form-item label="区域编号:">
           <el-input v-model.number="formData.area_id" clearable placeholder="请输入" />
         </el-form-item>

@@ -2,9 +2,9 @@
   <div>
     <div class="gva-form-box">
       <el-form :model="formData" label-position="right" label-width="80px">
-        <!-- <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
-        </el-form-item> -->
+        <el-form-item label="学号:">
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" disabled />
+        </el-form-item>
         <el-form-item label="起点编号:">
           <el-input v-model.number="formData.start_area_id" clearable placeholder="请输入" />
         </el-form-item>
