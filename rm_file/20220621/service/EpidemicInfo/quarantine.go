@@ -57,14 +57,8 @@ func (quarantineService *QuarantineService)GetQuarantineInfoList(info EpidemicIn
     if info.Student_id != "" {
         db = db.Where("student_id LIKE ?","%"+ info.Student_id+"%")
     }
-    if info.Quar_start_date != nil {
-         db = db.Where("quar_start_date = ?",info.Quar_start_date)
-    }
-    if info.Quar_end_date != nil {
-         db = db.Where("quar_end_date = ?",info.Quar_end_date)
-    }
-    if info.Quar_site != "" {
-        db = db.Where("quar_site LIKE ?","%"+ info.Quar_site+"%")
+    if info.Quar_site_id != nil {
+        db = db.Where("quar_site_id = ?",info.Quar_site_id)
     }
 	err = db.Count(&total).Error
 	if err!=nil {

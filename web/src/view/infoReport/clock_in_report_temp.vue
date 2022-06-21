@@ -8,8 +8,8 @@
         <el-form-item label="打卡日期:">
           <el-date-picker v-model="formData.clock_in_date" type="date" placeholder="选择日期" clearable disabled></el-date-picker>
         </el-form-item>
-        <el-form-item label="所在区域:">
-          <el-input v-model="formData.area_name" clearable placeholder="请输入" disabled />
+        <el-form-item label="区域编号:">
+          <el-input v-model.number="formData.area_id" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="体温:">
           <el-input-number v-model="formData.temperature" :precision="2" clearable></el-input-number>
@@ -34,6 +34,10 @@ export default {
   methods: {
     //创建地图实例
     createMap() {
+      // var map = new BMap.Map("map");
+      // var point = new BMap.Point(116.404, 39.925);
+      // map.centerAndZoom(point, 15)
+      // map.enableScrollWheelZoom(true)
       var map = new BMap.Map("map");
       var geolocation = new BMap.Geolocation();
       //调用百度地图api 中的获取当前位置接口
@@ -95,7 +99,7 @@ const userStore = useUserStore()
 const formData = ref({
         student_id: '',
         clock_in_date: new Date(),
-        area_name: '',
+        area_id: 1,
         temperature: 36.80,
         symptom: '',
         })
@@ -123,6 +127,7 @@ init()
 // 保存按钮
 const save = async() => {
       let res
+      console.log(formData.value)
       switch (type.value) {
         case 'create':
           res = await createClock_in(formData.value)
@@ -154,8 +159,7 @@ geolocation.getCurrentPosition(function (r) {
     let myGeo = new BMap.Geocoder();
     myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat), function (result) {
       if (result) {
-        console.log(result.address.substr(0, result.address.indexOf('区')+1));
-        formData._value['area_name'] = result.address.substr(0, result.address.indexOf('区')+1)
+        console.log(result);
       }
     });
   }

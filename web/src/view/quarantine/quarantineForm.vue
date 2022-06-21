@@ -8,8 +8,11 @@
         <el-form-item label="起始日期:">
           <el-date-picker v-model="formData.quar_start_date" type="date" placeholder="选择日期" clearable></el-date-picker>
         </el-form-item>
-        <el-form-item label="隔离点编号:">
-          <el-input v-model.number="formData.quar_site_id" clearable placeholder="请输入" />
+        <el-form-item label="结束日期:">
+          <el-date-picker v-model="formData.quar_end_date" type="date" placeholder="选择日期" clearable></el-date-picker>
+        </el-form-item>
+        <el-form-item label="隔离点:">
+          <el-input v-model="formData.quar_site" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
@@ -44,7 +47,8 @@ const type = ref('')
 const formData = ref({
         student_id: '',
         quar_start_date: new Date(),
-        quar_site_id: 0,
+        quar_end_date: new Date(),
+        quar_site: '',
         })
 
 // 初始化方法

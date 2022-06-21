@@ -8,8 +8,8 @@
         <el-form-item label="打卡日期:">
           <el-date-picker v-model="formData.clock_in_date" type="date" placeholder="选择日期" clearable></el-date-picker>
         </el-form-item>
-        <el-form-item label="所在区域:">
-          <el-input v-model="formData.area_name" clearable placeholder="请输入" />
+        <el-form-item label="区域编号:">
+          <el-input v-model.number="formData.area_id" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="体温:">
           <el-input-number v-model="formData.temperature" :precision="2" clearable></el-input-number>
@@ -50,7 +50,7 @@ const type = ref('')
 const formData = ref({
         student_id: '',
         clock_in_date: new Date(),
-        area_name: '',
+        area_id: 0,
         temperature: 0,
         symptom: '',
         })

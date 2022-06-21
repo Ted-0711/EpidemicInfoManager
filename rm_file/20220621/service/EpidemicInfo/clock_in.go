@@ -57,8 +57,8 @@ func (clock_inService *Clock_inService)GetClock_inInfoList(info EpidemicInfoReq.
     if info.Student_id != "" {
         db = db.Where("student_id LIKE ?","%"+ info.Student_id+"%")
     }
-    if info.Area_name != "" {
-        db = db.Where("area_name LIKE ?","%"+ info.Area_name+"%")
+    if info.Area_id != nil {
+        db = db.Where("area_id = ?",info.Area_id)
     }
     if info.Temperature != nil {
         db = db.Where("temperature > ?",info.Temperature)

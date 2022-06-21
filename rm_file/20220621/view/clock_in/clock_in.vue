@@ -5,14 +5,14 @@
         <el-form-item label="学号">
           <el-input v-model="searchInfo.student_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="起始日期">
-          <el-input v-model="searchInfo.quar_start_date" placeholder="搜索条件" />
+        <el-form-item label="区域编号">
+          <el-input v-model="searchInfo.area_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="结束日期">
-          <el-input v-model="searchInfo.quar_end_date" placeholder="搜索条件" />
+        <el-form-item label="体温">
+          <el-input v-model="searchInfo.temperature" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="隔离点">
-          <el-input v-model="searchInfo.quar_site" placeholder="搜索条件" />
+        <el-form-item label="不适症状">
+          <el-input v-model="searchInfo.symptom" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -47,12 +47,13 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
-        <el-table-column align="left" label="起始日期" prop="quar_start_date" width="120" />
-        <el-table-column align="left" label="结束日期" prop="quar_end_date" width="120" />
-        <el-table-column align="left" label="隔离点" prop="quar_site" width="120" />
+        <el-table-column align="left" label="打卡日期" prop="clock_in_date" width="120" />
+        <el-table-column align="left" label="区域编号" prop="area_id" width="120" />
+        <el-table-column align="left" label="体温" prop="temperature" width="120" />
+        <el-table-column align="left" label="不适症状" prop="symptom" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
-            <el-button type="text" icon="edit" size="small" class="table-button" @click="updateQuarantineFunc(scope.row)">变更</el-button>
+            <el-button type="text" icon="edit" size="small" class="table-button" @click="updateClock_inFunc(scope.row)">变更</el-button>
             <el-button type="text" icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
             </template>
         </el-table-column>
@@ -74,14 +75,17 @@
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="起始日期:">
-          <el-date-picker v-model="formData.quar_start_date" type="date" style="width:100%" placeholder="选择日期" clearable />
+        <el-form-item label="打卡日期:">
+          <el-date-picker v-model="formData.clock_in_date" type="date" style="width:100%" placeholder="选择日期" clearable />
         </el-form-item>
-        <el-form-item label="结束日期:">
-          <el-date-picker v-model="formData.quar_end_date" type="date" style="width:100%" placeholder="选择日期" clearable />
+        <el-form-item label="区域编号:">
+          <el-input v-model.number="formData.area_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="隔离点:">
-          <el-input v-model="formData.quar_site" clearable placeholder="请输入" />
+        <el-form-item label="体温:">
+          <el-input-number v-model="formData.temperature"  style="width:100%" :precision="2" clearable />
+        </el-form-item>
+        <el-form-item label="不适症状:">
+          <el-input v-model="formData.symptom" clearable placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -96,19 +100,19 @@
 
 <script>
 export default {
-  name: 'Quarantine'
+  name: 'Clock_in'
 }
 </script>
 
 <script setup>
 import {
-  createQuarantine,
-  deleteQuarantine,
-  deleteQuarantineByIds,
-  updateQuarantine,
-  findQuarantine,
-  getQuarantineList
-} from '@/api/quarantine'
+  createClock_in,
+  deleteClock_in,
+  deleteClock_inByIds,
+  updateClock_in,
+  findClock_in,
+  getClock_inList
+} from '@/api/clock_in'
 
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
@@ -118,9 +122,10 @@ import { ref } from 'vue'
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
         student_id: '',
-        quar_start_date: new Date(),
-        quar_end_date: new Date(),
-        quar_site: '',
+        clock_in_date: new Date(),
+        area_id: 0,
+        temperature: 0,
+        symptom: '',
         })
 
 // =========== 表格控制部分 ===========
@@ -156,7 +161,7 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async() => {
-  const table = await getQuarantineList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
+  const table = await getClock_inList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total
@@ -191,7 +196,7 @@ const deleteRow = (row) => {
         cancelButtonText: '取消',
         type: 'warning'
     }).then(() => {
-            deleteQuarantineFunc(row)
+            deleteClock_inFunc(row)
         })
     }
 
@@ -213,7 +218,7 @@ const onDelete = async() => {
         multipleSelection.value.map(item => {
           ids.push(item.ID)
         })
-      const res = await deleteQuarantineByIds({ ids })
+      const res = await deleteClock_inByIds({ ids })
       if (res.code === 0) {
         ElMessage({
           type: 'success',
@@ -231,19 +236,19 @@ const onDelete = async() => {
 const type = ref('')
 
 // 更新行
-const updateQuarantineFunc = async(row) => {
-    const res = await findQuarantine({ ID: row.ID })
+const updateClock_inFunc = async(row) => {
+    const res = await findClock_in({ ID: row.ID })
     type.value = 'update'
     if (res.code === 0) {
-        formData.value = res.data.requarantine
+        formData.value = res.data.reclock_in
         dialogFormVisible.value = true
     }
 }
 
 
 // 删除行
-const deleteQuarantineFunc = async (row) => {
-    const res = await deleteQuarantine({ ID: row.ID })
+const deleteClock_inFunc = async (row) => {
+    const res = await deleteClock_in({ ID: row.ID })
     if (res.code === 0) {
         ElMessage({
                 type: 'success',
@@ -270,9 +275,10 @@ const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
         student_id: '',
-        quar_start_date: new Date(),
-        quar_end_date: new Date(),
-        quar_site: '',
+        clock_in_date: new Date(),
+        area_id: 0,
+        temperature: 0,
+        symptom: '',
         }
 }
 // 弹窗确定
@@ -280,13 +286,13 @@ const enterDialog = async () => {
       let res
       switch (type.value) {
         case 'create':
-          res = await createQuarantine(formData.value)
+          res = await createClock_in(formData.value)
           break
         case 'update':
-          res = await updateQuarantine(formData.value)
+          res = await updateClock_in(formData.value)
           break
         default:
-          res = await createQuarantine(formData.value)
+          res = await createClock_in(formData.value)
           break
       }
       if (res.code === 0) {

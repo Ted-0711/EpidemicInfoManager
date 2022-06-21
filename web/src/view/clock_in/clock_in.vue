@@ -5,8 +5,8 @@
         <el-form-item label="学号">
           <el-input v-model="searchInfo.student_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="区域编号">
-          <el-input v-model="searchInfo.area_id" placeholder="搜索条件" />
+        <el-form-item label="所在区域">
+          <el-input v-model="searchInfo.area_name" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item label="体温">
           <el-input v-model="searchInfo.temperature" placeholder="搜索条件" />
@@ -48,7 +48,7 @@
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="打卡日期" prop="clock_in_date" width="120" />
-        <el-table-column align="left" label="区域编号" prop="area_id" width="120" />
+        <el-table-column align="left" label="所在区域" prop="area_name" width="120" />
         <el-table-column align="left" label="体温" prop="temperature" width="120" />
         <el-table-column align="left" label="不适症状" prop="symptom" width="120" />
         <el-table-column align="left" label="按钮组">
@@ -78,8 +78,8 @@
         <el-form-item label="打卡日期:">
           <el-date-picker v-model="formData.clock_in_date" type="date" style="width:100%" placeholder="选择日期" clearable />
         </el-form-item>
-        <el-form-item label="区域编号:">
-          <el-input v-model.number="formData.area_id" clearable placeholder="请输入" />
+        <el-form-item label="所在区域:">
+          <el-input v-model="formData.area_name" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="体温:">
           <el-input-number v-model="formData.temperature"  style="width:100%" :precision="2" clearable />
@@ -123,7 +123,7 @@ import { ref } from 'vue'
 const formData = ref({
         student_id: '',
         clock_in_date: new Date(),
-        area_id: 0,
+        area_name: '',
         temperature: 0,
         symptom: '',
         })
@@ -276,7 +276,7 @@ const closeDialog = () => {
     formData.value = {
         student_id: '',
         clock_in_date: new Date(),
-        area_id: 0,
+        area_name: '',
         temperature: 0,
         symptom: '',
         }
