@@ -34,10 +34,43 @@ export default {
   methods: {
     //创建地图实例
     createMap() {
+      // var map = new BMap.Map("map");
+      // var point = new BMap.Point(116.404, 39.925);
+      // map.centerAndZoom(point, 15)
+      // map.enableScrollWheelZoom(true)
       var map = new BMap.Map("map");
-      var point = new BMap.Point(116.404, 39.925);
-      map.centerAndZoom(point, 15)
-      map.enableScrollWheelZoom(true)
+      var geolocation = new BMap.Geolocation();
+      //调用百度地图api 中的获取当前位置接口
+      geolocation.getCurrentPosition(function (r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+          //获取当前位置经纬度
+          let myGeo = new BMap.Geocoder();
+          myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat), function (result) {
+            if (result) {
+              // console.log(result);
+              // 初始化地图,设置中心点坐标和地图级别
+              map.centerAndZoom(new BMap.Point(result.point.lng, result.point.lat), 20);
+              //开启鼠标滚轮缩放,默认关闭
+              map.enableScrollWheelZoom(false)
+              //添加缩略图控件
+              map.addControl(new BMap.OverviewMapControl({isOpen:false,anchor:BMAP_ANCHOR_BOTTOM_RIGHT}));
+              //添加缩放平移控件
+              map.addControl(new BMap.NavigationControl());
+              //添加比例尺控件
+              map.addControl(new BMap.ScaleControl());
+              //添加地图类型控件
+              map.addControl(new BMap.MapTypeControl());
+              //设置地图标记点的位置（坐标）
+              var marker = new BMap.Marker(new BMap.Point(result.point.lng, result.point.lat));
+              //把标注添加到地图上
+              map.addOverlay(marker);
+            }
+          });
+        }
+        else {
+          alert('failed'+this.getStatus());
+        } 
+      });
     }
   },
   mounted() {
@@ -118,6 +151,22 @@ const save = async() => {
 const back = () => {
     router.go(-1)
 }
+
+var geolocation = new BMap.Geolocation();
+geolocation.getCurrentPosition(function (r) {
+  if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+    //获取当前位置经纬度
+    let myGeo = new BMap.Geocoder();
+    myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat), function (result) {
+      if (result) {
+        console.log(result);
+      }
+    });
+  }
+  else {
+    alert('failed'+this.getStatus());
+  }
+});
 
 </script>
 
