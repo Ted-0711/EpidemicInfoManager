@@ -13,10 +13,8 @@
         <el-form-item label="接种日期:">
           <el-date-picker v-model="formData.inoculate_date" type="date" placeholder="选择日期" clearable></el-date-picker>
         </el-form-item>
-        <el-form-item label="接种类型:">
-          <el-select v-model="formData.vaccine_type" placeholder="请选择" clearable>
-            <el-option v-for="(item,key) in vaccine_doseOptions" :key="key" :label="item.label" :value="item.value" />
-          </el-select>
+        <el-form-item label="生产日期:">
+          <el-date-picker v-model="formData.prod_date" type="date" placeholder="选择日期" clearable></el-date-picker>
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
@@ -49,12 +47,11 @@ const route = useRoute()
 const router = useRouter()
 const type = ref('')
 const manufacturerOptions = ref([])
-const vaccine_doseOptions = ref([])
 const formData = ref({
         student_id: '',
         manufacturer: undefined,
         inoculate_date: new Date(),
-        vaccine_type: undefined,
+        prod_date: new Date(),
         })
 
 // 初始化方法
@@ -70,7 +67,6 @@ const init = async () => {
       type.value = 'create'
     }
     manufacturerOptions.value = await getDictFunc('manufacturer')
-    vaccine_doseOptions.value = await getDictFunc('vaccine_dose')
 }
 
 init()

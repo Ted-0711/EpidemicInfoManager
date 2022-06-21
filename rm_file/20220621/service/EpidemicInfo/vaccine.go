@@ -60,9 +60,6 @@ func (vaccineService *VaccineService)GetVaccineInfoList(info EpidemicInfoReq.Vac
     if info.Manufacturer != nil {
         db = db.Where("manufacturer = ?",info.Manufacturer)
     }
-    if info.Vaccine_type != nil {
-        db = db.Where("vaccine_type = ?",info.Vaccine_type)
-    }
 	err = db.Count(&total).Error
 	if err!=nil {
     	return

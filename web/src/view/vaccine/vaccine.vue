@@ -8,6 +8,9 @@
         <el-form-item label="生产商">
           <el-input v-model="searchInfo.manufacturer" placeholder="搜索条件" />
         </el-form-item>
+        <el-form-item label="接种类型">
+          <el-input v-model="searchInfo.vaccine_type" placeholder="搜索条件" />
+        </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
           <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
@@ -47,7 +50,11 @@
             </template>
         </el-table-column>
         <el-table-column align="left" label="接种日期" prop="inoculate_date" width="120" />
-        <el-table-column align="left" label="生产日期" prop="prod_date" width="120" />
+        <el-table-column align="left" label="接种类型" prop="vaccine_type" width="120">
+            <template #default="scope">
+            {{ filterDict(scope.row.vaccine_type,vaccine_doseOptions) }}
+            </template>
+        </el-table-column>
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="text" icon="edit" size="small" class="table-button" @click="updateVaccineFunc(scope.row)">变更</el-button>
@@ -80,8 +87,10 @@
         <el-form-item label="接种日期:">
           <el-date-picker v-model="formData.inoculate_date" type="date" style="width:100%" placeholder="选择日期" clearable />
         </el-form-item>
-        <el-form-item label="生产日期:">
-          <el-date-picker v-model="formData.prod_date" type="date" style="width:100%" placeholder="选择日期" clearable />
+        <el-form-item label="接种类型:">
+          <el-select v-model="formData.vaccine_type" placeholder="请选择" style="width:100%" clearable>
+            <el-option v-for="(item,key) in vaccine_doseOptions" :key="key" :label="item.label" :value="item.value" />
+          </el-select>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -117,11 +126,12 @@ import { ref } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const manufacturerOptions = ref([])
+const vaccine_doseOptions = ref([])
 const formData = ref({
         student_id: '',
         manufacturer: undefined,
         inoculate_date: new Date(),
-        prod_date: new Date(),
+        vaccine_type: undefined,
         })
 
 // =========== 表格控制部分 ===========
@@ -173,6 +183,7 @@ getTableData()
 // 获取需要的字典 可能为空 按需保留
 const setOptions = async () =>{
     manufacturerOptions.value = await getDictFunc('manufacturer')
+    vaccine_doseOptions.value = await getDictFunc('vaccine_dose')
 }
 
 // 获取需要的字典 可能为空 按需保留
@@ -274,7 +285,7 @@ const closeDialog = () => {
         student_id: '',
         manufacturer: undefined,
         inoculate_date: new Date(),
-        prod_date: new Date(),
+        vaccine_type: undefined,
         }
 }
 // 弹窗确定
