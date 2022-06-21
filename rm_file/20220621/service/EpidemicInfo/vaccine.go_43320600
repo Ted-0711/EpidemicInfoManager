@@ -63,9 +63,6 @@ func (vaccineService *VaccineService)GetVaccineInfoList(info EpidemicInfoReq.Vac
     if info.Vaccine_type != nil {
         db = db.Where("vaccine_type = ?",info.Vaccine_type)
     }
-    if info.Screenshot_url != "" {
-        db = db.Where("screenshot_url LIKE ?","%"+ info.Screenshot_url+"%")
-    }
 	err = db.Count(&total).Error
 	if err!=nil {
     	return

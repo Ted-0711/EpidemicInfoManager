@@ -133,13 +133,13 @@ import CustomPic from '@/components/customPic/index.vue'
 import UploadImage from '@/components/upload/image.vue'
 import UploadCommon from '@/components/upload/common.vue'
 
-// 测试
-const imgtest = async(a) => {
+// 上传截图
+const imgtest = async(url) => {
   ElMessage({
     type: 'success',
     message: '上传成功'
   })
-  formData._value['screenshot_url'] = a
+  formData._value['screenshot_url'] = url
 }
 
 </script>

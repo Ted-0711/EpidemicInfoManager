@@ -11,6 +11,9 @@
         <el-form-item label="接种类型">
           <el-input v-model="searchInfo.vaccine_type" placeholder="搜索条件" />
         </el-form-item>
+        <el-form-item label="截图链接">
+          <el-input v-model="searchInfo.screenshot_url" placeholder="搜索条件" />
+        </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
           <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
@@ -49,11 +52,17 @@
             {{ filterDict(scope.row.manufacturer,manufacturerOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="接种日期" prop="inoculate_date" width="120" />
         <el-table-column align="left" label="接种类型" prop="vaccine_type" width="120">
             <template #default="scope">
             {{ filterDict(scope.row.vaccine_type,vaccine_doseOptions) }}
             </template>
+        </el-table-column>
+        <el-table-column align="left" label="接种日期" prop="inoculate_date" width="120" />
+        <el-table-column align="left" label="截图链接" prop="screenshot_url" width="120" />
+        <el-table-column align="left" label="记录截图" prop="screenshot_url" width="120">
+          <template #default="scope">
+            <CustomPic pic-type="file" :pic-src="scope.row.screenshot_url"/>
+          </template>
         </el-table-column>
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
@@ -84,13 +93,16 @@
             <el-option v-for="(item,key) in manufacturerOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="接种日期:">
-          <el-date-picker v-model="formData.inoculate_date" type="date" style="width:100%" placeholder="选择日期" clearable />
-        </el-form-item>
         <el-form-item label="接种类型:">
           <el-select v-model="formData.vaccine_type" placeholder="请选择" style="width:100%" clearable>
             <el-option v-for="(item,key) in vaccine_doseOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
+        </el-form-item>
+        <el-form-item label="接种日期:">
+          <el-date-picker v-model="formData.inoculate_date" type="date" style="width:100%" placeholder="选择日期" clearable />
+        </el-form-item>
+        <el-form-item label="截图链接:">
+          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -123,6 +135,7 @@ import {
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
+import CustomPic from '@/components/customPic/index.vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const manufacturerOptions = ref([])
@@ -130,8 +143,9 @@ const vaccine_doseOptions = ref([])
 const formData = ref({
         student_id: '',
         manufacturer: undefined,
-        inoculate_date: new Date(),
         vaccine_type: undefined,
+        inoculate_date: new Date(),
+        screenshot_url: '',
         })
 
 // =========== 表格控制部分 ===========
@@ -284,8 +298,9 @@ const closeDialog = () => {
     formData.value = {
         student_id: '',
         manufacturer: undefined,
-        inoculate_date: new Date(),
         vaccine_type: undefined,
+        inoculate_date: new Date(),
+        screenshot_url: '',
         }
 }
 // 弹窗确定

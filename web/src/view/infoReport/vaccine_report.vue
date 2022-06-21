@@ -10,13 +10,26 @@
             <el-option v-for="(item,key) in manufacturerOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="接种日期:">
-          <el-date-picker v-model="formData.inoculate_date" type="date" placeholder="选择日期" clearable></el-date-picker>
-        </el-form-item>
         <el-form-item label="接种类型:">
           <el-select v-model="formData.vaccine_type" placeholder="请选择" clearable>
             <el-option v-for="(item,key) in vaccine_doseOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
+        </el-form-item>
+        <el-form-item label="接种日期:">
+          <el-date-picker v-model="formData.inoculate_date" type="date" placeholder="选择日期" clearable></el-date-picker>
+        </el-form-item>
+        <el-form-item label="截图链接:">
+          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="记录截图:">
+          <CustomPic pic-type="file" :pic-src="formData.screenshot_url"/>
+          <upload-image
+              v-model:imageUrl="imageUrl"
+              :file-size="512"
+              :max-w-h="1080"
+              class="upload-btn"
+              @on-success="imgtest"
+          />
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
@@ -51,11 +64,13 @@ const router = useRouter()
 const type = ref('')
 const manufacturerOptions = ref([])
 const vaccine_doseOptions = ref([])
+const userStore = useUserStore()
 const formData = ref({
         student_id: '',
         manufacturer: undefined,
-        inoculate_date: new Date(),
         vaccine_type: undefined,
+        inoculate_date: new Date(),
+        screenshot_url: '',
         })
 userStore.GetUserInfo().then((res) => {
   console.log(res['data']['userInfo']['userName'])
@@ -105,6 +120,22 @@ const save = async() => {
 // 返回按钮
 const back = () => {
     router.go(-1)
+}
+
+const imageUrl = ref('')
+
+import { downloadImage } from '@/utils/downloadImg'
+import CustomPic from '@/components/customPic/index.vue'
+import UploadImage from '@/components/upload/image.vue'
+import UploadCommon from '@/components/upload/common.vue'
+
+// 上传截图
+const imgtest = async(url) => {
+  ElMessage({
+    type: 'success',
+    message: '上传成功'
+  })
+  formData._value['screenshot_url'] = url
 }
 
 </script>
