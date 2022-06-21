@@ -3,7 +3,7 @@
     <div class="gva-form-box">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" disabled />
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="检测机构:">
           <el-select v-model="formData.facility" placeholder="请选择" clearable>
@@ -20,19 +20,6 @@
           <el-select v-model="formData.test_result" placeholder="请选择" clearable>
             <el-option v-for="(item,key) in test_resultOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
-        </el-form-item>
-        <el-form-item label="截图链接:">
-          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" disabled />
-        </el-form-item>
-        <el-form-item label="报告截图:">
-          <CustomPic pic-type="file" :pic-src="formData.screenshot_url"/>
-          <upload-image
-              v-model:imageUrl="imageUrl"
-              :file-size="512"
-              :max-w-h="1080"
-              class="upload-btn"
-              @on-success="imgtest"
-          />
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
@@ -59,28 +46,20 @@ import {
 // 自动获取字典
 import { getDictFunc } from '@/utils/format'
 import { useRoute, useRouter } from "vue-router"
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
-import { useUserStore } from '@/pinia/modules/user'
 const route = useRoute()
 const router = useRouter()
 const type = ref('')
 const facilityOptions = ref([])
 const test_resultOptions = ref([])
-const userStore = useUserStore()
 const formData = ref({
         student_id: '',
         facility: undefined,
         sample_date: new Date(),
         test_date: new Date(),
         test_result: undefined,
-        screenshot_url: '',
         })
-userStore.GetUserInfo().then((res) => {
-  console.log(res['data']['userInfo']['userName'])
-  formData._value['student_id'] = res['data']['userInfo']['userName']
-  console.log(formData)
-})
 
 // 初始化方法
 const init = async () => {
@@ -124,22 +103,6 @@ const save = async() => {
 // 返回按钮
 const back = () => {
     router.go(-1)
-}
-
-const imageUrl = ref('')
-
-import { downloadImage } from '@/utils/downloadImg'
-import CustomPic from '@/components/customPic/index.vue'
-import UploadImage from '@/components/upload/image.vue'
-import UploadCommon from '@/components/upload/common.vue'
-
-// 测试
-const imgtest = async(a) => {
-  ElMessage({
-    type: 'success',
-    message: '上传成功'
-  })
-  formData._value['screenshot_url'] = a
 }
 
 </script>

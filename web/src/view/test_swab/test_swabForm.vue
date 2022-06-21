@@ -21,6 +21,9 @@
             <el-option v-for="(item,key) in test_resultOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
+        <el-form-item label="截图链接:">
+          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" />
+        </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
@@ -59,6 +62,7 @@ const formData = ref({
         sample_date: new Date(),
         test_date: new Date(),
         test_result: undefined,
+        screenshot_url: '',
         })
 
 // 初始化方法

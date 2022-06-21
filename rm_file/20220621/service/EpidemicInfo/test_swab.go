@@ -60,9 +60,6 @@ func (test_swabService *Test_swabService)GetTest_swabInfoList(info EpidemicInfoR
     if info.Facility != nil {
         db = db.Where("facility = ?",info.Facility)
     }
-    if info.Screenshot_url != "" {
-        db = db.Where("screenshot_url LIKE ?","%"+ info.Screenshot_url+"%")
-    }
 	err = db.Count(&total).Error
 	if err!=nil {
     	return

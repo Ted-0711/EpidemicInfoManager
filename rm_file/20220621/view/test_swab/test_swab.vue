@@ -8,9 +8,6 @@
         <el-form-item label="检测机构">
           <el-input v-model="searchInfo.facility" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="截图链接">
-          <el-input v-model="searchInfo.screenshot_url" placeholder="搜索条件" />
-        </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
           <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
@@ -56,7 +53,6 @@
             {{ filterDict(scope.row.test_result,test_resultOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="截图链接" prop="screenshot_url" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="text" icon="edit" size="small" class="table-button" @click="updateTest_swabFunc(scope.row)">变更</el-button>
@@ -96,9 +92,6 @@
           <el-select v-model="formData.test_result" placeholder="请选择" style="width:100%" clearable>
             <el-option v-for="(item,key) in test_resultOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
-        </el-form-item>
-        <el-form-item label="截图链接:">
-          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -141,7 +134,6 @@ const formData = ref({
         sample_date: new Date(),
         test_date: new Date(),
         test_result: undefined,
-        screenshot_url: '',
         })
 
 // =========== 表格控制部分 ===========
@@ -297,7 +289,6 @@ const closeDialog = () => {
         sample_date: new Date(),
         test_date: new Date(),
         test_result: undefined,
-        screenshot_url: '',
         }
 }
 // 弹窗确定

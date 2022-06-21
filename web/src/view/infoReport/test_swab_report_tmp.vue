@@ -21,9 +21,6 @@
             <el-option v-for="(item,key) in test_resultOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="截图链接:">
-          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" disabled />
-        </el-form-item>
         <el-form-item label="报告截图:">
           <CustomPic pic-type="file" :pic-src="formData.screenshot_url"/>
           <upload-image
@@ -74,7 +71,6 @@ const formData = ref({
         sample_date: new Date(),
         test_date: new Date(),
         test_result: undefined,
-        screenshot_url: '',
         })
 userStore.GetUserInfo().then((res) => {
   console.log(res['data']['userInfo']['userName'])
@@ -128,18 +124,14 @@ const back = () => {
 
 const imageUrl = ref('')
 
-import { downloadImage } from '@/utils/downloadImg'
 import CustomPic from '@/components/customPic/index.vue'
 import UploadImage from '@/components/upload/image.vue'
 import UploadCommon from '@/components/upload/common.vue'
 
 // 测试
-const imgtest = async(a) => {
-  ElMessage({
-    type: 'success',
-    message: '上传成功'
-  })
-  formData._value['screenshot_url'] = a
+const imgtest = async(a, b) => {
+  console.log(a)
+  console.log(b)
 }
 
 </script>

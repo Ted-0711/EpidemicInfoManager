@@ -22,13 +22,27 @@
           <el-button size="mini" type="primary" @click="back">返回</el-button>
         </el-form-item>
       </el-form>
+      <div id="map"></div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Clock_in'
+  name: 'Clock_in',
+  "BMap": "BMap",
+  methods: {
+    //创建地图实例
+    createMap() {
+      var map = new BMap.Map("map");
+      var point = new BMap.Point(116.404, 39.925);
+      map.centerAndZoom(point, 15)
+      map.enableScrollWheelZoom(true)
+    }
+  },
+  mounted() {
+    this.createMap();
+  }
 }
 </script>
 
@@ -108,4 +122,8 @@ const back = () => {
 </script>
 
 <style>
+#map {
+      margin-top: 20px;
+      height: 700px;
+}
 </style>
