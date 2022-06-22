@@ -49,7 +49,7 @@
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="学号" prop="student_id" width="120" disabled="isStudent" />
+        <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="起点区域" prop="start_area" width="120" />
         <el-table-column align="left" label="终点区域" prop="des_area" width="120" />
         <el-table-column align="left" label="出发时间" prop="mig_time" width="120" />
@@ -91,7 +91,7 @@
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" disabled="isStudent" />
         </el-form-item>
         <el-form-item label="起点区域:">
           <el-input v-model="formData.start_area" clearable placeholder="请输入" />
@@ -111,7 +111,7 @@
           <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="审核状态:">
-          <el-select v-model="formData.audit_status" placeholder="请选择" style="width:100%" clearable>
+          <el-select v-model="formData.audit_status" placeholder="请选择" style="width:100%" clearable disabled="isStudent">
             <el-option v-for="(item,key) in audit_statusOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>

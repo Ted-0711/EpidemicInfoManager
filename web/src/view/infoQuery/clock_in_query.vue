@@ -46,7 +46,7 @@
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="学号" prop="student_id" width="120" disabled="isStudent" />
+        <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="打卡日期" prop="clock_in_date" width="120" />
         <el-table-column align="left" label="所在区域" prop="area_name" width="120" />
         <el-table-column align="left" label="体温" prop="temperature" width="120" />
@@ -73,7 +73,7 @@
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" disabled="isStudent" />
         </el-form-item>
         <el-form-item label="打卡日期:">
           <el-date-picker v-model="formData.clock_in_date" type="date" style="width:100%" placeholder="选择日期" clearable />

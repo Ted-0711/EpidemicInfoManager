@@ -40,7 +40,7 @@
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="学号" prop="student_id" width="120" disabled="isStudent" />
+        <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="起始日期" prop="quar_start_date" width="120" />
         <el-table-column align="left" label="隔离点编号" prop="quar_site_id" width="120" />
         <el-table-column align="left" label="按钮组">
@@ -65,7 +65,7 @@
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" disabled="isStudent" />
         </el-form-item>
         <el-form-item label="起始日期:">
           <el-date-picker v-model="formData.quar_start_date" type="date" style="width:100%" placeholder="选择日期" clearable />
