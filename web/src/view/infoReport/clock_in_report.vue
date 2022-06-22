@@ -20,6 +20,7 @@
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
+          <!-- <el-button size="mini" type="primary" @click="this.getMapCenter">获取中心点</el-button> -->
         </el-form-item>
       </el-form>
       <div id="map"></div>
@@ -31,10 +32,16 @@
 export default {
   name: 'Clock_in',
   "BMap": "BMap",
+  data() {
+    return {
+      map: undefined,
+    }
+  },
   methods: {
     //创建地图实例
     createMap() {
       var map = new BMap.Map("map");
+      this.map = map;
       var geolocation = new BMap.Geolocation();
       //调用百度地图api 中的获取当前位置接口
       geolocation.getCurrentPosition(function (r) {
@@ -63,11 +70,15 @@ export default {
             }
           });
         }
-        else {
-          alert('failed'+this.getStatus());
-        } 
+        // else {
+        //   alert('failed'+this.getStatus());
+        // } 
       });
-    }
+    },
+    // getMapCenter() {
+    //   var cen = this.map.getCenter(); // 获取地图中心点
+    //   alert('地图中心点: (' + cen.lng.toFixed(5) + ', ' + cen.lat.toFixed(5) + ')');
+    // }
   },
   mounted() {
     this.createMap();
@@ -155,13 +166,17 @@ geolocation.getCurrentPosition(function (r) {
     myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat), function (result) {
       if (result) {
         console.log(result.address.substr(0, result.address.indexOf('区')+1));
-        formData._value['area_name'] = result.address.substr(0, result.address.indexOf('区')+1)
+        formData._value['area_name'] = result.address.substr(0, result.address.indexOf('区')+1);
       }
     });
   }
-  else {
-    alert('failed'+this.getStatus());
-  }
+  // else {
+  //   alert('failed'+this.getStatus());
+  // }
+});
+
+defineExpose({
+  formData
 });
 
 </script>
