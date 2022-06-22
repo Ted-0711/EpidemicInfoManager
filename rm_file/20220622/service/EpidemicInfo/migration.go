@@ -57,11 +57,11 @@ func (migrationService *MigrationService)GetMigrationInfoList(info EpidemicInfoR
     if info.Student_id != "" {
         db = db.Where("student_id LIKE ?","%"+ info.Student_id+"%")
     }
-    if info.Start_area != "" {
-        db = db.Where("start_area LIKE ?","%"+ info.Start_area+"%")
+    if info.Start_area_id != nil {
+        db = db.Where("start_area_id = ?",info.Start_area_id)
     }
-    if info.Des_area != "" {
-        db = db.Where("des_area LIKE ?","%"+ info.Des_area+"%")
+    if info.Des_area_id != nil {
+        db = db.Where("des_area_id = ?",info.Des_area_id)
     }
     if info.Vehicle_info != "" {
         db = db.Where("vehicle_info LIKE ?","%"+ info.Vehicle_info+"%")

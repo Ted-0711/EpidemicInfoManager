@@ -5,14 +5,11 @@
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="起点区域:">
-          <el-input v-model="formData.start_area" clearable placeholder="请输入" />
+        <el-form-item label="起点编号:">
+          <el-input v-model.number="formData.start_area_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="终点区域:">
-          <el-input v-model="formData.des_area" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="出发时间:">
-          <el-date-picker v-model="formData.mig_time" type="date" placeholder="选择日期" clearable></el-date-picker>
+        <el-form-item label="终点编号:">
+          <el-input v-model.number="formData.des_area_id" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="交通方式:">
           <el-select v-model="formData.vehicle_type" placeholder="请选择" clearable>
@@ -21,6 +18,9 @@
         </el-form-item>
         <el-form-item label="班次信息:">
           <el-input v-model="formData.vehicle_info" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="出发时间:">
+          <el-date-picker v-model="formData.mig_time" type="date" placeholder="选择日期" clearable></el-date-picker>
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
@@ -49,25 +49,18 @@ import { getDictFunc } from '@/utils/format'
 import { useRoute, useRouter } from "vue-router"
 import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
-import { useUserStore } from '@/pinia/modules/user'
 const route = useRoute()
 const router = useRouter()
 const type = ref('')
 const vehicle_typeOptions = ref([])
-const userStore = useUserStore()
 const formData = ref({
         student_id: '',
-        start_area: '',
-        des_area: '',
-        mig_time: new Date(),
+        start_area_id: 0,
+        des_area_id: 0,
         vehicle_type: undefined,
         vehicle_info: '',
+        mig_time: new Date(),
         })
-userStore.GetUserInfo().then((res) => {
-  console.log(res['data']['userInfo']['userName'])
-  formData._value['student_id'] = res['data']['userInfo']['userName']
-  console.log(formData)
-})
 
 // 初始化方法
 const init = async () => {

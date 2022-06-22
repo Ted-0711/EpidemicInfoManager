@@ -5,11 +5,11 @@
         <el-form-item label="学号">
           <el-input v-model="searchInfo.student_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="起点区域">
-          <el-input v-model="searchInfo.start_area" placeholder="搜索条件" />
+        <el-form-item label="起点编号">
+          <el-input v-model="searchInfo.start_area_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="终点区域">
-          <el-input v-model="searchInfo.des_area" placeholder="搜索条件" />
+        <el-form-item label="终点编号">
+          <el-input v-model="searchInfo.des_area_id" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item label="班次信息">
           <el-input v-model="searchInfo.vehicle_info" placeholder="搜索条件" />
@@ -47,15 +47,15 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
-        <el-table-column align="left" label="起点区域" prop="start_area" width="120" />
-        <el-table-column align="left" label="终点区域" prop="des_area" width="120" />
-        <el-table-column align="left" label="出发时间" prop="mig_time" width="120" />
+        <el-table-column align="left" label="起点编号" prop="start_area_id" width="120" />
+        <el-table-column align="left" label="终点编号" prop="des_area_id" width="120" />
         <el-table-column align="left" label="交通方式" prop="vehicle_type" width="120">
             <template #default="scope">
             {{ filterDict(scope.row.vehicle_type,vehicle_typeOptions) }}
             </template>
         </el-table-column>
         <el-table-column align="left" label="班次信息" prop="vehicle_info" width="120" />
+        <el-table-column align="left" label="出发时间" prop="mig_time" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="text" icon="edit" size="small" class="table-button" @click="updateMigrationFunc(scope.row)">变更</el-button>
@@ -80,14 +80,11 @@
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="起点区域:">
-          <el-input v-model="formData.start_area" clearable placeholder="请输入" />
+        <el-form-item label="起点编号:">
+          <el-input v-model.number="formData.start_area_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="终点区域:">
-          <el-input v-model="formData.des_area" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="出发时间:">
-          <el-date-picker v-model="formData.mig_time" type="date" style="width:100%" placeholder="选择日期" clearable />
+        <el-form-item label="终点编号:">
+          <el-input v-model.number="formData.des_area_id" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="交通方式:">
           <el-select v-model="formData.vehicle_type" placeholder="请选择" style="width:100%" clearable>
@@ -96,6 +93,9 @@
         </el-form-item>
         <el-form-item label="班次信息:">
           <el-input v-model="formData.vehicle_info" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="出发时间:">
+          <el-date-picker v-model="formData.mig_time" type="date" style="width:100%" placeholder="选择日期" clearable />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -133,11 +133,11 @@ import { ref } from 'vue'
 const vehicle_typeOptions = ref([])
 const formData = ref({
         student_id: '',
-        start_area: '',
-        des_area: '',
-        mig_time: new Date(),
+        start_area_id: 0,
+        des_area_id: 0,
         vehicle_type: undefined,
         vehicle_info: '',
+        mig_time: new Date(),
         })
 
 // =========== 表格控制部分 ===========
@@ -288,11 +288,11 @@ const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
         student_id: '',
-        start_area: '',
-        des_area: '',
-        mig_time: new Date(),
+        start_area_id: 0,
+        des_area_id: 0,
         vehicle_type: undefined,
         vehicle_info: '',
+        mig_time: new Date(),
         }
 }
 // 弹窗确定
