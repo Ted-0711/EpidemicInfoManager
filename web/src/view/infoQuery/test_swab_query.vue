@@ -3,7 +3,7 @@
     <div class="gva-search-box">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
         <el-form-item label="学号">
-          <el-input v-model="searchInfo.student_id" placeholder="搜索条件" />
+          <el-input v-model="searchInfo.student_id" placeholder="搜索条件" disabled="isStudent" />
         </el-form-item>
         <el-form-item label="检测机构">
           <el-input v-model="searchInfo.facility" placeholder="搜索条件" />
@@ -43,7 +43,7 @@
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="学号" prop="student_id" width="120" />
+        <el-table-column align="left" label="学号" prop="student_id" width="120" disabled="isStudent" />
         <el-table-column align="left" label="检测机构" prop="facility" width="120">
             <template #default="scope">
             {{ filterDict(scope.row.facility,facilityOptions) }}
@@ -137,6 +137,20 @@ import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/form
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
 import CustomPic from '@/components/customPic/index.vue'
+import { useUserStore } from '@/pinia/modules/user'
+const userStore = useUserStore()
+let isStudent = false
+let studentId = ''
+userStore.GetUserInfo().then((res) => {
+  if (res['data']['userInfo']['authorityId'] == 9990) {
+    isStudent = true
+    studentId = res['data']['userInfo']['userName']
+    searchInfo._value['student_id'] = studentId
+    formData._value['student_id'] = studentId
+    onSubmit()
+    // console.log('Is Student, id: ', studentId)
+  }
+})
 
 // 自动化生成的字典（可能为空）以及字段
 const facilityOptions = ref([])
@@ -160,6 +174,9 @@ const searchInfo = ref({})
 // 重置
 const onReset = () => {
   searchInfo.value = {}
+  if (isStudent) {
+    searchInfo._value['student_id'] = studentId
+  }
 }
 
 // 搜索
