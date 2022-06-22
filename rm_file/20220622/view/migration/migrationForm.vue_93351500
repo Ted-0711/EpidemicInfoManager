@@ -19,6 +19,9 @@
             <el-option v-for="(item,key) in vehicle_typeOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
+        <el-form-item label="班次信息:">
+          <el-input v-model="formData.vehicle_info" clearable placeholder="请输入" />
+        </el-form-item>
         <el-form-item label="截图链接:">
           <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" />
         </el-form-item>
@@ -65,6 +68,7 @@ const formData = ref({
         des_area: '',
         mig_time: new Date(),
         vehicle_type: undefined,
+        vehicle_info: '',
         screenshot_url: '',
         audit_status: undefined,
         })

@@ -19,8 +19,18 @@
             <el-option v-for="(item,key) in vehicle_typeOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="班次信息:">
-          <el-input v-model="formData.vehicle_info" clearable placeholder="请输入" />
+        <el-form-item label="截图链接:">
+          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="票务信息:">
+          <CustomPic pic-type="file" :pic-src="formData.screenshot_url"/>
+          <upload-image
+              v-model:imageUrl="imageUrl"
+              :file-size="512"
+              :max-w-h="1080"
+              class="upload-btn"
+              @on-success="imgtest"
+          />
         </el-form-item>
         <el-form-item label="审核状态:">
           <el-select v-model="formData.audit_status" placeholder="请选择" clearable disabled>
@@ -131,7 +141,7 @@ const formData = ref({
         des_area: '',
         mig_time: new Date(),
         vehicle_type: undefined,
-        vehicle_info: '',
+        screenshot_url: '',
         audit_status: 0,
         })
 userStore.GetUserInfo().then((res) => {
@@ -183,6 +193,22 @@ const save = async() => {
 // 返回按钮
 const back = () => {
     router.go(-1)
+}
+
+const imageUrl = ref('')
+
+import { downloadImage } from '@/utils/downloadImg'
+import CustomPic from '@/components/customPic/index.vue'
+import UploadImage from '@/components/upload/image.vue'
+import UploadCommon from '@/components/upload/common.vue'
+
+// 上传截图
+const imgtest = async(url) => {
+  ElMessage({
+    type: 'success',
+    message: '上传成功'
+  })
+  formData._value['screenshot_url'] = url
 }
 
 </script>

@@ -15,6 +15,7 @@ type Migration struct {
 	Des_area       string     `json:"des_area" form:"des_area" gorm:"column:des_area;comment:;"`
 	Mig_time       *time.Time `json:"mig_time" form:"mig_time" gorm:"column:mig_time;comment:;"`
 	Vehicle_type   *int       `json:"vehicle_type" form:"vehicle_type" gorm:"column:vehicle_type;comment:;"`
+	Vehicle_info   string     `json:"vehicle_info" form:"vehicle_info" gorm:"column:vehicle_info;comment:;size:20;"`
 	Screenshot_url string     `json:"screenshot_url" form:"screenshot_url" gorm:"column:screenshot_url;comment:;size:70;"`
 	Audit_status   *int       `json:"audit_status" form:"audit_status" gorm:"column:audit_status;comment:;"`
 }

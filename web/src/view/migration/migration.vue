@@ -11,8 +11,8 @@
         <el-form-item label="终点区域">
           <el-input v-model="searchInfo.des_area" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="班次信息">
-          <el-input v-model="searchInfo.vehicle_info" placeholder="搜索条件" />
+        <el-form-item label="截图链接">
+          <el-input v-model="searchInfo.screenshot_url" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item label="审核状态">
           <el-input v-model="searchInfo.audit_status" placeholder="搜索条件" />
@@ -58,7 +58,7 @@
             {{ filterDict(scope.row.vehicle_type,vehicle_typeOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="班次信息" prop="vehicle_info" width="120" />
+        <el-table-column align="left" label="截图链接" prop="screenshot_url" width="120" />
         <el-table-column align="left" label="审核状态" prop="audit_status" width="120">
             <template #default="scope">
             {{ filterDict(scope.row.audit_status,audit_statusOptions) }}
@@ -102,8 +102,8 @@
             <el-option v-for="(item,key) in vehicle_typeOptions" :key="key" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
-        <el-form-item label="班次信息:">
-          <el-input v-model="formData.vehicle_info" clearable placeholder="请输入" />
+        <el-form-item label="截图链接:">
+          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="审核状态:">
           <el-select v-model="formData.audit_status" placeholder="请选择" style="width:100%" clearable>
@@ -151,7 +151,7 @@ const formData = ref({
         des_area: '',
         mig_time: new Date(),
         vehicle_type: undefined,
-        vehicle_info: '',
+        screenshot_url: '',
         audit_status: undefined,
         })
 
@@ -308,7 +308,7 @@ const closeDialog = () => {
         des_area: '',
         mig_time: new Date(),
         vehicle_type: undefined,
-        vehicle_info: '',
+        screenshot_url: '',
         audit_status: undefined,
         }
 }
