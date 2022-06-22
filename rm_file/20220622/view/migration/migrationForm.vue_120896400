@@ -22,11 +22,6 @@
         <el-form-item label="班次信息:">
           <el-input v-model="formData.vehicle_info" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="审核状态:">
-          <el-select v-model="formData.audit_status" placeholder="请选择" clearable>
-            <el-option v-for="(item,key) in audit_statusOptions" :key="key" :label="item.label" :value="item.value" />
-          </el-select>
-        </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
@@ -58,7 +53,6 @@ const route = useRoute()
 const router = useRouter()
 const type = ref('')
 const vehicle_typeOptions = ref([])
-const audit_statusOptions = ref([])
 const formData = ref({
         student_id: '',
         start_area: '',
@@ -66,7 +60,6 @@ const formData = ref({
         mig_time: new Date(),
         vehicle_type: undefined,
         vehicle_info: '',
-        audit_status: undefined,
         })
 
 // 初始化方法
@@ -82,7 +75,6 @@ const init = async () => {
       type.value = 'create'
     }
     vehicle_typeOptions.value = await getDictFunc('vehicle_type')
-    audit_statusOptions.value = await getDictFunc('audit_status')
 }
 
 init()

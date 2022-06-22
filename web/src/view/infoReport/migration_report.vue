@@ -3,13 +3,13 @@
     <div class="gva-form-box">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" disabled />
         </el-form-item>
         <el-form-item label="起点区域:">
-          <el-input v-model="formData.start_area" clearable placeholder="请输入" />
+          <el-input v-model="formData.start_area" clearable placeholder="请输入" disabled />
         </el-form-item>
         <el-form-item label="终点区域:">
-          <el-input v-model="formData.des_area" clearable placeholder="请输入" />
+          <el-input v-model="formData.des_area" clearable placeholder="请输入" disabled />
         </el-form-item>
         <el-form-item label="出发时间:">
           <el-date-picker v-model="formData.mig_time" type="date" placeholder="选择日期" clearable></el-date-picker>
@@ -22,18 +22,87 @@
         <el-form-item label="班次信息:">
           <el-input v-model="formData.vehicle_info" clearable placeholder="请输入" />
         </el-form-item>
+        <el-form-item label="审核状态:">
+          <el-select v-model="formData.audit_status" placeholder="请选择" clearable disabled>
+            <el-option v-for="(item,key) in audit_statusOptions" :key="key" :label="item.label" :value="item.value" />
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
+          <el-button size="mini" type="primary" @click="this.getMapCenter(0)">获取起点</el-button>
+          <el-button size="mini" type="primary" @click="this.getMapCenter(1)">获取终点</el-button>
         </el-form-item>
       </el-form>
+      <div id="map" class="map"></div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Migration'
+  name: 'Migration',
+  "BMap": "BMap",
+  data() {
+    return {
+      map: {},
+    }
+  },
+  methods: {
+    //创建地图实例
+    createMap(id="map") {
+      var map = new BMap.Map(id);
+      this.map[id] = map;
+      var geolocation = new BMap.Geolocation();
+      //调用百度地图api 中的获取当前位置接口
+      geolocation.getCurrentPosition(function (r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+          //获取当前位置经纬度
+          let myGeo = new BMap.Geocoder();
+          myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat), function (result) {
+            if (result) {
+              // console.log(result);
+              // 初始化地图,设置中心点坐标和地图级别
+              map.centerAndZoom(new BMap.Point(result.point.lng, result.point.lat), 20);
+              //开启鼠标滚轮缩放,默认关闭
+              map.enableScrollWheelZoom(false)
+              //添加缩略图控件
+              map.addControl(new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT}));
+              //添加缩放平移控件
+              map.addControl(new BMap.NavigationControl());
+              //添加比例尺控件
+              map.addControl(new BMap.ScaleControl());
+              //添加地图类型控件
+              map.addControl(new BMap.MapTypeControl());
+              // 添加城市列表控件
+              map.addControl(new BMap.CityListControl({offset: new BMap.Size(70, 15)}));
+              //设置地图标记点的位置（坐标）
+              map.addOverlay(new BMap.Marker(new BMap.Point(result.point.lng, result.point.lat)));
+            }
+          });
+        }
+        // else {
+        //   alert('failed'+this.getStatus());
+        // } 
+      });
+    },
+    getMapCenter(type=0) {
+      var cen = this.map["map"].getCenter(); // 获取地图中心点
+      let myGeo = new BMap.Geocoder();
+      myGeo.getLocation(cen, (result) => {
+        if (type == 0) {
+          this.formData.start_area = result.address.substr(0, result.address.indexOf('区')+1);
+        }
+        else {
+          this.formData.des_area = result.address.substr(0, result.address.indexOf('区')+1);
+        }
+        // alert('地图中心点: ' + result.address.substr(0, result.address.indexOf('区')+1));
+      });
+    }
+  },
+  mounted() {
+    this.createMap();
+  }
 }
 </script>
 
@@ -54,6 +123,7 @@ const route = useRoute()
 const router = useRouter()
 const type = ref('')
 const vehicle_typeOptions = ref([])
+const audit_statusOptions = ref([])
 const userStore = useUserStore()
 const formData = ref({
         student_id: '',
@@ -62,6 +132,7 @@ const formData = ref({
         mig_time: new Date(),
         vehicle_type: undefined,
         vehicle_info: '',
+        audit_status: 0,
         })
 userStore.GetUserInfo().then((res) => {
   console.log(res['data']['userInfo']['userName'])
@@ -82,11 +153,13 @@ const init = async () => {
       type.value = 'create'
     }
     vehicle_typeOptions.value = await getDictFunc('vehicle_type')
+    audit_statusOptions.value = await getDictFunc('audit_status')
 }
 
 init()
 // 保存按钮
 const save = async() => {
+      console.log(formData)
       let res
       switch (type.value) {
         case 'create':
@@ -115,4 +188,13 @@ const back = () => {
 </script>
 
 <style>
+/* .gva-form-box {
+  overflow: hidden;
+} */
+.map {
+  margin-top: 20px;
+  height: 700px;
+  width: 100%;
+  /* float: left; */
+}
 </style>

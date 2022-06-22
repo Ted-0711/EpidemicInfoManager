@@ -66,9 +66,6 @@ func (migrationService *MigrationService)GetMigrationInfoList(info EpidemicInfoR
     if info.Vehicle_info != "" {
         db = db.Where("vehicle_info LIKE ?","%"+ info.Vehicle_info+"%")
     }
-    if info.Audit_status != nil {
-        db = db.Where("audit_status = ?",info.Audit_status)
-    }
 	err = db.Count(&total).Error
 	if err!=nil {
     	return

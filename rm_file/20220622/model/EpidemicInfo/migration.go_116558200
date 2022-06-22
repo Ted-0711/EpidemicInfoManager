@@ -16,7 +16,6 @@ type Migration struct {
 	Mig_time     *time.Time `json:"mig_time" form:"mig_time" gorm:"column:mig_time;comment:;"`
 	Vehicle_type *int       `json:"vehicle_type" form:"vehicle_type" gorm:"column:vehicle_type;comment:;"`
 	Vehicle_info string     `json:"vehicle_info" form:"vehicle_info" gorm:"column:vehicle_info;comment:;size:70;"`
-	Audit_status *int       `json:"audit_status" form:"audit_status" gorm:"column:audit_status;comment:;"`
 }
 
 // TableName Migration 表名

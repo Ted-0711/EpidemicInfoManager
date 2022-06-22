@@ -56,17 +56,17 @@ export default {
               //开启鼠标滚轮缩放,默认关闭
               map.enableScrollWheelZoom(false)
               //添加缩略图控件
-              map.addControl(new BMap.OverviewMapControl({isOpen:false,anchor:BMAP_ANCHOR_BOTTOM_RIGHT}));
+              map.addControl(new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT}));
               //添加缩放平移控件
               map.addControl(new BMap.NavigationControl());
               //添加比例尺控件
               map.addControl(new BMap.ScaleControl());
               //添加地图类型控件
               map.addControl(new BMap.MapTypeControl());
+              // 添加城市列表控件
+              map.addControl(new BMap.CityListControl({offset: new BMap.Size(70, 15)}));
               //设置地图标记点的位置（坐标）
-              var marker = new BMap.Marker(new BMap.Point(result.point.lng, result.point.lat));
-              //把标注添加到地图上
-              map.addOverlay(marker);
+              map.addOverlay(new BMap.Marker(new BMap.Point(result.point.lng, result.point.lat)));
             }
           });
         }
@@ -183,7 +183,7 @@ defineExpose({
 
 <style>
 #map {
-      margin-top: 20px;
-      height: 700px;
+  margin-top: 20px;
+  height: 700px;
 }
 </style>
