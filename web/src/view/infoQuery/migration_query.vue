@@ -60,13 +60,13 @@
         </el-table-column>
         <el-table-column align="left" label="截图链接" prop="screenshot_url" width="120" />
         <el-table-column align="left" label="票务信息" prop="screenshot_url" width="120">
-          <template #default="scope">
+            <template #default="scope">
             <CustomPic pic-type="file" :pic-src="scope.row.screenshot_url"/>
-          </template>
+            </template>
         </el-table-column>
         <el-table-column align="left" label="审核状态" prop="audit_status" width="120">
             <template #default="scope">
-            {{ filterDict(scope.row.audit_status,audit_statusOptions) }}
+              <el-tag :type="scope.row.audit_status == 0 ? 'warning' : (scope.row.audit_status == 1 ? 'success' : 'error')">{{ filterDict(scope.row.audit_status,audit_statusOptions) }}</el-tag>
             </template>
         </el-table-column>
         <el-table-column align="left" label="按钮组">

@@ -100,13 +100,16 @@ export default {
       var cen = this.map["map"].getCenter(); // 获取地图中心点
       let myGeo = new BMap.Geocoder();
       myGeo.getLocation(cen, (result) => {
+        ElMessage({
+          type: 'success',
+          message: '地图中心点: ' + result.address.substr(0, result.address.indexOf('区')+1)
+        });
         if (type == 0) {
           this.formData.start_area = result.address.substr(0, result.address.indexOf('区')+1);
         }
         else {
           this.formData.des_area = result.address.substr(0, result.address.indexOf('区')+1);
         }
-        // alert('地图中心点: ' + result.address.substr(0, result.address.indexOf('区')+1));
       });
     }
   },
