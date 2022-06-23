@@ -23,9 +23,6 @@
         <el-form-item label="回答4:">
           <el-input v-model="formData.fill_in_a4" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="回答5:">
-          <el-input v-model="formData.fill_in_a5" clearable placeholder="请输入" />
-        </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
@@ -64,7 +61,6 @@ const formData = ref({
         fill_in_a2: '',
         fill_in_a3: '',
         fill_in_a4: '',
-        fill_in_a5: '',
         })
 
 // 初始化方法

@@ -8,9 +8,6 @@
         <el-form-item label="问卷编号">
           <el-input v-model="searchInfo.qtn_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="时间">
-          <el-input v-model="searchInfo.fill_in_time" placeholder="搜索条件" />
-        </el-form-item>
         <el-form-item label="回答1">
           <el-input v-model="searchInfo.fill_in_a1" placeholder="搜索条件" />
         </el-form-item>

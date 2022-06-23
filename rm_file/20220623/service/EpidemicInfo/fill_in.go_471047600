@@ -60,9 +60,6 @@ func (fill_inService *Fill_inService)GetFill_inInfoList(info EpidemicInfoReq.Fil
     if info.Qtn_id != nil {
         db = db.Where("qtn_id = ?",info.Qtn_id)
     }
-    if info.Fill_in_time != nil {
-         db = db.Where("fill_in_time = ?",info.Fill_in_time)
-    }
     if info.Fill_in_a1 != "" {
         db = db.Where("fill_in_a1 LIKE ?","%"+ info.Fill_in_a1+"%")
     }
@@ -74,9 +71,6 @@ func (fill_inService *Fill_inService)GetFill_inInfoList(info EpidemicInfoReq.Fil
     }
     if info.Fill_in_a4 != "" {
         db = db.Where("fill_in_a4 LIKE ?","%"+ info.Fill_in_a4+"%")
-    }
-    if info.Fill_in_a5 != "" {
-        db = db.Where("fill_in_a5 LIKE ?","%"+ info.Fill_in_a5+"%")
     }
 	err = db.Count(&total).Error
 	if err!=nil {
