@@ -14,52 +14,15 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="gva-table-box">
-        <!-- <div class="gva-btn-list">
-            <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
-            <el-popover v-model:visible="deleteVisible" placement="top" width="160">
-            <p>确定要删除吗？</p>
-            <div style="text-align: right; margin-top: 8px;">
-                <el-button size="small" type="text" @click="deleteVisible = false">取消</el-button>
-                <el-button size="small" type="primary" @click="onDelete">确定</el-button>
-            </div>
-            <template #reference>
-                <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length" @click="deleteVisible = true">删除</el-button>
-            </template>
-            </el-popover>
-        </div> -->
-        <el-table
-        ref="multipleTable"
-        style="width: 100%"
-        tooltip-effect="dark"
-        :data="tableData"
-        row-key="ID"
-        @selection-change="handleSelectionChange"
-        >
-        <!-- <el-table-column type="selection" width="55" /> -->
-        <el-table-column align="left" label="日期" width="180">
-            <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
-        </el-table-column>
-        <el-table-column align="left" label="标题" prop="title" width="300" />
-        <el-table-column align="left" label="内容" prop="content" />
-        <!-- <el-table-column align="left" label="按钮组">
-            <template #default="scope">
-            <el-button type="text" icon="edit" size="small" class="table-button" @click="updateNoticeFunc(scope.row)">变更</el-button>
-            <el-button type="text" icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
-            </template>
-        </el-table-column> -->
-        </el-table>
-        <div class="gva-pagination">
-            <el-pagination
-            layout="total, sizes, prev, pager, next, jumper"
-            :current-page="page"
-            :page-size="pageSize"
-            :page-sizes="[10, 30, 50, 100]"
-            :total="total"
-            @current-change="handleCurrentChange"
-            @size-change="handleSizeChange"
-            />
-        </div>
+    <div v-for="(value, key, index) in tableData" :key="index">
+      <div class="gva-table-box">
+        <h1>{{ value['title'] }}</h1>
+        <br>
+        <h2>发布时间：{{ formatDate(value['CreatedAt']) }} &nbsp; 更新时间：{{ formatDate(value['UpdatedAt']) }}</h2>
+        <br>
+        <p>{{ value['content'] }}</p>
+      </div>
+      <br>
     </div>
     <!-- <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" label-width="80px">
@@ -283,4 +246,16 @@ const enterDialog = async () => {
 </script>
 
 <style>
+h1 {
+  font-size: 20px;
+  color: #303133;
+}
+h2 {
+  font-size: 14px;
+  color: #606266;
+}
+p {
+  font-size: 14px;
+  color: #606266;
+}
 </style>
