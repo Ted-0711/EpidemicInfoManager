@@ -51,7 +51,17 @@
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="起点区域" prop="start_area" width="120" />
+        <el-table-column align="left" label="风险等级" prop="start_risk_level" width="120" >
+          <template #default="scope">
+            <el-tag :type="getTagType(filterDict(scope.row.start_risk_level, area_risk_levelOptions))"> {{ filterDict(scope.row.start_risk_level, area_risk_levelOptions) }} </el-tag>
+          </template>
+        </el-table-column>
         <el-table-column align="left" label="终点区域" prop="des_area" width="120" />
+        <el-table-column align="left" label="风险等级" prop="des_risk_level" width="120" >
+          <template #default="scope">
+            <el-tag :type="getTagType(filterDict(scope.row.des_risk_level, area_risk_levelOptions))"> {{ filterDict(scope.row.des_risk_level, area_risk_levelOptions) }} </el-tag>
+          </template>
+        </el-table-column>
         <el-table-column align="left" label="出发时间" prop="mig_time" width="120" />
         <el-table-column align="left" label="交通方式" prop="vehicle_type" width="120">
             <template #default="scope">
@@ -142,6 +152,10 @@ import {
   getMigrationList
 } from '@/api/migration'
 
+import {
+  getAreaList
+} from '@/api/area'
+
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
 import { ElMessage, ElMessageBox } from 'element-plus'
@@ -167,6 +181,7 @@ userStore.GetUserInfo().then((res) => {
 // 自动化生成的字典（可能为空）以及字段
 const vehicle_typeOptions = ref([])
 const audit_statusOptions = ref([])
+const area_risk_levelOptions = ref([])
 const formData = ref({
         student_id: '',
         start_area: '',
@@ -183,6 +198,7 @@ const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
 const searchInfo = ref({})
+const areaData = ref([])
 
 // 重置
 const onReset = () => {
@@ -220,6 +236,46 @@ const getTableData = async() => {
     page.value = table.data.page
     pageSize.value = table.data.pageSize
   }
+  // 获取区域风险等级
+  const area = await getAreaList({ page: 1, pageSize: 100, ...ref({}).value })
+  if (area.code === 0) {
+    areaData.value = area.data.list
+  }
+  const areaDict = {}
+  for (let i = 0; i < areaData.value.length; i++) {
+    areaDict[areaData.value[i].area_name] = areaData.value[i].area_risk_level
+  }
+  for (let i = 0, site = ''; i < tableData.value.length; i++) {
+    if (areaDict[tableData.value[i].start_area]) {
+      tableData.value[i].start_risk_level = areaDict[tableData.value[i].start_area]
+    }
+    else {
+      tableData.value[i].start_risk_level = 0
+    }
+    if (areaDict[tableData.value[i].des_area]) {
+      tableData.value[i].des_risk_level = areaDict[tableData.value[i].des_area]
+    }
+    else {
+      tableData.value[i].des_risk_level = 0
+    }
+  }
+  // console.log(tableData.value)
+}
+
+// 获取标签类型
+const getTagType = (risk_level) => {
+  switch(risk_level) {
+    case '无风险':
+      return 'success'
+    case '低风险':
+      return 'info'
+    case '中风险':
+      return 'warning'
+    case '高风险':
+      return 'danger'
+    default:
+      return ''
+  }
 }
 
 getTableData()
@@ -230,6 +286,7 @@ getTableData()
 const setOptions = async () =>{
     vehicle_typeOptions.value = await getDictFunc('vehicle_type')
     audit_statusOptions.value = await getDictFunc('audit_status')
+    area_risk_levelOptions.value = await getDictFunc('area_risk_level')
 }
 
 // 获取需要的字典 可能为空 按需保留
