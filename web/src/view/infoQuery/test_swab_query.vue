@@ -3,7 +3,7 @@
     <div class="gva-search-box">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
         <el-form-item label="学号">
-          <el-input v-model="searchInfo.student_id" placeholder="搜索条件" disabled="isStudent" />
+          <el-input v-model="searchInfo.student_id" placeholder="搜索条件" :disabled="studentInfo.isStudent" />
         </el-form-item>
         <el-form-item label="检测机构">
           <el-input v-model="searchInfo.facility" placeholder="搜索条件" />
@@ -84,7 +84,7 @@
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" disabled="isStudent" />
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" :disabled="studentInfo.isStudent" />
         </el-form-item>
         <el-form-item label="检测机构:">
           <el-select v-model="formData.facility" placeholder="请选择" style="width:100%" clearable>
@@ -139,16 +139,18 @@ import { ref } from 'vue'
 import CustomPic from '@/components/customPic/index.vue'
 import { useUserStore } from '@/pinia/modules/user'
 const userStore = useUserStore()
-let isStudent = false
-let studentId = ''
+const studentInfo = {
+  isStudent: false,
+  studentId: ''
+}
 userStore.GetUserInfo().then((res) => {
   if (res['data']['userInfo']['authorityId'] == 9990) {
-    isStudent = true
-    studentId = res['data']['userInfo']['userName']
-    searchInfo._value['student_id'] = studentId
-    formData._value['student_id'] = studentId
+    studentInfo.isStudent = true
+    studentInfo.studentId = res['data']['userInfo']['userName']
+    searchInfo._value['student_id'] = studentInfo.studentId
+    formData._value['student_id'] = studentInfo.studentId
     onSubmit()
-    // console.log('Is Student, id: ', studentId)
+    // console.log('Is Student, id: ', studentInfo.studentId)
   }
 })
 
@@ -174,8 +176,8 @@ const searchInfo = ref({})
 // 重置
 const onReset = () => {
   searchInfo.value = {}
-  if (isStudent) {
-    searchInfo._value['student_id'] = studentId
+  if (studentInfo.isStudent) {
+    searchInfo._value['student_id'] = studentInfo.studentId
   }
 }
 
