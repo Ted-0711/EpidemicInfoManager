@@ -61,7 +61,7 @@
         <el-table-column align="left" label="问题5" prop="qtn_q5" width="240" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
-            <el-button type="text" icon="search" size="small" class="table-button" @click="searchQuestionnaireFunc(scope.row)">填写情况</el-button>
+            <el-button type="text" icon="finished" size="small" class="table-button" @click="searchQuestionnaireFunc(scope.row)">填写情况</el-button>
             <el-button type="text" icon="edit" size="small" class="table-button" @click="updateQuestionnaireFunc(scope.row)">变更</el-button>
             <el-button type="text" icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
             </template>
@@ -87,9 +87,6 @@
 					</el-form-item>
 					<el-form-item label="问卷编号">
 						<el-input v-model="fSearchInfo.qtn_id" placeholder="搜索条件" disabled />
-					</el-form-item>
-					<el-form-item label="时间">
-						<el-input v-model="fSearchInfo.fill_in_time" placeholder="搜索条件" />
 					</el-form-item>
 					<el-form-item label="回答1">
 						<el-input v-model="fSearchInfo.fill_in_a1" placeholder="搜索条件" />

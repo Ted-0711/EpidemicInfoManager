@@ -27,19 +27,6 @@
       </el-form>
     </div>
     <div class="gva-table-box">
-        <div class="gva-btn-list">
-            <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
-            <el-popover v-model:visible="deleteVisible" placement="top" width="160">
-            <p>确定要删除吗？</p>
-            <div style="text-align: right; margin-top: 8px;">
-                <el-button size="small" type="text" @click="deleteVisible = false">取消</el-button>
-                <el-button size="small" type="primary" @click="onDelete">确定</el-button>
-            </div>
-            <template #reference>
-                <el-button icon="delete" size="small" style="margin-left: 10px;" :disabled="!multipleSelection.length" @click="deleteVisible = true">删除</el-button>
-            </template>
-            </el-popover>
-        </div>
         <el-table
         ref="multipleTable"
         style="width: 100%"
@@ -49,10 +36,10 @@
         @selection-change="handleSelectionChange"
         >
         <el-table-column type="selection" width="55" />
-        <el-table-column align="left" label="日期" width="180">
+        <el-table-column align="left" label="日期" width="120">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="标题" prop="qtn_title" width="120" />
+        <el-table-column align="left" label="标题" prop="qtn_title" width="180" />
         <el-table-column align="left" label="截止时间" prop="qtn_deadline" width="120" />
         <el-table-column align="left" label="问题1" prop="qtn_q1" width="240" />
         <el-table-column align="left" label="问题2" prop="qtn_q2" width="240" />
@@ -61,9 +48,7 @@
         <el-table-column align="left" label="问题5" prop="qtn_q5" width="240" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
-            <el-button type="text" icon="search" size="small" class="table-button" @click="searchQuestionnaireFunc(scope.row)">填写情况</el-button>
-            <el-button type="text" icon="edit" size="small" class="table-button" @click="updateQuestionnaireFunc(scope.row)">变更</el-button>
-            <el-button type="text" icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
+            <el-button type="text" icon="finished" size="small" class="table-button" @click="updateFill_inFunc(scope.row)">填写情况</el-button>
             </template>
         </el-table-column>
         </el-table>
@@ -79,74 +64,34 @@
             />
         </div>
     </div>
-		<el-dialog v-model="fTableVisible" :before-close="closeTable" title="问卷填写情况">
-      <div class="gva-search-box">
-				<el-form :inline="true" :model="fSearchInfo" class="demo-form-inline">
-					<el-form-item label="学号">
-						<el-input v-model="fSearchInfo.student_id" placeholder="搜索条件" />
-					</el-form-item>
-					<el-form-item label="问卷编号">
-						<el-input v-model="fSearchInfo.qtn_id" placeholder="搜索条件" disabled />
-					</el-form-item>
-					<el-form-item label="时间">
-						<el-input v-model="fSearchInfo.fill_in_time" placeholder="搜索条件" />
-					</el-form-item>
-					<el-form-item label="回答1">
-						<el-input v-model="fSearchInfo.fill_in_a1" placeholder="搜索条件" />
-					</el-form-item>
-					<el-form-item label="回答2">
-						<el-input v-model="fSearchInfo.fill_in_a2" placeholder="搜索条件" />
-					</el-form-item>
-					<el-form-item label="回答3">
-						<el-input v-model="fSearchInfo.fill_in_a3" placeholder="搜索条件" />
-					</el-form-item>
-					<el-form-item label="回答4">
-						<el-input v-model="fSearchInfo.fill_in_a4" placeholder="搜索条件" />
-					</el-form-item>
-					<el-form-item label="回答5">
-						<el-input v-model="fSearchInfo.fill_in_a5" placeholder="搜索条件" />
-					</el-form-item>
-					<el-form-item>
-						<el-button size="small" type="primary" icon="search" @click="fOnSubmit">查询</el-button>
-						<el-button size="small" icon="refresh" @click="fOnReset">重置</el-button>
-					</el-form-item>
-				</el-form>
-			</div>
-			<div class="gva-table-box">
-					<el-table
-					ref="multipleTable"
-					style="width: 100%"
-					tooltip-effect="dark"
-					:data="fTableData"
-					row-key="ID"
-					>
-					<el-table-column align="left" label="日期" width="180">
-							<template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
-					</el-table-column>
-					<el-table-column align="left" label="学号" prop="student_id" width="120" />
-					<el-table-column align="left" label="问卷编号" prop="qtn_id" width="120" />
-					<el-table-column align="left" label="时间" prop="fill_in_time" width="120" />
-					<el-table-column align="left" label="回答1" prop="fill_in_a1" width="120" />
-					<el-table-column align="left" label="回答2" prop="fill_in_a2" width="120" />
-					<el-table-column align="left" label="回答3" prop="fill_in_a3" width="120" />
-					<el-table-column align="left" label="回答4" prop="fill_in_a4" width="120" />
-					<el-table-column align="left" label="回答5" prop="fill_in_a5" width="120" />
-					</el-table>
-					<div class="gva-pagination">
-							<el-pagination
-							layout="total, sizes, prev, pager, next, jumper"
-							:current-page="fPage"
-							:page-size="fPageSize"
-							:page-sizes="[10, 30, 50, 100]"
-							:total="total"
-							@current-change="handleCurrentChange"
-							@size-change="handleSizeChange"
-							/>
-					</div>
-			</div>
+		<el-dialog v-model="fDialogFormVisible" :before-close="fCloseDialog" title="问卷填写信息">
+      <el-form :model="fFormData" label-position="right" label-width="80px">
+        <el-form-item label="学号:">
+          <el-input v-model="fFormData.student_id" clearable placeholder="请输入" disabled />
+        </el-form-item>
+        <el-form-item label="问卷编号:">
+          <el-input v-model.number="fFormData.qtn_id" clearable placeholder="请输入" disabled />
+        </el-form-item>
+        <el-form-item label="回答1:">
+          <el-input v-model="fFormData.fill_in_a1" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="回答2:">
+          <el-input v-model="fFormData.fill_in_a2" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="回答3:">
+          <el-input v-model="fFormData.fill_in_a3" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="回答4:">
+          <el-input v-model="fFormData.fill_in_a4" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="回答5:">
+          <el-input v-model="fFormData.fill_in_a5" clearable placeholder="请输入" />
+        </el-form-item>
+      </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button size="small" @click="closeTable">取 消</el-button>
+          <el-button size="small" @click="fCloseDialog">取 消</el-button>
+          <el-button size="small" type="primary" @click="fEnterDialog">确 定</el-button>
         </div>
       </template>
     </el-dialog>
@@ -201,6 +146,11 @@ import {
 } from '@/api/questionnaire'
 
 import {
+  createFill_in,
+  deleteFill_in,
+  deleteFill_inByIds,
+  updateFill_in,
+  findFill_in,
   getFill_inList
 } from '@/api/fill_in'
 
@@ -208,6 +158,26 @@ import {
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
+import { useUserStore } from '@/pinia/modules/user'
+const userStore = useUserStore()
+const studentInfo = {
+  isStudent: false,
+  studentId: ''
+}
+userStore.GetUserInfo().then((res) => {
+  if (res['data']['userInfo']['authorityId'] == 9990) {
+    studentInfo.isStudent = true
+    studentInfo.studentId = res['data']['userInfo']['userName']
+    fSearchInfo._value['student_id'] = studentInfo.studentId
+    fFormData._value['student_id'] = studentInfo.studentId
+    // console.log('Is Student, id: ', studentInfo.studentId)
+  }
+	else {
+    studentInfo.studentId = res['data']['userInfo']['userName']
+    fSearchInfo._value['student_id'] = studentInfo.studentId
+    fFormData._value['student_id'] = studentInfo.studentId
+	}
+})
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
@@ -218,6 +188,15 @@ const formData = ref({
         qtn_q3: '',
         qtn_q4: '',
         qtn_q5: '',
+        })
+const fFormData = ref({
+        student_id: '',
+        qtn_id: 0,
+        fill_in_a1: '',
+        fill_in_a2: '',
+        fill_in_a3: '',
+        fill_in_a4: '',
+        fill_in_a5: '',
         })
 
 // =========== 表格控制部分 ===========
@@ -269,41 +248,6 @@ const getTableData = async() => {
 }
 
 getTableData()
-
-// 重置
-const fOnReset = () => {
-  fSearchInfo.value = {}
-}
-
-// 搜索
-const fOnSubmit = () => {
-  fPage.value = 1
-  fPageSize.value = 10
-  fGetTableData()
-}
-
-// 分页
-const fHandleSizeChange = (val) => {
-  fPageSize.value = val
-  fGetTableData()
-}
-
-// 修改页面容量
-const fHandleCurrentChange = (val) => {
-  fPage.value = val
-  fGetTableData()
-}
-
-// 查询
-const fGetTableData = async() => {
-  const table = await getFill_inList({ page: fPage.value, pageSize: fPageSize.value, ...fSearchInfo.value })
-  if (table.code === 0) {
-    fTableData.value = table.data.list
-    fTotal.value = table.data.total
-    fPage.value = table.data.page
-    fPageSize.value = table.data.pageSize
-  }
-}
 
 // ============== 表格控制部分结束 ===============
 
@@ -367,17 +311,7 @@ const onDelete = async() => {
 
 // 行为控制标记（弹窗内部需要增还是改）
 const type = ref('')
-
-// 查看行详细信息
-const searchQuestionnaireFunc = async(row) => {
-    const res = await findQuestionnaire({ ID: row.ID })
-    if (res.code === 0) {
-				fSearchInfo.value.qtn_id = row.ID
-				console.log(fSearchInfo)
-				fGetTableData()
-				fTableVisible.value = true
-		}
-}
+const fType = ref('')
 
 // 更新行
 const updateQuestionnaireFunc = async(row) => {
@@ -407,6 +341,7 @@ const deleteQuestionnaireFunc = async (row) => {
 
 // 弹窗控制标记
 const dialogFormVisible = ref(false)
+const fDialogFormVisible = ref(false)
 
 // 打开弹窗
 const openDialog = () => {
@@ -451,11 +386,68 @@ const enterDialog = async () => {
       }
 }
 
-const fTableVisible = ref(false)
+// 查看问卷填写信息
+const updateFill_inFunc = async(row) => {
+		fSearchInfo.value.qtn_id = row.ID
+		// console.log(fSearchInfo)
+		const res = await getFill_inList({ page: 1, pageSize: 1, ...fSearchInfo.value })
+		// console.log('res', res.data.list[0])
+		if (res.code === 0) {
+			fFormData.value.qtn_id = row.ID
+			if (res.data.list.length === 1) {
+				fType.value = 'update'
+				fFormData.value.ID = res.data.list[0].ID
+				fFormData.value.fill_in_a1 = res.data.list[0].fill_in_a1
+				fFormData.value.fill_in_a2 = res.data.list[0].fill_in_a2
+				fFormData.value.fill_in_a3 = res.data.list[0].fill_in_a3
+				fFormData.value.fill_in_a4 = res.data.list[0].fill_in_a4
+				fFormData.value.fill_in_a5 = res.data.list[0].fill_in_a5
+			}
+			else {
+				fType.value = 'create'
+			}
+			// console.log('fType.value:', fType.value)
+			fDialogFormVisible.value = true
+		}
+}
 
 // 关闭弹窗
-const closeTable = () => {
-    fTableVisible.value = false
+const fCloseDialog = () => {
+    fDialogFormVisible.value = false
+		fSearchInfo.value = { student_id: studentInfo.studentId }
+    fFormData.value = {
+        student_id: studentInfo.studentId,
+        qtn_id: 0,
+        fill_in_time: new Date(),
+        fill_in_a1: '',
+        fill_in_a2: '',
+        fill_in_a3: '',
+        fill_in_a4: '',
+        fill_in_a5: '',
+        }
+}
+// 弹窗确定
+const fEnterDialog = async () => {
+      let res
+			console.log('fType.value:', fType.value)
+      switch (fType.value) {
+        case 'create':
+          res = await createFill_in(fFormData.value)
+          break
+        case 'update':
+          res = await updateFill_in(fFormData.value)
+          break
+        default:
+          res = await createFill_in(fFormData.value)
+          break
+      }
+      if (res.code === 0) {
+        ElMessage({
+          type: 'success',
+          message: '创建/更改成功'
+        })
+        fCloseDialog()
+      }
 }
 </script>
 

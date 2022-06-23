@@ -8,6 +8,9 @@
         <el-form-item label="问卷编号">
           <el-input v-model="searchInfo.qtn_id" placeholder="搜索条件" />
         </el-form-item>
+        <el-form-item label="时间">
+          <el-input v-model="searchInfo.fill_in_time" placeholder="搜索条件" />
+        </el-form-item>
         <el-form-item label="回答1">
           <el-input v-model="searchInfo.fill_in_a1" placeholder="搜索条件" />
         </el-form-item>
@@ -57,6 +60,7 @@
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="问卷编号" prop="qtn_id" width="120" />
+        <el-table-column align="left" label="时间" prop="fill_in_time" width="120" />
         <el-table-column align="left" label="回答1" prop="fill_in_a1" width="120" />
         <el-table-column align="left" label="回答2" prop="fill_in_a2" width="120" />
         <el-table-column align="left" label="回答3" prop="fill_in_a3" width="120" />
@@ -88,6 +92,9 @@
         </el-form-item>
         <el-form-item label="问卷编号:">
           <el-input v-model.number="formData.qtn_id" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="时间:">
+          <el-date-picker v-model="formData.fill_in_time" type="date" style="width:100%" placeholder="选择日期" clearable />
         </el-form-item>
         <el-form-item label="回答1:">
           <el-input v-model="formData.fill_in_a1" clearable placeholder="请输入" />
@@ -140,6 +147,7 @@ import { ref } from 'vue'
 const formData = ref({
         student_id: '',
         qtn_id: 0,
+        fill_in_time: new Date(),
         fill_in_a1: '',
         fill_in_a2: '',
         fill_in_a3: '',
@@ -295,6 +303,7 @@ const closeDialog = () => {
     formData.value = {
         student_id: '',
         qtn_id: 0,
+        fill_in_time: new Date(),
         fill_in_a1: '',
         fill_in_a2: '',
         fill_in_a3: '',

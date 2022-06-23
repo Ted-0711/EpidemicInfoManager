@@ -60,6 +60,9 @@ func (fill_inService *Fill_inService)GetFill_inInfoList(info EpidemicInfoReq.Fil
     if info.Qtn_id != nil {
         db = db.Where("qtn_id = ?",info.Qtn_id)
     }
+    if info.Fill_in_time != nil {
+         db = db.Where("fill_in_time = ?",info.Fill_in_time)
+    }
     if info.Fill_in_a1 != "" {
         db = db.Where("fill_in_a1 LIKE ?","%"+ info.Fill_in_a1+"%")
     }

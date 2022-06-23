@@ -8,6 +8,9 @@
         <el-form-item label="问卷编号:">
           <el-input v-model.number="formData.qtn_id" clearable placeholder="请输入" />
         </el-form-item>
+        <el-form-item label="时间:">
+          <el-date-picker v-model="formData.fill_in_time" type="date" placeholder="选择日期" clearable></el-date-picker>
+        </el-form-item>
         <el-form-item label="回答1:">
           <el-input v-model="formData.fill_in_a1" clearable placeholder="请输入" />
         </el-form-item>
@@ -56,6 +59,7 @@ const type = ref('')
 const formData = ref({
         student_id: '',
         qtn_id: 0,
+        fill_in_time: new Date(),
         fill_in_a1: '',
         fill_in_a2: '',
         fill_in_a3: '',

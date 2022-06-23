@@ -140,7 +140,7 @@ userStore.GetUserInfo().then((res) => {
     searchInfo._value['student_id'] = studentInfo.studentId
     formData._value['student_id'] = studentInfo.studentId
     onSubmit()
-    console.log('Is Student, id: ', studentInfo.studentId)
+    // console.log('Is Student, id: ', studentInfo.studentId)
   }
 })
 
