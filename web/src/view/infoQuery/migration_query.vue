@@ -174,7 +174,7 @@ const formData = ref({
         mig_time: new Date(),
         vehicle_type: undefined,
         screenshot_url: '',
-        audit_status: undefined,
+        audit_status: 0,
         })
 
 // =========== 表格控制部分 ===========

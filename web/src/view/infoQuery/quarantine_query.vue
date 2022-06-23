@@ -5,8 +5,14 @@
         <el-form-item label="学号">
           <el-input v-model="searchInfo.student_id" placeholder="搜索条件" :disabled="studentInfo.isStudent" />
         </el-form-item>
-        <el-form-item label="隔离点编号">
-          <el-input v-model="searchInfo.quar_site_id" placeholder="搜索条件" />
+        <el-form-item label="起始日期">
+          <el-input v-model="searchInfo.quar_start_date" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="结束日期">
+          <el-input v-model="searchInfo.quar_end_date" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="隔离点">
+          <el-input v-model="searchInfo.quar_site" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -42,7 +48,8 @@
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="起始日期" prop="quar_start_date" width="120" />
-        <el-table-column align="left" label="隔离点编号" prop="quar_site_id" width="120" />
+        <el-table-column align="left" label="结束日期" prop="quar_end_date" width="120" />
+        <el-table-column align="left" label="隔离点" prop="quar_site" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="text" icon="edit" size="small" class="table-button" @click="updateQuarantineFunc(scope.row)">变更</el-button>
@@ -70,8 +77,11 @@
         <el-form-item label="起始日期:">
           <el-date-picker v-model="formData.quar_start_date" type="date" style="width:100%" placeholder="选择日期" clearable />
         </el-form-item>
-        <el-form-item label="隔离点编号:">
-          <el-input v-model.number="formData.quar_site_id" clearable placeholder="请输入" />
+        <el-form-item label="结束日期:">
+          <el-date-picker v-model="formData.quar_end_date" type="date" style="width:100%" placeholder="选择日期" clearable />
+        </el-form-item>
+        <el-form-item label="隔离点:">
+          <el-input v-model="formData.quar_site" clearable placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -125,7 +135,8 @@ userStore.GetUserInfo().then((res) => {
 const formData = ref({
         student_id: '',
         quar_start_date: new Date(),
-        quar_site_id: 0,
+        quar_end_date: new Date(),
+        quar_site: '',
         })
 
 // =========== 表格控制部分 ===========
@@ -279,7 +290,8 @@ const closeDialog = () => {
     formData.value = {
         student_id: '',
         quar_start_date: new Date(),
-        quar_site_id: 0,
+        quar_end_date: new Date(),
+        quar_site: '',
         }
 }
 // 弹窗确定
