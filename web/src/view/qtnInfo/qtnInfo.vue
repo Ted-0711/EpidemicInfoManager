@@ -370,7 +370,7 @@ const searchQuestionnaireFunc = async(row) => {
     const res = await findQuestionnaire({ ID: row.ID })
     if (res.code === 0) {
 				fSearchInfo.value.qtn_id = row.ID
-				console.log(fSearchInfo)
+				// console.log(fSearchInfo)
 				fGetTableData()
 				fTableVisible.value = true
 		}

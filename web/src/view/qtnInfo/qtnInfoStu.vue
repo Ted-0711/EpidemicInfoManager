@@ -65,6 +65,16 @@
         </div>
     </div>
 		<el-dialog v-model="fDialogFormVisible" :before-close="fCloseDialog" title="问卷填写信息">
+      <el-popover
+        placement="top-start"
+        title="标题"
+        width="200"
+        trigger="hover"
+        content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+        <template v-slot:reference>
+          <el-button>hover 激活</el-button>
+        </template>
+      </el-popover>
       <el-form :model="fFormData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
           <el-input v-model="fFormData.student_id" clearable placeholder="请输入" disabled />
@@ -388,6 +398,12 @@ const enterDialog = async () => {
 
 // 查看问卷填写信息
 const updateFill_inFunc = async(row) => {
+    // 记录问卷信息
+    const qRes = await findQuestionnaire({ ID: row.ID })
+    if (qRes.code === 0) {
+      formData.value = qRes.data.requestionnaire
+    }
+    // 搜索填写记录
 		fSearchInfo.value.qtn_id = row.ID
 		// console.log(fSearchInfo)
 		const res = await getFill_inList({ page: 1, pageSize: 1, ...fSearchInfo.value })
@@ -414,6 +430,17 @@ const updateFill_inFunc = async(row) => {
 // 关闭弹窗
 const fCloseDialog = () => {
     fDialogFormVisible.value = false
+    // 重置问卷信息
+    formData.value = {
+        qtn_title: '',
+        qtn_deadline: new Date(),
+        qtn_q1: '',
+        qtn_q2: '',
+        qtn_q3: '',
+        qtn_q4: '',
+        qtn_q5: '',
+        }
+    // 重置填写记录信息
 		fSearchInfo.value = { student_id: studentInfo.studentId }
     fFormData.value = {
         student_id: studentInfo.studentId,
