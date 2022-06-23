@@ -11,17 +11,8 @@
         <el-form-item label="时间:">
           <el-date-picker v-model="formData.fill_in_time" type="date" placeholder="选择日期" clearable></el-date-picker>
         </el-form-item>
-        <el-form-item label="回答1:">
-          <el-input v-model="formData.fill_in_a1" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="回答2:">
-          <el-input v-model="formData.fill_in_a2" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="回答3:">
-          <el-input v-model="formData.fill_in_a3" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="回答4:">
-          <el-input v-model="formData.fill_in_a4" clearable placeholder="请输入" />
+        <el-form-item label="内容:">
+          <el-input v-model="formData.fill_in_content" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
@@ -57,10 +48,7 @@ const formData = ref({
         student_id: '',
         qtn_id: 0,
         fill_in_time: new Date(),
-        fill_in_a1: '',
-        fill_in_a2: '',
-        fill_in_a3: '',
-        fill_in_a4: '',
+        fill_in_content: '',
         })
 
 // 初始化方法

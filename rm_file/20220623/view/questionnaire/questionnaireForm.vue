@@ -2,26 +2,14 @@
   <div>
     <div class="gva-form-box">
       <el-form :model="formData" label-position="right" label-width="80px">
-        <el-form-item label="学号:">
-          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
+        <el-form-item label="标题:">
+          <el-input v-model="formData.qtn_title" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="问卷编号:">
-          <el-input v-model.number="formData.qtn_id" clearable placeholder="请输入" />
+        <el-form-item label="内容:">
+          <el-input v-model="formData.qtn_content" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="时间:">
-          <el-date-picker v-model="formData.fill_in_time" type="date" placeholder="选择日期" clearable></el-date-picker>
-        </el-form-item>
-        <el-form-item label="回答1:">
-          <el-input v-model="formData.fill_in_a1" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="回答2:">
-          <el-input v-model="formData.fill_in_a2" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="回答3:">
-          <el-input v-model="formData.fill_in_a3" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="回答4:">
-          <el-input v-model="formData.fill_in_a4" clearable placeholder="请输入" />
+        <el-form-item label="截止时间:">
+          <el-date-picker v-model="formData.qtn_deadline" type="date" placeholder="选择日期" clearable></el-date-picker>
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
@@ -34,16 +22,16 @@
 
 <script>
 export default {
-  name: 'Fill_in'
+  name: 'Questionnaire'
 }
 </script>
 
 <script setup>
 import {
-  createFill_in,
-  updateFill_in,
-  findFill_in
-} from '@/api/fill_in'
+  createQuestionnaire,
+  updateQuestionnaire,
+  findQuestionnaire
+} from '@/api/questionnaire'
 
 // 自动获取字典
 import { getDictFunc } from '@/utils/format'
@@ -54,22 +42,18 @@ const route = useRoute()
 const router = useRouter()
 const type = ref('')
 const formData = ref({
-        student_id: '',
-        qtn_id: 0,
-        fill_in_time: new Date(),
-        fill_in_a1: '',
-        fill_in_a2: '',
-        fill_in_a3: '',
-        fill_in_a4: '',
+        qtn_title: '',
+        qtn_content: '',
+        qtn_deadline: new Date(),
         })
 
 // 初始化方法
 const init = async () => {
  // 建议通过url传参获取目标数据ID 调用 find方法进行查询数据操作 从而决定本页面是create还是update 以下为id作为url参数示例
     if (route.query.id) {
-      const res = await findFill_in({ ID: route.query.id })
+      const res = await findQuestionnaire({ ID: route.query.id })
       if (res.code === 0) {
-        formData.value = res.data.refill_in
+        formData.value = res.data.requestionnaire
         type.value = 'update'
       }
     } else {
@@ -83,13 +67,13 @@ const save = async() => {
       let res
       switch (type.value) {
         case 'create':
-          res = await createFill_in(formData.value)
+          res = await createQuestionnaire(formData.value)
           break
         case 'update':
-          res = await updateFill_in(formData.value)
+          res = await updateQuestionnaire(formData.value)
           break
         default:
-          res = await createFill_in(formData.value)
+          res = await createQuestionnaire(formData.value)
           break
       }
       if (res.code === 0) {

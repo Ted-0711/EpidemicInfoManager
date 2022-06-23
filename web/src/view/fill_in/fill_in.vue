@@ -8,8 +8,17 @@
         <el-form-item label="问卷编号">
           <el-input v-model="searchInfo.qtn_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="内容">
-          <el-input v-model="searchInfo.fill_in_content" placeholder="搜索条件" />
+        <el-form-item label="回答1">
+          <el-input v-model="searchInfo.fill_in_a1" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="回答2">
+          <el-input v-model="searchInfo.fill_in_a2" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="回答3">
+          <el-input v-model="searchInfo.fill_in_a3" placeholder="搜索条件" />
+        </el-form-item>
+        <el-form-item label="回答4">
+          <el-input v-model="searchInfo.fill_in_a4" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -46,7 +55,10 @@
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
         <el-table-column align="left" label="问卷编号" prop="qtn_id" width="120" />
         <el-table-column align="left" label="时间" prop="fill_in_time" width="120" />
-        <el-table-column align="left" label="内容" prop="fill_in_content" width="120" />
+        <el-table-column align="left" label="回答1" prop="fill_in_a1" width="120" />
+        <el-table-column align="left" label="回答2" prop="fill_in_a2" width="120" />
+        <el-table-column align="left" label="回答3" prop="fill_in_a3" width="120" />
+        <el-table-column align="left" label="回答4" prop="fill_in_a4" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="text" icon="edit" size="small" class="table-button" @click="updateFill_inFunc(scope.row)">变更</el-button>
@@ -77,8 +89,17 @@
         <el-form-item label="时间:">
           <el-date-picker v-model="formData.fill_in_time" type="date" style="width:100%" placeholder="选择日期" clearable />
         </el-form-item>
-        <el-form-item label="内容:">
-          <el-input v-model="formData.fill_in_content" clearable placeholder="请输入" />
+        <el-form-item label="回答1:">
+          <el-input v-model="formData.fill_in_a1" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="回答2:">
+          <el-input v-model="formData.fill_in_a2" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="回答3:">
+          <el-input v-model="formData.fill_in_a3" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="回答4:">
+          <el-input v-model="formData.fill_in_a4" clearable placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -117,7 +138,10 @@ const formData = ref({
         student_id: '',
         qtn_id: 0,
         fill_in_time: new Date(),
-        fill_in_content: '',
+        fill_in_a1: '',
+        fill_in_a2: '',
+        fill_in_a3: '',
+        fill_in_a4: '',
         })
 
 // =========== 表格控制部分 ===========
@@ -269,7 +293,10 @@ const closeDialog = () => {
         student_id: '',
         qtn_id: 0,
         fill_in_time: new Date(),
-        fill_in_content: '',
+        fill_in_a1: '',
+        fill_in_a2: '',
+        fill_in_a3: '',
+        fill_in_a4: '',
         }
 }
 // 弹窗确定

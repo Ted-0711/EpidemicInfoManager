@@ -57,20 +57,8 @@ func (questionnaireService *QuestionnaireService)GetQuestionnaireInfoList(info E
     if info.Qtn_title != "" {
         db = db.Where("qtn_title LIKE ?","%"+ info.Qtn_title+"%")
     }
-    if info.Qtn_q1 != "" {
-        db = db.Where("qtn_q1 LIKE ?","%"+ info.Qtn_q1+"%")
-    }
-    if info.Qtn_q2 != "" {
-        db = db.Where("qtn_q2 LIKE ?","%"+ info.Qtn_q2+"%")
-    }
-    if info.Qtn_q3 != "" {
-        db = db.Where("qtn_q3 LIKE ?","%"+ info.Qtn_q3+"%")
-    }
-    if info.Qtn_q4 != "" {
-        db = db.Where("qtn_q4 LIKE ?","%"+ info.Qtn_q4+"%")
-    }
-    if info.Qtn_q5 != "" {
-        db = db.Where("qtn_q5 LIKE ?","%"+ info.Qtn_q5+"%")
+    if info.Qtn_content != "" {
+        db = db.Where("qtn_content LIKE ?","%"+ info.Qtn_content+"%")
     }
 	err = db.Count(&total).Error
 	if err!=nil {

@@ -5,20 +5,8 @@
         <el-form-item label="标题">
           <el-input v-model="searchInfo.qtn_title" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="问题1">
-          <el-input v-model="searchInfo.qtn_q1" placeholder="搜索条件" />
-        </el-form-item>
-        <el-form-item label="问题2">
-          <el-input v-model="searchInfo.qtn_q2" placeholder="搜索条件" />
-        </el-form-item>
-        <el-form-item label="问题3">
-          <el-input v-model="searchInfo.qtn_q3" placeholder="搜索条件" />
-        </el-form-item>
-        <el-form-item label="问题4">
-          <el-input v-model="searchInfo.qtn_q4" placeholder="搜索条件" />
-        </el-form-item>
-        <el-form-item label="问题5">
-          <el-input v-model="searchInfo.qtn_q5" placeholder="搜索条件" />
+        <el-form-item label="内容">
+          <el-input v-model="searchInfo.qtn_content" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -53,12 +41,8 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="标题" prop="qtn_title" width="120" />
+        <el-table-column align="left" label="内容" prop="qtn_content" width="120" />
         <el-table-column align="left" label="截止时间" prop="qtn_deadline" width="120" />
-        <el-table-column align="left" label="问题1" prop="qtn_q1" width="120" />
-        <el-table-column align="left" label="问题2" prop="qtn_q2" width="120" />
-        <el-table-column align="left" label="问题3" prop="qtn_q3" width="120" />
-        <el-table-column align="left" label="问题4" prop="qtn_q4" width="120" />
-        <el-table-column align="left" label="问题5" prop="qtn_q5" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="text" icon="edit" size="small" class="table-button" @click="updateQuestionnaireFunc(scope.row)">变更</el-button>
@@ -83,23 +67,11 @@
         <el-form-item label="标题:">
           <el-input v-model="formData.qtn_title" clearable placeholder="请输入" />
         </el-form-item>
+        <el-form-item label="内容:">
+          <el-input v-model="formData.qtn_content" clearable placeholder="请输入" />
+        </el-form-item>
         <el-form-item label="截止时间:">
           <el-date-picker v-model="formData.qtn_deadline" type="date" style="width:100%" placeholder="选择日期" clearable />
-        </el-form-item>
-        <el-form-item label="问题1:">
-          <el-input v-model="formData.qtn_q1" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="问题2:">
-          <el-input v-model="formData.qtn_q2" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="问题3:">
-          <el-input v-model="formData.qtn_q3" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="问题4:">
-          <el-input v-model="formData.qtn_q4" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="问题5:">
-          <el-input v-model="formData.qtn_q5" clearable placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -136,12 +108,8 @@ import { ref } from 'vue'
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
         qtn_title: '',
+        qtn_content: '',
         qtn_deadline: new Date(),
-        qtn_q1: '',
-        qtn_q2: '',
-        qtn_q3: '',
-        qtn_q4: '',
-        qtn_q5: '',
         })
 
 // =========== 表格控制部分 ===========
@@ -291,12 +259,8 @@ const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
         qtn_title: '',
+        qtn_content: '',
         qtn_deadline: new Date(),
-        qtn_q1: '',
-        qtn_q2: '',
-        qtn_q3: '',
-        qtn_q4: '',
-        qtn_q5: '',
         }
 }
 // 弹窗确定

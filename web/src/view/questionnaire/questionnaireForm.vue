@@ -5,11 +5,23 @@
         <el-form-item label="标题:">
           <el-input v-model="formData.qtn_title" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="内容:">
-          <el-input v-model="formData.qtn_content" clearable placeholder="请输入" />
-        </el-form-item>
         <el-form-item label="截止时间:">
           <el-date-picker v-model="formData.qtn_deadline" type="date" placeholder="选择日期" clearable></el-date-picker>
+        </el-form-item>
+        <el-form-item label="问题1:">
+          <el-input v-model="formData.qtn_q1" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="问题2:">
+          <el-input v-model="formData.qtn_q2" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="问题3:">
+          <el-input v-model="formData.qtn_q3" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="问题4:">
+          <el-input v-model="formData.qtn_q4" clearable placeholder="请输入" />
+        </el-form-item>
+        <el-form-item label="问题5:">
+          <el-input v-model="formData.qtn_q5" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="save">保存</el-button>
@@ -43,8 +55,12 @@ const router = useRouter()
 const type = ref('')
 const formData = ref({
         qtn_title: '',
-        qtn_content: '',
         qtn_deadline: new Date(),
+        qtn_q1: '',
+        qtn_q2: '',
+        qtn_q3: '',
+        qtn_q4: '',
+        qtn_q5: '',
         })
 
 // 初始化方法

@@ -2,23 +2,14 @@
   <div>
     <div class="gva-search-box">
       <el-form :inline="true" :model="searchInfo" class="demo-form-inline">
-        <el-form-item label="标题">
-          <el-input v-model="searchInfo.qtn_title" placeholder="搜索条件" />
+        <el-form-item label="学号">
+          <el-input v-model="searchInfo.student_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="问题1">
-          <el-input v-model="searchInfo.qtn_q1" placeholder="搜索条件" />
+        <el-form-item label="问卷编号">
+          <el-input v-model="searchInfo.qtn_id" placeholder="搜索条件" />
         </el-form-item>
-        <el-form-item label="问题2">
-          <el-input v-model="searchInfo.qtn_q2" placeholder="搜索条件" />
-        </el-form-item>
-        <el-form-item label="问题3">
-          <el-input v-model="searchInfo.qtn_q3" placeholder="搜索条件" />
-        </el-form-item>
-        <el-form-item label="问题4">
-          <el-input v-model="searchInfo.qtn_q4" placeholder="搜索条件" />
-        </el-form-item>
-        <el-form-item label="问题5">
-          <el-input v-model="searchInfo.qtn_q5" placeholder="搜索条件" />
+        <el-form-item label="内容">
+          <el-input v-model="searchInfo.fill_in_content" placeholder="搜索条件" />
         </el-form-item>
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -52,16 +43,13 @@
         <el-table-column align="left" label="日期" width="180">
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="标题" prop="qtn_title" width="120" />
-        <el-table-column align="left" label="截止时间" prop="qtn_deadline" width="120" />
-        <el-table-column align="left" label="问题1" prop="qtn_q1" width="120" />
-        <el-table-column align="left" label="问题2" prop="qtn_q2" width="120" />
-        <el-table-column align="left" label="问题3" prop="qtn_q3" width="120" />
-        <el-table-column align="left" label="问题4" prop="qtn_q4" width="120" />
-        <el-table-column align="left" label="问题5" prop="qtn_q5" width="120" />
+        <el-table-column align="left" label="学号" prop="student_id" width="120" />
+        <el-table-column align="left" label="问卷编号" prop="qtn_id" width="120" />
+        <el-table-column align="left" label="时间" prop="fill_in_time" width="120" />
+        <el-table-column align="left" label="内容" prop="fill_in_content" width="120" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
-            <el-button type="text" icon="edit" size="small" class="table-button" @click="updateQuestionnaireFunc(scope.row)">变更</el-button>
+            <el-button type="text" icon="edit" size="small" class="table-button" @click="updateFill_inFunc(scope.row)">变更</el-button>
             <el-button type="text" icon="delete" size="small" @click="deleteRow(scope.row)">删除</el-button>
             </template>
         </el-table-column>
@@ -80,26 +68,17 @@
     </div>
     <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
       <el-form :model="formData" label-position="right" label-width="80px">
-        <el-form-item label="标题:">
-          <el-input v-model="formData.qtn_title" clearable placeholder="请输入" />
+        <el-form-item label="学号:">
+          <el-input v-model="formData.student_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="截止时间:">
-          <el-date-picker v-model="formData.qtn_deadline" type="date" style="width:100%" placeholder="选择日期" clearable />
+        <el-form-item label="问卷编号:">
+          <el-input v-model.number="formData.qtn_id" clearable placeholder="请输入" />
         </el-form-item>
-        <el-form-item label="问题1:">
-          <el-input v-model="formData.qtn_q1" clearable placeholder="请输入" />
+        <el-form-item label="时间:">
+          <el-date-picker v-model="formData.fill_in_time" type="date" style="width:100%" placeholder="选择日期" clearable />
         </el-form-item>
-        <el-form-item label="问题2:">
-          <el-input v-model="formData.qtn_q2" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="问题3:">
-          <el-input v-model="formData.qtn_q3" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="问题4:">
-          <el-input v-model="formData.qtn_q4" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="问题5:">
-          <el-input v-model="formData.qtn_q5" clearable placeholder="请输入" />
+        <el-form-item label="内容:">
+          <el-input v-model="formData.fill_in_content" clearable placeholder="请输入" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -114,19 +93,19 @@
 
 <script>
 export default {
-  name: 'Questionnaire'
+  name: 'Fill_in'
 }
 </script>
 
 <script setup>
 import {
-  createQuestionnaire,
-  deleteQuestionnaire,
-  deleteQuestionnaireByIds,
-  updateQuestionnaire,
-  findQuestionnaire,
-  getQuestionnaireList
-} from '@/api/questionnaire'
+  createFill_in,
+  deleteFill_in,
+  deleteFill_inByIds,
+  updateFill_in,
+  findFill_in,
+  getFill_inList
+} from '@/api/fill_in'
 
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict } from '@/utils/format'
@@ -135,13 +114,10 @@ import { ref } from 'vue'
 
 // 自动化生成的字典（可能为空）以及字段
 const formData = ref({
-        qtn_title: '',
-        qtn_deadline: new Date(),
-        qtn_q1: '',
-        qtn_q2: '',
-        qtn_q3: '',
-        qtn_q4: '',
-        qtn_q5: '',
+        student_id: '',
+        qtn_id: 0,
+        fill_in_time: new Date(),
+        fill_in_content: '',
         })
 
 // =========== 表格控制部分 ===========
@@ -177,7 +153,7 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async() => {
-  const table = await getQuestionnaireList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
+  const table = await getFill_inList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total
@@ -212,7 +188,7 @@ const deleteRow = (row) => {
         cancelButtonText: '取消',
         type: 'warning'
     }).then(() => {
-            deleteQuestionnaireFunc(row)
+            deleteFill_inFunc(row)
         })
     }
 
@@ -234,7 +210,7 @@ const onDelete = async() => {
         multipleSelection.value.map(item => {
           ids.push(item.ID)
         })
-      const res = await deleteQuestionnaireByIds({ ids })
+      const res = await deleteFill_inByIds({ ids })
       if (res.code === 0) {
         ElMessage({
           type: 'success',
@@ -252,19 +228,19 @@ const onDelete = async() => {
 const type = ref('')
 
 // 更新行
-const updateQuestionnaireFunc = async(row) => {
-    const res = await findQuestionnaire({ ID: row.ID })
+const updateFill_inFunc = async(row) => {
+    const res = await findFill_in({ ID: row.ID })
     type.value = 'update'
     if (res.code === 0) {
-        formData.value = res.data.requestionnaire
+        formData.value = res.data.refill_in
         dialogFormVisible.value = true
     }
 }
 
 
 // 删除行
-const deleteQuestionnaireFunc = async (row) => {
-    const res = await deleteQuestionnaire({ ID: row.ID })
+const deleteFill_inFunc = async (row) => {
+    const res = await deleteFill_in({ ID: row.ID })
     if (res.code === 0) {
         ElMessage({
                 type: 'success',
@@ -290,13 +266,10 @@ const openDialog = () => {
 const closeDialog = () => {
     dialogFormVisible.value = false
     formData.value = {
-        qtn_title: '',
-        qtn_deadline: new Date(),
-        qtn_q1: '',
-        qtn_q2: '',
-        qtn_q3: '',
-        qtn_q4: '',
-        qtn_q5: '',
+        student_id: '',
+        qtn_id: 0,
+        fill_in_time: new Date(),
+        fill_in_content: '',
         }
 }
 // 弹窗确定
@@ -304,13 +277,13 @@ const enterDialog = async () => {
       let res
       switch (type.value) {
         case 'create':
-          res = await createQuestionnaire(formData.value)
+          res = await createFill_in(formData.value)
           break
         case 'update':
-          res = await updateQuestionnaire(formData.value)
+          res = await updateFill_in(formData.value)
           break
         default:
-          res = await createQuestionnaire(formData.value)
+          res = await createFill_in(formData.value)
           break
       }
       if (res.code === 0) {
