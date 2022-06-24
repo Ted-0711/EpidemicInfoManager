@@ -44,20 +44,20 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
-        <el-table-column align="left" label="检测机构" prop="facility" width="120">
+        <el-table-column align="left" label="检测机构" prop="facility" width="180">
             <template #default="scope">
             {{ filterDict(scope.row.facility,facilityOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="采样时间" prop="sample_date" width="120" />
-        <el-table-column align="left" label="检测时间" prop="test_date" width="120" />
+        <el-table-column align="left" label="采样时间" prop="sample_date" width="180" />
+        <el-table-column align="left" label="检测时间" prop="test_date" width="180" />
         <el-table-column align="left" label="检测结果" prop="test_result" width="120">
             <template #default="scope">
             {{ filterDict(scope.row.test_result,test_resultOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="截图链接" prop="screenshot_url" width="120" />
-        <el-table-column align="left" label="报告截图" prop="screenshot_url" width="120">
+        <el-table-column align="left" label="截图链接" prop="screenshot_url" width="180" />
+        <el-table-column align="left" label="报告截图" prop="screenshot_url" width="180">
           <template #default="scope">
             <CustomPic pic-type="file" :pic-src="scope.row.screenshot_url"/>
           </template>
@@ -81,7 +81,7 @@
             />
         </div>
     </div>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="创建/更改核酸检测记录">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" :disabled="studentInfo.isStudent" />
@@ -204,6 +204,10 @@ const handleCurrentChange = (val) => {
 const getTableData = async() => {
   const table = await getTest_swabList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
+    // 按照更新时间由近到远排列
+    table.data.list.sort((a, b) => {
+      return new Date(b.UpdatedAt.substr(0, 22)) - new Date(a.UpdatedAt.substr(0, 22))
+    })
     tableData.value = table.data.list
     total.value = table.data.total
     page.value = table.data.page

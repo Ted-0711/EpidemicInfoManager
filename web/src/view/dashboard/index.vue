@@ -336,13 +336,13 @@ export default {
             color: '#ff85c0',
             bg: 'rgba(255, 133, 192,.3)'
           },
-          // {
-          //   label: '问卷填写',
-          //   icon: 'user',
-          //   name: 'about',
-          //   color: '#5cdbd3',
-          //   bg: 'rgba(92, 219, 211,.3)'
-          // }
+          {
+            label: '问卷信息',
+            icon: 'question-filled',
+            name: 'qtnInfoStu',
+            color: '#5cdbd3',
+            bg: 'rgba(92, 219, 211,.3)'
+          }
         ]
       }
       else if (authorityId === '9991') {
@@ -382,13 +382,13 @@ export default {
             color: '#ff85c0',
             bg: 'rgba(255, 133, 192,.3)'
           },
-          // {
-          //   label: '问卷填写',
-          //   icon: 'user',
-          //   name: 'about',
-          //   color: '#5cdbd3',
-          //   bg: 'rgba(92, 219, 211,.3)'
-          // }
+          {
+            label: '问卷信息',
+            icon: 'question-filled',
+            name: 'qtnInfo',
+            color: '#5cdbd3',
+            bg: 'rgba(92, 219, 211,.3)'
+          }
         ]
       }
     })

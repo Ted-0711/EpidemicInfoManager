@@ -47,15 +47,15 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
-        <el-table-column align="left" label="打卡日期" prop="clock_in_date" width="120" />
-        <el-table-column align="left" label="所在区域" prop="area_name" width="120" />
+        <el-table-column align="left" label="打卡日期" prop="clock_in_date" width="180" />
+        <el-table-column align="left" label="所在区域" prop="area_name" width="180" />
         <el-table-column align="left" label="风险等级" prop="area_risk_level" width="120" >
           <template #default="scope">
           <el-tag :type="getTagType(filterDict(scope.row.area_risk_level, area_risk_levelOptions))"> {{ filterDict(scope.row.area_risk_level, area_risk_levelOptions) }} </el-tag>
           </template>
         </el-table-column>
         <el-table-column align="left" label="体温" prop="temperature" width="120" />
-        <el-table-column align="left" label="不适症状" prop="symptom" width="120" />
+        <el-table-column align="left" label="不适症状" prop="symptom" width="240" />
         <el-table-column align="left" label="按钮组">
             <template #default="scope">
             <el-button type="text" icon="edit" size="small" class="table-button" @click="updateClock_inFunc(scope.row)">变更</el-button>
@@ -75,7 +75,7 @@
             />
         </div>
     </div>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="创建/更改打卡记录">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" :disabled="studentInfo.isStudent" />
@@ -193,6 +193,10 @@ const handleCurrentChange = (val) => {
 const getTableData = async() => {
   const table = await getClock_inList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
+    // 按照更新时间由近到远排列
+    table.data.list.sort((a, b) => {
+      return new Date(b.UpdatedAt.substr(0, 22)) - new Date(a.UpdatedAt.substr(0, 22))
+    })
     tableData.value = table.data.list
     total.value = table.data.total
     page.value = table.data.page

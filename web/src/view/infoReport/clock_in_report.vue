@@ -18,7 +18,7 @@
           <el-input v-model="formData.symptom" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="save">保存</el-button>
+          <el-button size="mini" type="primary" @click="save">提交</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
           <!-- <el-button size="mini" type="primary" @click="this.getMapCenter">获取中心点</el-button> -->
         </el-form-item>
@@ -90,7 +90,8 @@ export default {
 import {
   createClock_in,
   updateClock_in,
-  findClock_in
+  findClock_in,
+  getClock_inList,
 } from '@/api/clock_in'
 
 // 自动获取字典
@@ -103,6 +104,7 @@ const route = useRoute()
 const router = useRouter()
 const type = ref('')
 const userStore = useUserStore()
+const searchInfo = ref({})
 const formData = ref({
         student_id: '',
         clock_in_date: new Date(),
@@ -111,9 +113,10 @@ const formData = ref({
         symptom: '',
         })
 userStore.GetUserInfo().then((res) => {
-  console.log(res['data']['userInfo']['userName'])
+  // console.log(res['data']['userInfo']['userName'])
   formData._value['student_id'] = res['data']['userInfo']['userName']
-  console.log(formData)
+  searchInfo._value['student_id'] = res['data']['userInfo']['userName']
+  // console.log(formData)
 })
 
 // 初始化方法
@@ -133,24 +136,40 @@ const init = async () => {
 init()
 // 保存按钮
 const save = async() => {
-      let res
-      switch (type.value) {
-        case 'create':
-          res = await createClock_in(formData.value)
-          break
-        case 'update':
-          res = await updateClock_in(formData.value)
-          break
-        default:
-          res = await createClock_in(formData.value)
-          break
-      }
-      if (res.code === 0) {
+    // 避免重复打卡
+    let year = formData.value.clock_in_date.getFullYear()
+    let month = formData.value.clock_in_date.getMonth()
+    let date = formData.value.clock_in_date.getDate()
+    const table = await getClock_inList({ page: 1, pageSize: 10, ...searchInfo.value })
+    // console.log(table.data.list.length)
+    if (table.code === 0 && table.data.list.length > 0) {
+      let d = new Date(table.data.list[table.data.list.length-1].clock_in_date)
+      if (d.getFullYear() === year && d.getMonth() === month && d.getDate() === date) {
         ElMessage({
-          type: 'success',
-          message: '创建/更改成功'
+          type: 'error',
+          message: '请勿重复打卡'
         })
+        return
       }
+    }
+    let res
+    switch (type.value) {
+      case 'create':
+        res = await createClock_in(formData.value)
+        break
+      case 'update':
+        res = await updateClock_in(formData.value)
+        break
+      default:
+        res = await createClock_in(formData.value)
+        break
+    }
+    if (res.code === 0) {
+      ElMessage({
+        type: 'success',
+        message: '打卡成功'
+      })
+    }
 }
 
 // 返回按钮
@@ -165,7 +184,7 @@ geolocation.getCurrentPosition(function (r) {
     let myGeo = new BMap.Geocoder();
     myGeo.getLocation(new BMap.Point(r.point.lng, r.point.lat), function (result) {
       if (result) {
-        console.log(result.address.substr(0, result.address.indexOf('区')+1));
+        // console.log(result.address.substr(0, result.address.indexOf('区')+1));
         formData._value['area_name'] = result.address.substr(0, result.address.indexOf('区')+1);
       }
     });

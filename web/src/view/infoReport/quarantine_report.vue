@@ -15,7 +15,7 @@
           <el-input v-model="formData.quar_site" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="save">保存</el-button>
+          <el-button size="mini" type="primary" @click="save">提交</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
         </el-form-item>
       </el-form>

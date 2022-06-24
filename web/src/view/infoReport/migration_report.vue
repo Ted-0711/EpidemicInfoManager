@@ -38,7 +38,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="save">保存</el-button>
+          <el-button size="mini" type="primary" @click="save">提交</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
           <el-button size="mini" type="primary" @click="this.getMapCenter(0)">获取起点</el-button>
           <el-button size="mini" type="primary" @click="this.getMapCenter(1)">获取终点</el-button>

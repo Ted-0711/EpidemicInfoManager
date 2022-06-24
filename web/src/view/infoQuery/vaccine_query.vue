@@ -52,14 +52,14 @@
             {{ filterDict(scope.row.manufacturer,manufacturerOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="接种类型" prop="vaccine_type" width="120">
+        <el-table-column align="left" label="接种类型" prop="vaccine_type" width="180">
             <template #default="scope">
             {{ filterDict(scope.row.vaccine_type,vaccine_doseOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="接种日期" prop="inoculate_date" width="120" />
-        <el-table-column align="left" label="截图链接" prop="screenshot_url" width="120" />
-        <el-table-column align="left" label="记录截图" prop="screenshot_url" width="120">
+        <el-table-column align="left" label="接种日期" prop="inoculate_date" width="180" />
+        <el-table-column align="left" label="截图链接" prop="screenshot_url" width="180" />
+        <el-table-column align="left" label="记录截图" prop="screenshot_url" width="180">
           <template #default="scope">
             <CustomPic pic-type="file" :pic-src="scope.row.screenshot_url"/>
           </template>
@@ -83,7 +83,7 @@
             />
         </div>
     </div>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="创建/更改疫苗接种记录">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" :disabled="studentInfo.isStudent" />
@@ -202,6 +202,10 @@ const handleCurrentChange = (val) => {
 const getTableData = async() => {
   const table = await getVaccineList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
+    // 按照更新时间由近到远排列
+    table.data.list.sort((a, b) => {
+      return new Date(b.UpdatedAt.substr(0, 22)) - new Date(a.UpdatedAt.substr(0, 22))
+    })
     tableData.value = table.data.list
     total.value = table.data.total
     page.value = table.data.page

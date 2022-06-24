@@ -102,7 +102,7 @@
             />
         </div>
     </div> -->
-		<el-dialog v-model="fTableVisible" :before-close="closeTable" :title="'问卷填写情况:'">
+		<el-dialog v-model="fTableVisible" :before-close="closeTable" :title="'问卷填写情况 —— ' + formData.qtn_title">
       <div class="gva-search-box">
 				<el-form :inline="true" :model="fSearchInfo" class="demo-form-inline">
 					<el-form-item label="学号">
@@ -231,7 +231,7 @@
         </div>
       </template>
     </el-dialog>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="问卷操作">
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="创建/更改问卷">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="标题:">
           <el-input v-model="formData.qtn_title" clearable placeholder="请输入" />
@@ -556,4 +556,16 @@ const closeTable = () => {
 </script>
 
 <style>
+h1 {
+  font-size: 20px;
+  color: #303133;
+}
+h2 {
+  font-size: 14px;
+  color: #606266;
+}
+p {
+  font-size: 14px;
+  color: #606266;
+}
 </style>

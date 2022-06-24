@@ -22,7 +22,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="截图链接:">
-          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" disabled />
+          <el-input v-model="formData.screenshot_url" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="报告截图:">
           <CustomPic pic-type="file" :pic-src="formData.screenshot_url"/>
@@ -35,7 +35,7 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="save">保存</el-button>
+          <el-button size="mini" type="primary" @click="save">提交</el-button>
           <el-button size="mini" type="primary" @click="back">返回</el-button>
         </el-form-item>
       </el-form>

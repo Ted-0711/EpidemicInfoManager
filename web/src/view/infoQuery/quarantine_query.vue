@@ -47,9 +47,9 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
-        <el-table-column align="left" label="起始日期" prop="quar_start_date" width="120" />
-        <el-table-column align="left" label="结束日期" prop="quar_end_date" width="120" />
-        <el-table-column align="left" label="隔离点" prop="quar_site" width="120" />
+        <el-table-column align="left" label="起始日期" prop="quar_start_date" width="240" />
+        <el-table-column align="left" label="结束日期" prop="quar_end_date" width="240" />
+        <el-table-column align="left" label="隔离点" prop="quar_site" width="240" />
         <el-table-column align="left" label="风险等级" prop="area_risk_level" width="120" >
           <template #default="scope">
             <el-tag :type="getTagType(filterDict(scope.row.area_risk_level, area_risk_levelOptions))"> {{ filterDict(scope.row.area_risk_level, area_risk_levelOptions) }} </el-tag>
@@ -74,7 +74,7 @@
             />
         </div>
     </div>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="创建/更改隔离记录">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" :disabled="studentInfo.isStudent" />
@@ -188,6 +188,10 @@ const handleCurrentChange = (val) => {
 const getTableData = async() => {
   const table = await getQuarantineList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
+    // 按照更新时间由近到远排列
+    table.data.list.sort((a, b) => {
+      return new Date(b.UpdatedAt.substr(0, 22)) - new Date(a.UpdatedAt.substr(0, 22))
+    })
     tableData.value = table.data.list
     total.value = table.data.total
     page.value = table.data.page

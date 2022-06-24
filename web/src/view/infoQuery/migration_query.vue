@@ -50,26 +50,26 @@
             <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
         <el-table-column align="left" label="学号" prop="student_id" width="120" />
-        <el-table-column align="left" label="起点区域" prop="start_area" width="120" />
+        <el-table-column align="left" label="起点区域" prop="start_area" width="180" />
         <el-table-column align="left" label="风险等级" prop="start_risk_level" width="120" >
           <template #default="scope">
             <el-tag :type="getTagType(filterDict(scope.row.start_risk_level, area_risk_levelOptions))"> {{ filterDict(scope.row.start_risk_level, area_risk_levelOptions) }} </el-tag>
           </template>
         </el-table-column>
-        <el-table-column align="left" label="终点区域" prop="des_area" width="120" />
+        <el-table-column align="left" label="终点区域" prop="des_area" width="180" />
         <el-table-column align="left" label="风险等级" prop="des_risk_level" width="120" >
           <template #default="scope">
             <el-tag :type="getTagType(filterDict(scope.row.des_risk_level, area_risk_levelOptions))"> {{ filterDict(scope.row.des_risk_level, area_risk_levelOptions) }} </el-tag>
           </template>
         </el-table-column>
-        <el-table-column align="left" label="出发时间" prop="mig_time" width="120" />
+        <el-table-column align="left" label="出发时间" prop="mig_time" width="180" />
         <el-table-column align="left" label="交通方式" prop="vehicle_type" width="120">
             <template #default="scope">
             {{ filterDict(scope.row.vehicle_type,vehicle_typeOptions) }}
             </template>
         </el-table-column>
-        <el-table-column align="left" label="截图链接" prop="screenshot_url" width="120" />
-        <el-table-column align="left" label="票务信息" prop="screenshot_url" width="120">
+        <el-table-column align="left" label="截图链接" prop="screenshot_url" width="180" />
+        <el-table-column align="left" label="票务信息" prop="screenshot_url" width="180">
             <template #default="scope">
             <CustomPic pic-type="file" :pic-src="scope.row.screenshot_url"/>
             </template>
@@ -98,7 +98,7 @@
             />
         </div>
     </div>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="弹窗操作">
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" title="创建/更改人口流动记录">
       <el-form :model="formData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
           <el-input v-model="formData.student_id" clearable placeholder="请输入" :disabled="studentInfo.isStudent" />
@@ -231,6 +231,10 @@ const handleCurrentChange = (val) => {
 const getTableData = async() => {
   const table = await getMigrationList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
+    // 按照更新时间由近到远排列
+    table.data.list.sort((a, b) => {
+      return new Date(b.UpdatedAt.substr(0, 22)) - new Date(a.UpdatedAt.substr(0, 22))
+    })
     tableData.value = table.data.list
     total.value = table.data.total
     page.value = table.data.page
