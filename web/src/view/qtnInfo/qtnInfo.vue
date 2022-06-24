@@ -23,10 +23,33 @@
         <el-form-item>
           <el-button size="small" type="primary" icon="search" @click="onSubmit">查询</el-button>
           <el-button size="small" icon="refresh" @click="onReset">重置</el-button>
+          <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
         </el-form-item>
       </el-form>
     </div>
-    <div class="gva-table-box">
+    <div v-for="(value, key, index) in tableData" :key="index">
+      <div class="gva-table-box">
+        <h1>{{ value['qtn_title'] }}</h1>
+        <br>
+        <h2>发布时间：{{ formatDate(value['CreatedAt']) }} &nbsp; 更新时间：{{ formatDate(value['UpdatedAt']) }} &nbsp; 截止时间：{{ formatDate(value['qtn_deadline']) }}</h2>
+        <br>
+        <p v-if="value['qtn_q1'].length > 0">1. {{ value['qtn_q1'] }}</p>
+        <br v-if="value['qtn_q2'].length > 0">
+        <p v-if="value['qtn_q2'].length > 0">2. {{ value['qtn_q2'] }}</p>
+        <br v-if="value['qtn_q3'].length > 0">
+        <p v-if="value['qtn_q3'].length > 0">3. {{ value['qtn_q3'] }}</p>
+        <br v-if="value['qtn_q4'].length > 0">
+        <p v-if="value['qtn_q4'].length > 0">4. {{ value['qtn_q4'] }}</p>
+        <br v-if="value['qtn_q5'].length > 0">
+        <p v-if="value['qtn_q5'].length > 0">5. {{ value['qtn_q5'] }}</p>
+        <br>
+        <el-button type="text" icon="finished" size="small" class="table-button" @click="searchQuestionnaireFunc(value)">填写情况</el-button>
+        <el-button type="text" icon="edit" size="small" class="table-button" @click="updateQuestionnaireFunc(value)">变更</el-button>
+        <el-button type="text" icon="delete" size="small" @click="deleteRow(value)">删除</el-button>
+      </div>
+      <br>
+    </div>
+    <!-- <div class="gva-table-box">
         <div class="gva-btn-list">
             <el-button size="small" type="primary" icon="plus" @click="openDialog">新增</el-button>
             <el-popover v-model:visible="deleteVisible" placement="top" width="160">
@@ -78,8 +101,8 @@
             @size-change="handleSizeChange"
             />
         </div>
-    </div>
-		<el-dialog v-model="fTableVisible" :before-close="closeTable" title="问卷填写情况">
+    </div> -->
+		<el-dialog v-model="fTableVisible" :before-close="closeTable" :title="'问卷填写情况:'">
       <div class="gva-search-box">
 				<el-form :inline="true" :model="fSearchInfo" class="demo-form-inline">
 					<el-form-item label="学号">
@@ -88,10 +111,72 @@
 					<el-form-item label="问卷编号">
 						<el-input v-model="fSearchInfo.qtn_id" placeholder="搜索条件" disabled />
 					</el-form-item>
-					<el-form-item label="回答1">
-						<el-input v-model="fSearchInfo.fill_in_a1" placeholder="搜索条件" />
-					</el-form-item>
-					<el-form-item label="回答2">
+          <el-popover
+            v-if="formData.qtn_q1.length > 0"
+            placement="top-start"
+            title="问题1:"
+            width="200"
+            trigger="hover"
+            :content="formData.qtn_q1">
+            <template v-slot:reference>
+              <el-form-item label="回答1">
+                <el-input v-model="fSearchInfo.fill_in_a1" placeholder="搜索条件" />
+              </el-form-item>
+            </template>
+          </el-popover>
+          <el-popover
+            v-if="formData.qtn_q2.length > 0"
+            placement="top-start"
+            title="问题2:"
+            width="200"
+            trigger="hover"
+            :content="formData.qtn_q2">
+            <template v-slot:reference>
+              <el-form-item label="回答2">
+                <el-input v-model="fSearchInfo.fill_in_a2" placeholder="搜索条件" />
+              </el-form-item>
+            </template>
+          </el-popover>
+          <el-popover
+            v-if="formData.qtn_q3.length > 0"
+            placement="top-start"
+            title="问题3:"
+            width="200"
+            trigger="hover"
+            :content="formData.qtn_q3">
+            <template v-slot:reference>
+              <el-form-item label="回答3">
+                <el-input v-model="fSearchInfo.fill_in_a3" placeholder="搜索条件" />
+              </el-form-item>
+            </template>
+          </el-popover>
+          <el-popover
+            v-if="formData.qtn_q4.length > 0"
+            placement="top-start"
+            title="问题4:"
+            width="200"
+            trigger="hover"
+            :content="formData.qtn_q4">
+            <template v-slot:reference>
+              <el-form-item label="回答4">
+                <el-input v-model="fSearchInfo.fill_in_a4" placeholder="搜索条件" />
+              </el-form-item>
+            </template>
+          </el-popover>
+          <el-popover
+            v-if="formData.qtn_q5.length > 0"
+            placement="top-start"
+            title="问题5:"
+            width="200"
+            trigger="hover"
+            :content="formData.qtn_q5">
+            <template v-slot:reference>
+              <el-form-item label="回答5">
+                <el-input v-model="fSearchInfo.fill_in_a5" placeholder="搜索条件" />
+              </el-form-item>
+            </template>
+          </el-popover>
+					<!-- <el-form-item label="回答2">
 						<el-input v-model="fSearchInfo.fill_in_a2" placeholder="搜索条件" />
 					</el-form-item>
 					<el-form-item label="回答3">
@@ -102,7 +187,7 @@
 					</el-form-item>
 					<el-form-item label="回答5">
 						<el-input v-model="fSearchInfo.fill_in_a5" placeholder="搜索条件" />
-					</el-form-item>
+					</el-form-item> -->
 					<el-form-item>
 						<el-button size="small" type="primary" icon="search" @click="fOnSubmit">查询</el-button>
 						<el-button size="small" icon="refresh" @click="fOnReset">重置</el-button>
@@ -122,12 +207,11 @@
 					</el-table-column>
 					<el-table-column align="left" label="学号" prop="student_id" width="120" />
 					<el-table-column align="left" label="问卷编号" prop="qtn_id" width="120" />
-					<el-table-column align="left" label="时间" prop="fill_in_time" width="120" />
-					<el-table-column align="left" label="回答1" prop="fill_in_a1" width="120" />
-					<el-table-column align="left" label="回答2" prop="fill_in_a2" width="120" />
-					<el-table-column align="left" label="回答3" prop="fill_in_a3" width="120" />
-					<el-table-column align="left" label="回答4" prop="fill_in_a4" width="120" />
-					<el-table-column align="left" label="回答5" prop="fill_in_a5" width="120" />
+          <el-table-column v-if="formData.qtn_q1.length > 0" align="left" label="回答1" prop="fill_in_a1" width="120" />
+					<el-table-column v-if="formData.qtn_q2.length > 0" align="left" label="回答2" prop="fill_in_a2" width="120" />
+					<el-table-column v-if="formData.qtn_q3.length > 0" align="left" label="回答3" prop="fill_in_a3" width="120" />
+					<el-table-column v-if="formData.qtn_q4.length > 0" align="left" label="回答4" prop="fill_in_a4" width="120" />
+					<el-table-column v-if="formData.qtn_q5.length > 0" align="left" label="回答5" prop="fill_in_a5" width="120" />
 					</el-table>
 					<div class="gva-pagination">
 							<el-pagination
@@ -258,6 +342,10 @@ const handleCurrentChange = (val) => {
 const getTableData = async() => {
   const table = await getQuestionnaireList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
+    // 按照更新时间由近到远排列
+    table.data.list.sort((a, b) => {
+      return new Date(b.UpdatedAt.substr(0, 22)) - new Date(a.UpdatedAt.substr(0, 22))
+    })
     tableData.value = table.data.list
     total.value = table.data.total
     page.value = table.data.page
@@ -369,6 +457,8 @@ const type = ref('')
 const searchQuestionnaireFunc = async(row) => {
     const res = await findQuestionnaire({ ID: row.ID })
     if (res.code === 0) {
+        console.log(formData)
+        formData.value = res.data.requestionnaire
 				fSearchInfo.value.qtn_id = row.ID
 				// console.log(fSearchInfo)
 				fGetTableData()
@@ -453,6 +543,15 @@ const fTableVisible = ref(false)
 // 关闭弹窗
 const closeTable = () => {
     fTableVisible.value = false
+    formData.value = {
+        qtn_title: '',
+        qtn_deadline: new Date(),
+        qtn_q1: '',
+        qtn_q2: '',
+        qtn_q3: '',
+        qtn_q4: '',
+        qtn_q5: '',
+        }
 }
 </script>
 

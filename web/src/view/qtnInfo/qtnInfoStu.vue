@@ -26,7 +26,27 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="gva-table-box">
+    <div v-for="(value, key, index) in tableData" :key="index">
+      <div class="gva-table-box">
+        <h1>{{ value['qtn_title'] }}</h1>
+        <br>
+        <h2>发布时间：{{ formatDate(value['CreatedAt']) }} &nbsp; 更新时间：{{ formatDate(value['UpdatedAt']) }} &nbsp; 截止时间：{{ formatDate(value['qtn_deadline']) }}</h2>
+        <br>
+        <p v-if="value['qtn_q1'].length > 0">1. {{ value['qtn_q1'] }}</p>
+        <br v-if="value['qtn_q2'].length > 0">
+        <p v-if="value['qtn_q2'].length > 0">2. {{ value['qtn_q2'] }}</p>
+        <br v-if="value['qtn_q3'].length > 0">
+        <p v-if="value['qtn_q3'].length > 0">3. {{ value['qtn_q3'] }}</p>
+        <br v-if="value['qtn_q4'].length > 0">
+        <p v-if="value['qtn_q4'].length > 0">4. {{ value['qtn_q4'] }}</p>
+        <br v-if="value['qtn_q5'].length > 0">
+        <p v-if="value['qtn_q5'].length > 0">5. {{ value['qtn_q5'] }}</p>
+        <br>
+        <el-button type="text" icon="finished" size="small" class="table-button" @click="updateFill_inFunc(value)">填写情况</el-button>
+      </div>
+      <br>
+    </div>
+    <!-- <div class="gva-table-box">
         <el-table
         ref="multipleTable"
         style="width: 100%"
@@ -63,18 +83,8 @@
             @size-change="handleSizeChange"
             />
         </div>
-    </div>
-		<el-dialog v-model="fDialogFormVisible" :before-close="fCloseDialog" title="问卷填写信息">
-      <el-popover
-        placement="top-start"
-        title="标题"
-        width="200"
-        trigger="hover"
-        content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-        <template v-slot:reference>
-          <el-button>hover 激活</el-button>
-        </template>
-      </el-popover>
+    </div> -->
+		<el-dialog v-model="fDialogFormVisible" :before-close="fCloseDialog" :title="'问卷填写信息 —— ' + formData.qtn_title">
       <el-form :model="fFormData" label-position="right" label-width="80px">
         <el-form-item label="学号:">
           <el-input v-model="fFormData.student_id" clearable placeholder="请输入" disabled />
@@ -82,13 +92,72 @@
         <el-form-item label="问卷编号:">
           <el-input v-model.number="fFormData.qtn_id" clearable placeholder="请输入" disabled />
         </el-form-item>
-        <el-form-item label="回答1:">
-          <el-input v-model="fFormData.fill_in_a1" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="回答2:">
-          <el-input v-model="fFormData.fill_in_a2" clearable placeholder="请输入" />
-        </el-form-item>
-        <el-form-item label="回答3:">
+        <el-popover
+          v-if="formData.qtn_q1.length > 0"
+          placement="top-start"
+          title="问题1:"
+          width="200"
+          trigger="hover"
+          :content="formData.qtn_q1">
+          <template v-slot:reference>
+            <el-form-item label="回答1:">
+              <el-input v-model="fFormData.fill_in_a1" clearable placeholder="请输入" />
+            </el-form-item>
+          </template>
+        </el-popover>
+        <el-popover
+          v-if="formData.qtn_q2.length > 0"
+          placement="top-start"
+          title="问题2:"
+          width="200"
+          trigger="hover"
+          :content="formData.qtn_q2">
+          <template v-slot:reference>
+            <el-form-item label="回答2:">
+              <el-input v-model="fFormData.fill_in_a2" clearable placeholder="请输入" />
+            </el-form-item>
+          </template>
+        </el-popover>
+        <el-popover
+          v-if="formData.qtn_q3.length > 0"
+          placement="top-start"
+          title="问题3:"
+          width="200"
+          trigger="hover"
+          :content="formData.qtn_q3">
+          <template v-slot:reference>
+            <el-form-item label="回答3:">
+              <el-input v-model="fFormData.fill_in_a3" clearable placeholder="请输入" />
+            </el-form-item>
+          </template>
+        </el-popover>
+        <el-popover
+          v-if="formData.qtn_q4.length > 0"
+          placement="top-start"
+          title="问题4:"
+          width="200"
+          trigger="hover"
+          :content="formData.qtn_q4">
+          <template v-slot:reference>
+            <el-form-item label="回答4:">
+              <el-input v-model="fFormData.fill_in_a4" clearable placeholder="请输入" />
+            </el-form-item>
+          </template>
+        </el-popover>
+        <el-popover
+          v-if="formData.qtn_q5.length > 0"
+          placement="top-start"
+          title="问题5:"
+          width="200"
+          trigger="hover"
+          :content="formData.qtn_q5">
+          <template v-slot:reference>
+            <el-form-item label="回答5:">
+              <el-input v-model="fFormData.fill_in_a5" clearable placeholder="请输入" />
+            </el-form-item>
+          </template>
+        </el-popover>
+        <!-- <el-form-item label="回答3:">
           <el-input v-model="fFormData.fill_in_a3" clearable placeholder="请输入" />
         </el-form-item>
         <el-form-item label="回答4:">
@@ -96,12 +165,13 @@
         </el-form-item>
         <el-form-item label="回答5:">
           <el-input v-model="fFormData.fill_in_a5" clearable placeholder="请输入" />
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <template #footer>
         <div class="dialog-footer">
           <el-button size="small" @click="fCloseDialog">取 消</el-button>
-          <el-button size="small" type="primary" @click="fEnterDialog">确 定</el-button>
+          <el-button v-if="(new Date() - new Date(formData.qtn_deadline)) > 0" size="small" type="primary" disabled>已截止</el-button>
+          <el-button v-if="(new Date() - new Date(formData.qtn_deadline)) <= 0" size="small" type="primary" @click="fEnterDialog">提 交</el-button>
         </div>
       </template>
     </el-dialog>
@@ -250,6 +320,10 @@ const handleCurrentChange = (val) => {
 const getTableData = async() => {
   const table = await getQuestionnaireList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
   if (table.code === 0) {
+    // 按照更新时间由近到远排列
+    table.data.list.sort((a, b) => {
+      return new Date(b.UpdatedAt.substr(0, 22)) - new Date(a.UpdatedAt.substr(0, 22))
+    })
     tableData.value = table.data.list
     total.value = table.data.total
     page.value = table.data.page
@@ -402,7 +476,9 @@ const updateFill_inFunc = async(row) => {
     const qRes = await findQuestionnaire({ ID: row.ID })
     if (qRes.code === 0) {
       formData.value = qRes.data.requestionnaire
+      console.log('new Date() - new Date(formData.value.qtn_deadline):', new Date() - new Date(formData.value.qtn_deadline))
     }
+    console.log('formData:', formData.value.qtn_q4.length)
     // 搜索填写记录
 		fSearchInfo.value.qtn_id = row.ID
 		// console.log(fSearchInfo)
@@ -479,4 +555,16 @@ const fEnterDialog = async () => {
 </script>
 
 <style>
+h1 {
+  font-size: 20px;
+  color: #303133;
+}
+h2 {
+  font-size: 14px;
+  color: #606266;
+}
+p {
+  font-size: 14px;
+  color: #606266;
+}
 </style>
