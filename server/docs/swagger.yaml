@@ -2,8 +2,6 @@ basePath: /
 definitions:
   EpidemicInfo.Area:
     properties:
-      area_location:
-        type: string
       area_name:
         type: string
       area_risk_level:
@@ -20,8 +18,8 @@ definitions:
     type: object
   EpidemicInfo.Clock_in:
     properties:
-      area_id:
-        type: integer
+      area_name:
+        type: string
       clock_in_date:
         type: string
       createdAt:
@@ -45,9 +43,15 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
-      fill_in_content:
+      fill_in_a1:
         type: string
-      fill_in_time:
+      fill_in_a2:
+        type: string
+      fill_in_a3:
+        type: string
+      fill_in_a4:
+        type: string
+      fill_in_a5:
         type: string
       id:
         description: 主键ID
@@ -62,27 +66,45 @@ definitions:
     type: object
   EpidemicInfo.Migration:
     properties:
+      audit_status:
+        type: integer
       createdAt:
         description: 创建时间
         type: string
-      des_area_id:
-        type: integer
+      des_area:
+        type: string
       id:
         description: 主键ID
         type: integer
       mig_time:
         type: string
-      start_area_id:
-        type: integer
+      screenshot_url:
+        type: string
+      start_area:
+        type: string
       student_id:
         type: string
       updatedAt:
         description: 更新时间
         type: string
-      vehicle_info:
-        type: string
       vehicle_type:
         type: integer
+    type: object
+  EpidemicInfo.Notice:
+    properties:
+      content:
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      id:
+        description: 主键ID
+        type: integer
+      title:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
     type: object
   EpidemicInfo.Quarantine:
     properties:
@@ -92,27 +114,13 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      quar_site_id:
-        type: integer
+      quar_end_date:
+        type: string
+      quar_site:
+        type: string
       quar_start_date:
         type: string
       student_id:
-        type: string
-      updatedAt:
-        description: 更新时间
-        type: string
-    type: object
-  EpidemicInfo.Quarantine_site:
-    properties:
-      area_id:
-        type: integer
-      createdAt:
-        description: 创建时间
-        type: string
-      id:
-        description: 主键ID
-        type: integer
-      quar_site_name:
         type: string
       updatedAt:
         description: 更新时间
@@ -126,9 +134,17 @@ definitions:
       id:
         description: 主键ID
         type: integer
-      qtn_content:
-        type: string
       qtn_deadline:
+        type: string
+      qtn_q1:
+        type: string
+      qtn_q2:
+        type: string
+      qtn_q3:
+        type: string
+      qtn_q4:
+        type: string
+      qtn_q5:
         type: string
       qtn_title:
         type: string
@@ -147,6 +163,8 @@ definitions:
         description: 主键ID
         type: integer
       sample_date:
+        type: string
+      screenshot_url:
         type: string
       student_id:
         type: string
@@ -170,13 +188,15 @@ definitions:
         type: string
       manufacturer:
         type: integer
-      prod_date:
+      screenshot_url:
         type: string
       student_id:
         type: string
       updatedAt:
         description: 更新时间
         type: string
+      vaccine_type:
+        type: integer
     type: object
   config.AliyunOSS:
     properties:
@@ -1820,9 +1840,6 @@ paths:
       - application/json
       parameters:
       - in: query
-        name: area_location
-        type: string
-      - in: query
         name: area_name
         type: string
       - in: query
@@ -1857,9 +1874,6 @@ paths:
       consumes:
       - application/json
       parameters:
-      - in: query
-        name: area_location
-        type: string
       - in: query
         name: area_name
         type: string
@@ -2691,8 +2705,8 @@ paths:
       - application/json
       parameters:
       - in: query
-        name: area_id
-        type: integer
+        name: area_name
+        type: string
       - in: query
         name: clock_in_date
         type: string
@@ -2735,8 +2749,8 @@ paths:
       - application/json
       parameters:
       - in: query
-        name: area_id
-        type: integer
+        name: area_name
+        type: string
       - in: query
         name: clock_in_date
         type: string
@@ -3348,10 +3362,19 @@ paths:
         name: createdAt
         type: string
       - in: query
-        name: fill_in_content
+        name: fill_in_a1
         type: string
       - in: query
-        name: fill_in_time
+        name: fill_in_a2
+        type: string
+      - in: query
+        name: fill_in_a3
+        type: string
+      - in: query
+        name: fill_in_a4
+        type: string
+      - in: query
+        name: fill_in_a5
         type: string
       - description: 主键ID
         in: query
@@ -3389,10 +3412,19 @@ paths:
         name: createdAt
         type: string
       - in: query
-        name: fill_in_content
+        name: fill_in_a1
         type: string
       - in: query
-        name: fill_in_time
+        name: fill_in_a2
+        type: string
+      - in: query
+        name: fill_in_a3
+        type: string
+      - in: query
+        name: fill_in_a4
+        type: string
+      - in: query
+        name: fill_in_a5
         type: string
       - description: 主键ID
         in: query
@@ -3455,6 +3487,26 @@ paths:
       summary: 更新Fill_in
       tags:
       - Fill_in
+  /info/getWeather:
+    post:
+      parameters:
+      - description: 城市代码
+        in: body
+        name: data
+        required: true
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回天气信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 获取天气信息
   /init/checkdb:
     post:
       produces:
@@ -3853,13 +3905,16 @@ paths:
       consumes:
       - application/json
       parameters:
+      - in: query
+        name: audit_status
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
         type: string
       - in: query
-        name: des_area_id
-        type: integer
+        name: des_area
+        type: string
       - description: 主键ID
         in: query
         name: id
@@ -3868,17 +3923,17 @@ paths:
         name: mig_time
         type: string
       - in: query
-        name: start_area_id
-        type: integer
+        name: screenshot_url
+        type: string
+      - in: query
+        name: start_area
+        type: string
       - in: query
         name: student_id
         type: string
       - description: 更新时间
         in: query
         name: updatedAt
-        type: string
-      - in: query
-        name: vehicle_info
         type: string
       - in: query
         name: vehicle_type
@@ -3900,13 +3955,16 @@ paths:
       consumes:
       - application/json
       parameters:
+      - in: query
+        name: audit_status
+        type: integer
       - description: 创建时间
         in: query
         name: createdAt
         type: string
       - in: query
-        name: des_area_id
-        type: integer
+        name: des_area
+        type: string
       - description: 主键ID
         in: query
         name: id
@@ -3927,17 +3985,17 @@ paths:
         name: pageSize
         type: integer
       - in: query
-        name: start_area_id
-        type: integer
+        name: screenshot_url
+        type: string
+      - in: query
+        name: start_area
+        type: string
       - in: query
         name: student_id
         type: string
       - description: 更新时间
         in: query
         name: updatedAt
-        type: string
-      - in: query
-        name: vehicle_info
         type: string
       - in: query
         name: vehicle_type
@@ -3977,6 +4035,180 @@ paths:
       summary: 更新Migration
       tags:
       - Migration
+  /notice/createNotice:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建Notice
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Notice'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 创建Notice
+      tags:
+      - Notice
+  /notice/deleteNotice:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除Notice
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Notice'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Notice
+      tags:
+      - Notice
+  /notice/deleteNoticeByIds:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 批量删除Notice
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IdsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 批量删除Notice
+      tags:
+      - Notice
+  /notice/findNotice:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: content
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - in: query
+        name: title
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"查询成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 用id查询Notice
+      tags:
+      - Notice
+  /notice/getNoticeList:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - in: query
+        name: content
+        type: string
+      - description: 创建时间
+        in: query
+        name: createdAt
+        type: string
+      - description: 主键ID
+        in: query
+        name: id
+        type: integer
+      - description: 关键字
+        in: query
+        name: keyword
+        type: string
+      - description: 页码
+        in: query
+        name: page
+        type: integer
+      - description: 每页大小
+        in: query
+        name: pageSize
+        type: integer
+      - in: query
+        name: title
+        type: string
+      - description: 更新时间
+        in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"获取成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 分页获取Notice列表
+      tags:
+      - Notice
+  /notice/updateNotice:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新Notice
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/EpidemicInfo.Notice'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"更新成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 更新Notice
+      tags:
+      - Notice
   /quarantine/createQuarantine:
     post:
       consumes:
@@ -4060,8 +4292,11 @@ paths:
         name: id
         type: integer
       - in: query
-        name: quar_site_id
-        type: integer
+        name: quar_end_date
+        type: string
+      - in: query
+        name: quar_site
+        type: string
       - in: query
         name: quar_start_date
         type: string
@@ -4110,8 +4345,11 @@ paths:
         name: pageSize
         type: integer
       - in: query
-        name: quar_site_id
-        type: integer
+        name: quar_end_date
+        type: string
+      - in: query
+        name: quar_site
+        type: string
       - in: query
         name: quar_start_date
         type: string
@@ -4157,180 +4395,6 @@ paths:
       summary: 更新Quarantine
       tags:
       - Quarantine
-  /quarantine_site/createQuarantine_site:
-    post:
-      consumes:
-      - application/json
-      parameters:
-      - description: 创建Quarantine_site
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/EpidemicInfo.Quarantine_site'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 创建Quarantine_site
-      tags:
-      - Quarantine_site
-  /quarantine_site/deleteQuarantine_site:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 删除Quarantine_site
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/EpidemicInfo.Quarantine_site'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 删除Quarantine_site
-      tags:
-      - Quarantine_site
-  /quarantine_site/deleteQuarantine_siteByIds:
-    delete:
-      consumes:
-      - application/json
-      parameters:
-      - description: 批量删除Quarantine_site
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.IdsReq'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"批量删除成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 批量删除Quarantine_site
-      tags:
-      - Quarantine_site
-  /quarantine_site/findQuarantine_site:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: area_id
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - in: query
-        name: quar_site_name
-        type: string
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"查询成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 用id查询Quarantine_site
-      tags:
-      - Quarantine_site
-  /quarantine_site/getQuarantine_siteList:
-    get:
-      consumes:
-      - application/json
-      parameters:
-      - in: query
-        name: area_id
-        type: integer
-      - description: 创建时间
-        in: query
-        name: createdAt
-        type: string
-      - description: 主键ID
-        in: query
-        name: id
-        type: integer
-      - description: 关键字
-        in: query
-        name: keyword
-        type: string
-      - description: 页码
-        in: query
-        name: page
-        type: integer
-      - description: 每页大小
-        in: query
-        name: pageSize
-        type: integer
-      - in: query
-        name: quar_site_name
-        type: string
-      - description: 更新时间
-        in: query
-        name: updatedAt
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"获取成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 分页获取Quarantine_site列表
-      tags:
-      - Quarantine_site
-  /quarantine_site/updateQuarantine_site:
-    put:
-      consumes:
-      - application/json
-      parameters:
-      - description: 更新Quarantine_site
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/EpidemicInfo.Quarantine_site'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"success":true,"data":{},"msg":"更新成功"}'
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: 更新Quarantine_site
-      tags:
-      - Quarantine_site
   /questionnaire/createQuestionnaire:
     post:
       consumes:
@@ -4414,10 +4478,22 @@ paths:
         name: id
         type: integer
       - in: query
-        name: qtn_content
+        name: qtn_deadline
         type: string
       - in: query
-        name: qtn_deadline
+        name: qtn_q1
+        type: string
+      - in: query
+        name: qtn_q2
+        type: string
+      - in: query
+        name: qtn_q3
+        type: string
+      - in: query
+        name: qtn_q4
+        type: string
+      - in: query
+        name: qtn_q5
         type: string
       - in: query
         name: qtn_title
@@ -4464,10 +4540,22 @@ paths:
         name: pageSize
         type: integer
       - in: query
-        name: qtn_content
+        name: qtn_deadline
         type: string
       - in: query
-        name: qtn_deadline
+        name: qtn_q1
+        type: string
+      - in: query
+        name: qtn_q2
+        type: string
+      - in: query
+        name: qtn_q3
+        type: string
+      - in: query
+        name: qtn_q4
+        type: string
+      - in: query
+        name: qtn_q5
         type: string
       - in: query
         name: qtn_title
@@ -5347,6 +5435,9 @@ paths:
         name: sample_date
         type: string
       - in: query
+        name: screenshot_url
+        type: string
+      - in: query
         name: student_id
         type: string
       - in: query
@@ -5401,6 +5492,9 @@ paths:
         type: integer
       - in: query
         name: sample_date
+        type: string
+      - in: query
+        name: screenshot_url
         type: string
       - in: query
         name: student_id
@@ -5817,7 +5911,7 @@ paths:
         name: manufacturer
         type: integer
       - in: query
-        name: prod_date
+        name: screenshot_url
         type: string
       - in: query
         name: student_id
@@ -5826,6 +5920,9 @@ paths:
         in: query
         name: updatedAt
         type: string
+      - in: query
+        name: vaccine_type
+        type: integer
       produces:
       - application/json
       responses:
@@ -5870,7 +5967,7 @@ paths:
         name: pageSize
         type: integer
       - in: query
-        name: prod_date
+        name: screenshot_url
         type: string
       - in: query
         name: student_id
@@ -5879,6 +5976,9 @@ paths:
         in: query
         name: updatedAt
         type: string
+      - in: query
+        name: vaccine_type
+        type: integer
       produces:
       - application/json
       responses:

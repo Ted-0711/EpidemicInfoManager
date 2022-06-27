@@ -53,7 +53,8 @@
         <el-table-column align="left" label="检测时间" prop="test_date" width="180" />
         <el-table-column align="left" label="检测结果" prop="test_result" width="120">
             <template #default="scope">
-            {{ filterDict(scope.row.test_result,test_resultOptions) }}
+            <!-- {{ filterDict(scope.row.test_result,test_resultOptions) }} -->
+            <el-tag :type="getTagType(filterDict(scope.row.test_result,test_resultOptions))"> {{ filterDict(scope.row.test_result,test_resultOptions) }} </el-tag>
             </template>
         </el-table-column>
         <el-table-column align="left" label="截图链接" prop="screenshot_url" width="180" />
@@ -172,6 +173,18 @@ const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
 const searchInfo = ref({})
+
+// 获取标签类型
+const getTagType = (res) => {
+  switch(res) {
+    case '阴性':
+      return 'success'
+    case '阳性':
+      return 'danger'
+    default:
+      return ''
+  }
+}
 
 // 重置
 const onReset = () => {

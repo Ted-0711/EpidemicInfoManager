@@ -495,11 +495,6 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "name": "area_location",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
                         "name": "area_name",
                         "in": "query"
                     },
@@ -555,11 +550,6 @@ const docTemplate = `{
                 ],
                 "summary": "分页获取Area列表",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "name": "area_location",
-                        "in": "query"
-                    },
                     {
                         "type": "string",
                         "name": "area_name",
@@ -2011,8 +2001,8 @@ const docTemplate = `{
                 "summary": "用id查询Clock_in",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "name": "area_id",
+                        "type": "string",
+                        "name": "area_name",
                         "in": "query"
                     },
                     {
@@ -2083,8 +2073,8 @@ const docTemplate = `{
                 "summary": "分页获取Clock_in列表",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "name": "area_id",
+                        "type": "string",
+                        "name": "area_name",
                         "in": "query"
                     },
                     {
@@ -3136,12 +3126,27 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "fill_in_content",
+                        "name": "fill_in_a1",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "name": "fill_in_time",
+                        "name": "fill_in_a2",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fill_in_a3",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fill_in_a4",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fill_in_a5",
                         "in": "query"
                     },
                     {
@@ -3203,12 +3208,27 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "fill_in_content",
+                        "name": "fill_in_a1",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "name": "fill_in_time",
+                        "name": "fill_in_a2",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fill_in_a3",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fill_in_a4",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "fill_in_a5",
                         "in": "query"
                     },
                     {
@@ -3295,6 +3315,42 @@ const docTemplate = `{
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
                         "schema": {
                             "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/info/getWeather": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "获取天气信息",
+                "parameters": [
+                    {
+                        "description": "城市代码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "返回天气信息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     }
                 }
@@ -4009,14 +4065,19 @@ const docTemplate = `{
                 "summary": "用id查询Migration",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "audit_status",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "des_area_id",
+                        "type": "string",
+                        "name": "des_area",
                         "in": "query"
                     },
                     {
@@ -4031,8 +4092,13 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "start_area_id",
+                        "type": "string",
+                        "name": "screenshot_url",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "start_area",
                         "in": "query"
                     },
                     {
@@ -4044,11 +4110,6 @@ const docTemplate = `{
                         "type": "string",
                         "description": "更新时间",
                         "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "vehicle_info",
                         "in": "query"
                     },
                     {
@@ -4086,14 +4147,19 @@ const docTemplate = `{
                 "summary": "分页获取Migration列表",
                 "parameters": [
                     {
+                        "type": "integer",
+                        "name": "audit_status",
+                        "in": "query"
+                    },
+                    {
                         "type": "string",
                         "description": "创建时间",
                         "name": "createdAt",
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "des_area_id",
+                        "type": "string",
+                        "name": "des_area",
                         "in": "query"
                     },
                     {
@@ -4126,8 +4192,13 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "start_area_id",
+                        "type": "string",
+                        "name": "screenshot_url",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "start_area",
                         "in": "query"
                     },
                     {
@@ -4139,11 +4210,6 @@ const docTemplate = `{
                         "type": "string",
                         "description": "更新时间",
                         "name": "updatedAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "vehicle_info",
                         "in": "query"
                     },
                     {
@@ -4187,6 +4253,290 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/EpidemicInfo.Migration"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notice/createNotice": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notice"
+                ],
+                "summary": "创建Notice",
+                "parameters": [
+                    {
+                        "description": "创建Notice",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/EpidemicInfo.Notice"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notice/deleteNotice": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notice"
+                ],
+                "summary": "删除Notice",
+                "parameters": [
+                    {
+                        "description": "删除Notice",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/EpidemicInfo.Notice"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notice/deleteNoticeByIds": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notice"
+                ],
+                "summary": "批量删除Notice",
+                "parameters": [
+                    {
+                        "description": "批量删除Notice",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.IdsReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notice/findNotice": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notice"
+                ],
+                "summary": "用id查询Notice",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "content",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notice/getNoticeList": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notice"
+                ],
+                "summary": "分页获取Notice列表",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "name": "content",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建时间",
+                        "name": "createdAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "关键字",
+                        "name": "keyword",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "页码",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "每页大小",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "更新时间",
+                        "name": "updatedAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notice/updateNotice": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notice"
+                ],
+                "summary": "更新Notice",
+                "parameters": [
+                    {
+                        "description": "更新Notice",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/EpidemicInfo.Notice"
                         }
                     }
                 ],
@@ -4345,8 +4695,13 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "quar_site_id",
+                        "type": "string",
+                        "name": "quar_end_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "quar_site",
                         "in": "query"
                     },
                     {
@@ -4425,8 +4780,13 @@ const docTemplate = `{
                         "in": "query"
                     },
                     {
-                        "type": "integer",
-                        "name": "quar_site_id",
+                        "type": "string",
+                        "name": "quar_end_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "quar_site",
                         "in": "query"
                     },
                     {
@@ -4481,290 +4841,6 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/EpidemicInfo.Quarantine"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"更新成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/quarantine_site/createQuarantine_site": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Quarantine_site"
-                ],
-                "summary": "创建Quarantine_site",
-                "parameters": [
-                    {
-                        "description": "创建Quarantine_site",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/EpidemicInfo.Quarantine_site"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/quarantine_site/deleteQuarantine_site": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Quarantine_site"
-                ],
-                "summary": "删除Quarantine_site",
-                "parameters": [
-                    {
-                        "description": "删除Quarantine_site",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/EpidemicInfo.Quarantine_site"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/quarantine_site/deleteQuarantine_siteByIds": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Quarantine_site"
-                ],
-                "summary": "批量删除Quarantine_site",
-                "parameters": [
-                    {
-                        "description": "批量删除Quarantine_site",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.IdsReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"批量删除成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/quarantine_site/findQuarantine_site": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Quarantine_site"
-                ],
-                "summary": "用id查询Quarantine_site",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "area_id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "quar_site_name",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"查询成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/quarantine_site/getQuarantine_siteList": {
-            "get": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Quarantine_site"
-                ],
-                "summary": "分页获取Quarantine_site列表",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "name": "area_id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "创建时间",
-                        "name": "createdAt",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "关键字",
-                        "name": "keyword",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "页码",
-                        "name": "page",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "每页大小",
-                        "name": "pageSize",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "name": "quar_site_name",
-                        "in": "query"
-                    },
-                    {
-                        "type": "string",
-                        "description": "更新时间",
-                        "name": "updatedAt",
-                        "in": "query"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{\"success\":true,\"data\":{},\"msg\":\"获取成功\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/quarantine_site/updateQuarantine_site": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Quarantine_site"
-                ],
-                "summary": "更新Quarantine_site",
-                "parameters": [
-                    {
-                        "description": "更新Quarantine_site",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/EpidemicInfo.Quarantine_site"
                         }
                     }
                 ],
@@ -4924,12 +5000,32 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "qtn_content",
+                        "name": "qtn_deadline",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "name": "qtn_deadline",
+                        "name": "qtn_q1",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qtn_q2",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qtn_q3",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qtn_q4",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qtn_q5",
                         "in": "query"
                     },
                     {
@@ -5004,12 +5100,32 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "qtn_content",
+                        "name": "qtn_deadline",
                         "in": "query"
                     },
                     {
                         "type": "string",
-                        "name": "qtn_deadline",
+                        "name": "qtn_q1",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qtn_q2",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qtn_q3",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qtn_q4",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "qtn_q5",
                         "in": "query"
                     },
                     {
@@ -6497,6 +6613,11 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
+                        "name": "screenshot_url",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
                         "name": "student_id",
                         "in": "query"
                     },
@@ -6583,6 +6704,11 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "name": "sample_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "screenshot_url",
                         "in": "query"
                     },
                     {
@@ -7304,7 +7430,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "prod_date",
+                        "name": "screenshot_url",
                         "in": "query"
                     },
                     {
@@ -7316,6 +7442,11 @@ const docTemplate = `{
                         "type": "string",
                         "description": "更新时间",
                         "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vaccine_type",
                         "in": "query"
                     }
                 ],
@@ -7389,7 +7520,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "prod_date",
+                        "name": "screenshot_url",
                         "in": "query"
                     },
                     {
@@ -7401,6 +7532,11 @@ const docTemplate = `{
                         "type": "string",
                         "description": "更新时间",
                         "name": "updatedAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "vaccine_type",
                         "in": "query"
                     }
                 ],
@@ -7457,9 +7593,6 @@ const docTemplate = `{
         "EpidemicInfo.Area": {
             "type": "object",
             "properties": {
-                "area_location": {
-                    "type": "string"
-                },
                 "area_name": {
                     "type": "string"
                 },
@@ -7483,8 +7616,8 @@ const docTemplate = `{
         "EpidemicInfo.Clock_in": {
             "type": "object",
             "properties": {
-                "area_id": {
-                    "type": "integer"
+                "area_name": {
+                    "type": "string"
                 },
                 "clock_in_date": {
                     "type": "string"
@@ -7519,10 +7652,19 @@ const docTemplate = `{
                     "description": "创建时间",
                     "type": "string"
                 },
-                "fill_in_content": {
+                "fill_in_a1": {
                     "type": "string"
                 },
-                "fill_in_time": {
+                "fill_in_a2": {
+                    "type": "string"
+                },
+                "fill_in_a3": {
+                    "type": "string"
+                },
+                "fill_in_a4": {
+                    "type": "string"
+                },
+                "fill_in_a5": {
                     "type": "string"
                 },
                 "id": {
@@ -7544,12 +7686,15 @@ const docTemplate = `{
         "EpidemicInfo.Migration": {
             "type": "object",
             "properties": {
+                "audit_status": {
+                    "type": "integer"
+                },
                 "createdAt": {
                     "description": "创建时间",
                     "type": "string"
                 },
-                "des_area_id": {
-                    "type": "integer"
+                "des_area": {
+                    "type": "string"
                 },
                 "id": {
                     "description": "主键ID",
@@ -7558,8 +7703,11 @@ const docTemplate = `{
                 "mig_time": {
                     "type": "string"
                 },
-                "start_area_id": {
-                    "type": "integer"
+                "screenshot_url": {
+                    "type": "string"
+                },
+                "start_area": {
+                    "type": "string"
                 },
                 "student_id": {
                     "type": "string"
@@ -7568,11 +7716,31 @@ const docTemplate = `{
                     "description": "更新时间",
                     "type": "string"
                 },
-                "vehicle_info": {
-                    "type": "string"
-                },
                 "vehicle_type": {
                     "type": "integer"
+                }
+            }
+        },
+        "EpidemicInfo.Notice": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "更新时间",
+                    "type": "string"
                 }
             }
         },
@@ -7587,36 +7755,16 @@ const docTemplate = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "quar_site_id": {
-                    "type": "integer"
+                "quar_end_date": {
+                    "type": "string"
+                },
+                "quar_site": {
+                    "type": "string"
                 },
                 "quar_start_date": {
                     "type": "string"
                 },
                 "student_id": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "description": "更新时间",
-                    "type": "string"
-                }
-            }
-        },
-        "EpidemicInfo.Quarantine_site": {
-            "type": "object",
-            "properties": {
-                "area_id": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "description": "创建时间",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "主键ID",
-                    "type": "integer"
-                },
-                "quar_site_name": {
                     "type": "string"
                 },
                 "updatedAt": {
@@ -7636,10 +7784,22 @@ const docTemplate = `{
                     "description": "主键ID",
                     "type": "integer"
                 },
-                "qtn_content": {
+                "qtn_deadline": {
                     "type": "string"
                 },
-                "qtn_deadline": {
+                "qtn_q1": {
+                    "type": "string"
+                },
+                "qtn_q2": {
+                    "type": "string"
+                },
+                "qtn_q3": {
+                    "type": "string"
+                },
+                "qtn_q4": {
+                    "type": "string"
+                },
+                "qtn_q5": {
                     "type": "string"
                 },
                 "qtn_title": {
@@ -7666,6 +7826,9 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "sample_date": {
+                    "type": "string"
+                },
+                "screenshot_url": {
                     "type": "string"
                 },
                 "student_id": {
@@ -7700,7 +7863,7 @@ const docTemplate = `{
                 "manufacturer": {
                     "type": "integer"
                 },
-                "prod_date": {
+                "screenshot_url": {
                     "type": "string"
                 },
                 "student_id": {
@@ -7709,6 +7872,9 @@ const docTemplate = `{
                 "updatedAt": {
                     "description": "更新时间",
                     "type": "string"
+                },
+                "vaccine_type": {
+                    "type": "integer"
                 }
             }
         },
